@@ -1,0 +1,7 @@
+<view wx:if="{{isLogin}}">
+  <button bindtap="scanStation">岗位扫描</button>
+  <button style="margin-top:10px" bindtap="exitStation">退出岗位</button>
+</view>
+<view class="weui-btn-area" style="margin-top:100px" wx:else>
+    <button class="weui-btn" type="primary" bindtap="toLogin">请先登录</button>
+</view>

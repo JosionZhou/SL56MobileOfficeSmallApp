@@ -1,0 +1,10 @@
+
+button[type="primary"] {
+  border-radius:35px;
+  color:#FFFFFF;
+  background: linear-gradient(to right, #66c1ff,#0079cc)
+}
+.button-hover[type="primary"]{
+  color:#99d6ff;
+  background-color:#1aa3ff;
+}

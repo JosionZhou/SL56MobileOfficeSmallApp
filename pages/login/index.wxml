@@ -1,0 +1,36 @@
+<view class="page" xmlns:wx="http://www.w3.org/1999/xhtml" wx:if="{{!isLogin}}">
+  <view class="weui-toptips weui-toptips_warn" wx:if="{{showErrorTips}}">{{errorTips}}</view>
+  <form bindsubmit="login">
+    <view class="page__bd">
+      <label style="font-size:12px;padding:15px;color:#999999">当前应用仅限升蓝物流内部员工登录使用</label>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input  {{userNameWarning==true?'weui-cell_warn':''}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label">账号</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" name="userName" bindinput="inputUserName" placeholder="升蓝员工账号" />
+          </view>
+          <view class="weui-cell__ft" wx:if="{{userNameWarning}}">
+            <icon type="warn" size="23" color="#E64340"></icon>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input {{passwordWarning==true?'weui-cell_warn':''}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label">密码</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" type="password" bindinput="inputPassword" name="password" placeholder="输入密码/注意大小写" />
+          </view>
+          <view class="weui-cell__ft" wx:if="{{passwordWarning}}">
+            <icon type="warn" size="23" color="#E64340"></icon>
+          </view>
+        </view>
+      </view>
+      <view class="weui-btn-area">
+        <button class="weui-btn" type="primary" open-type="getUserInfo" bindgetuserinfo="userInfoHandler">登录</button>
+      </view>
+    </view>
+  </form>
+</view>
+<view style="text-align:center" wx:else>功能开发中</view>

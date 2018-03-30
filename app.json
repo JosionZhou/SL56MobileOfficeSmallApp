@@ -1,0 +1,37 @@
+{
+  "pages": [
+    "pages/home/functions",
+    "pages/home/my",
+    "pages/login/index",
+    "pages/index/index",
+    "pages/logs/logs",
+    "pages/home/index",
+    "pages/actions/scanstation"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "WeChat",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#8a8a8a",
+    "selectedColor": "#1296db",
+    "borderStyle": "white",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "pagePath": "pages/home/functions",
+        "text": "主要功能",
+        "iconPath": "image/home-unselected.png",
+        "selectedIconPath": "image/home-selected.png"
+      },
+      {
+        "pagePath": "pages/login/index",
+        "text": "个人中心",
+        "iconPath": "image/my-unselected.png",
+        "selectedIconPath": "image/my-selected.png"
+      }
+    ]
+  }
+}
