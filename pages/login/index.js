@@ -12,7 +12,10 @@ Page({
     passwordWarning: false,
     userName: "",
     password: "",
-    isLogin:false
+    isLogin:false,
+    avatar:"/image/avatar.png",
+    nameInfo:"",
+    stationName:""
   },
 
   /**
@@ -26,6 +29,10 @@ Page({
         wx.getUserInfo({
           success: function (res) {
             app.globalData.userInfo = res.userInfo;
+            console.log(res.userInfo.avatarUrl);
+            main.setData({
+              avatar: res.userInfo.avatarUrl
+            });
             wx.showLoading({
               title: '请稍后',
               mask: true
@@ -34,7 +41,15 @@ Page({
           }
         })
       }
-    })
+    });
+
+    var headImgWidth = parseInt(wx.getSystemInfoSync().windowWidth * 0.2);
+    var cameraLeft = parseInt(headImgWidth / 2) - 5;
+    this.setData({
+      headImgWidth: headImgWidth,
+      rightBoxWidth: wx.getSystemInfoSync().windowWidth - headImgWidth - 10,
+      cameraLeft: cameraLeft
+    });
   },
 
   /**
@@ -48,7 +63,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-
+    var stationName = wx.getStorageSync("stationName");
+    this.setData({
+      stationName:stationName
+    });
   },
 
   /**
@@ -147,6 +165,7 @@ Page({
       success: function (res) {
         //登录验证返回true
         if (res.data) {
+          wx.hideLoading();
           var jumpUrl = "/pages/home/functions"
           main.getAuthInfo(jumpUrl);
         }
@@ -180,8 +199,12 @@ Page({
       wx.hideLoading();
       app.globalData.id = wx.getStorageSync("id");
       app.globalData.isLogin=true;
+      var nameInfo = wx.getStorageSync("nameInfo");
+      var stationName = wx.getStorageSync("stationName");
       main.setData({
-        isLogin:true
+        isLogin:true,
+        nameInfo:nameInfo,
+        stationName:stationName
       });
       wx.setNavigationBarTitle({
         title: "个人中心",
@@ -256,11 +279,15 @@ Page({
       success: function (res) {
         wx.setStorageSync("ASPSESSID", res.session_id);//存储sessionId
         wx.setStorageSync("ASPAUTH", res.auth);//存储服务器验证信息
+        wx.setStorageSync("nameInfo", res.objectno+"/"+res.objectname);
+        wx.setStorageSync("stationName", res.stationname);
         app.globalData.id = res.id;
         wx.setStorageSync("id", res.id);
         app.globalData.isLogin=true;
         main.setData({
-          isLogin:true
+          isLogin:true,
+          nameInfo: res.objectno + "/" + res.objectname,
+          stationName:res.stationname
         });
         wx.setNavigationBarTitle({
           title: "个人中心",
@@ -287,5 +314,48 @@ Page({
         passwordWarning: false
       });
     }, 2000);
+  },
+  changeAccount: function () {
+    var main=this;
+    wx.showModal({
+      title: '提示',
+      content: '是否切换账号',
+      success: function (res) {
+        if (res.confirm) {
+          wx.showLoading({
+            title: '请稍后',
+          });
+          var data = {
+            url: app.globalData.serverAddress + "/BusinessCard/Unbind?id=" + app.globalData.id,
+            success: function (res) {
+              wx.hideLoading();
+              if (res) {
+                wx.removeStorageSync("ASPSESSID");//移除保存的会话id
+                wx.removeStorageSync("ASPAUTH");//移除保存的凭证
+                app.globalData.isLogin = false;
+                main.setData({
+                  isLogin: false
+                });
+              } else {
+                wx.showModal({
+                  title: "解绑失败",
+                  showCancel: false
+                })
+              }
+
+            },
+            fail: function (res) {
+              wx.hideLoading();
+              wx.showModal({
+                title: "操作异常",
+                content: res,
+                showCancel: false
+              })
+            }
+          };
+          app.NetRequest(data);
+        }
+      }
+    });
   }
 })

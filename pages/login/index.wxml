@@ -33,4 +33,36 @@
     </view>
   </form>
 </view>
-<view style="text-align:center" wx:else>功能开发中</view>
+<view style="text-align:center" wx:else>
+  <view class="page">
+    <view class="page__bd">
+      <view style="position:relative;background-color:#ffffff;padding:10px 0px 0px 10px">
+        <view style="float:left">
+          <image src="{{avatar}}" mode="aspectFill" style="width:{{headImgWidth}}px;height:{{headImgWidth}}px;border-radius:50px"></image>
+        </view>
+
+        <view style="float:right;width:{{rightBoxWidth}}px">
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__bd">
+                <input class="weui-input" name="name" value="{{nameInfo}}" data-sign="name" bindconfirm="next" bindinput="inputInfo" disabled="true" />
+              </view>
+            </view>
+            <view class="weui-cell weui-cell_input">
+              <view class="weui-cell__bd">
+                <input class="weui-input" name="phone" value="{{stationName}}" data-sign="phone" focus="{{phoneFocus}}" bindinput="inputInfo" disabled="true" />
+              </view>
+            </view>
+          </view>
+        </view>
+        <view style="clear:both"></view>
+      </view>
+    </view>
+    <view class="page__ft">
+
+      <view class="weui-footer weui-footer_fixed-bottom">
+        <button bindtap="changeAccount">切换账号</button>
+      </view>
+    </view>
+  </view>
+</view>

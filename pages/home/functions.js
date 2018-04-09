@@ -89,7 +89,7 @@ Page({
               content: '是否切换到 ' + array[0],
               success: function (res) {
                 if (res.confirm) {
-                  main.changeStation(array[1]);
+                  main.changeStation(array[1],array[0]);
                 }
               }
             })
@@ -110,11 +110,12 @@ Page({
       }
     });
   },
-  changeStation: function (stationId) {
+  changeStation: function (stationId,stationName) {
     var data = {
       url: app.globalData.serverAddress + "/Station/ChangeStation?stationId="+stationId,
       success: function (res) {
         if (res) {
+          wx.setStorageSync("stationName", stationName);
           wx.showModal({
             title: '提示',
             content: '操作成功',
@@ -142,6 +143,7 @@ Page({
             url: app.globalData.serverAddress + "/Station/ExitStation",
             success: function (res) {
               if (res.length==0) {
+                wx.removeStorageSync("stationName");
                 wx.showModal({
                   title: '提示',
                   content: '操作成功',
