@@ -41,7 +41,7 @@
           <image src="{{avatar}}" mode="aspectFill" style="width:{{headImgWidth}}px;height:{{headImgWidth}}px;border-radius:50px"></image>
         </view>
 
-        <view style="float:right;width:{{rightBoxWidth}}px">
+        <view style="float:right;width:{{rightBoxWidth}}px;text-align:left">
           <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell weui-cell_input">
               <view class="weui-cell__bd">
@@ -50,7 +50,7 @@
             </view>
             <view class="weui-cell weui-cell_input">
               <view class="weui-cell__bd">
-                <input class="weui-input" name="phone" value="{{stationName}}" data-sign="phone" focus="{{phoneFocus}}" bindinput="inputInfo" disabled="true" />
+                <view style="color:#999999">{{stationName}}</view>
               </view>
             </view>
           </view>
@@ -60,7 +60,7 @@
     </view>
     <view class="page__ft">
 
-      <view class="weui-footer weui-footer_fixed-bottom">
+      <view class="weui-footer" style="margin:30px">
         <button bindtap="changeAccount">切换账号</button>
       </view>
     </view>

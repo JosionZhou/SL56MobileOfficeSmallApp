@@ -1,0 +1,40 @@
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-search-bar">
+      <view class="weui-search-bar__form">
+        <view class="weui-search-bar__box">
+          <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+          <input type="text" class="weui-search-bar__input" placeholder="原、转单号，国家，报价，运输方式，类型，子单号" value="{{key}}" bindinput="search" />
+          <view class="weui-icon-clear" wx:if="{{key.length > 0}}" bindtap="clearInput">
+            <icon type="clear" size="14"></icon>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="weui-cells weui-cells_after-title" wx:for="{{result}}">
+      <view url="" class="weui-cell weui-cell_access" bindtap="bindConfirmCheck" data-id="{{item.Id}}" data-index="{{index}}">
+        <view class="weui-cell__bd number-ft">原单号:{{item.ReferenceNumber}}</view>
+        <view style="color:#999999">转单号:{{item.TrackNumber}}</view>
+      </view>
+      <navigator url="\detail?id={{item.Id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="showDetail">
+        <view class="weui-cell__bd" style="font-size:13px">
+          <view>{{item.PriceName}}</view>
+          <view class="sub_font_color">计费重：{{item.Weight}}KG</view>
+          <view class="sub_font_color">交货日期：{{item.Date}}</view>
+        </view>
+        <view class="weui-cell__bd">
+          <view class="weui-cell__ft weui-cell__ft_in-access price-amount-ft">{{item.Amount}}元</view>
+        </view>
+      </navigator>
+    </view>
+    <view>
+      <view class="weui-loadmore" hidden="{{!isShowLoading}}">
+        <view class="weui-loading"></view>
+        <view class="weui-loadmore__tips">正在加载</view>
+      </view>
+      <view class="weui-loadmore weui-loadmore_line" hidden="{{!isShowNoDataMark}}">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无更多数据</view>
+      </view>
+    </view>
+  </view>
+</view>

@@ -1,0 +1,88 @@
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-tab">
+      <view class="weui-navbar">
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);"></view>
+      </view>
+      <view class="weui-tab__panel" style="padding-top:0px">
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+          <navigator url="examinedetail" class="weui-cells weui-cells_after-title" style="padding:10px;margin-top:2px">
+            <view style="position:relative;background-color:white">
+              <view style="float:left">
+                <view>
+                  <image src="/image/avatar.png" style="width:50px;height:50px;"></image>
+                </view>
+              </view>
+              <view style="float:left;margin-left:20px;text-align:left">
+                <view>王小二的加分申请</view>
+                <view style="color:#999999;font-size:15px;margin-top:5px">申请日期：2018-12-12 12:32</view>
+                <view style="color:#999999;font-size:15px;margin-top:5px">申请分数：10</view>
+                <view style="color:#999999;font-size:15px;margin-top:5px">申请依据：下班后清理办公室卫生</view>
+                <view style="color:#004ea2;margin-top:5px">待审批</view>
+              </view>
+              <view style="clear:both"></view>
+            </view>
+          </navigator>
+          <navigator class="weui-cells weui-cells_after-title" style="padding:10px;margin-top:2px">
+            <view style="position:relative;background-color:white">
+              <view style="float:left">
+                <view>
+                  <image src="/image/avatar.png" style="width:50px;height:50px;"></image>
+                </view>
+              </view>
+              <view style="float:left;margin-left:20px;text-align:left">
+                <view>王小二的加分申请</view>
+                <view style="color:#999999;font-size:15px;margin-top:5px">申请日期：2018-12-12 12:32</view>
+                <view style="color:#999999;font-size:15px;margin-top:5px">申请分数：10</view>
+                <view style="color:#999999;font-size:15px;margin-top:5px">申请依据：下班后清理办公室卫生</view>
+                <view style="color:#004ea2;margin-top:5px">待审批</view>
+              </view>
+              <view style="clear:both"></view>
+            </view>
+          </navigator>
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+          <navigator class="weui-cells weui-cells_after-title" style="padding:10px;margin-top:2px">
+            <view style="position:relative;background-color:white">
+              <view style="float:left">
+                <view>
+                  <image src="/image/avatar.png" style="width:50px;height:50px;"></image>
+                </view>
+              </view>
+              <view style="float:left;margin-left:20px;text-align:left">
+                <view>王小二的加分申请</view>
+                <view style="color:#999999;font-size:15px;margin-top:5px">申请日期：2018-12-12 12:32</view>
+                <view style="color:#999999;font-size:15px;margin-top:5px">申请分数：10</view>
+                <view style="color:#999999;font-size:15px;margin-top:5px">申请依据：下班后清理办公室卫生</view>
+                <view style="color:#00e600;margin-top:5px">已通过</view>
+              </view>
+              <view style="clear:both"></view>
+            </view>
+          </navigator>
+          <navigator class="weui-cells weui-cells_after-title" style="padding:10px;margin-top:2px">
+            <view style="position:relative;background-color:white">
+              <view style="float:left">
+                <view>
+                  <image src="/image/avatar.png" style="width:50px;height:50px;"></image>
+                </view>
+              </view>
+              <view style="float:left;margin-left:20px;text-align:left">
+                <view>王小二的加分申请</view>
+                <view style="color:#999999;font-size:15px;margin-top:5px">申请日期：2018-12-12 12:32</view>
+                <view style="color:#999999;font-size:15px;margin-top:5px">申请分数：10</view>
+                <view style="color:#999999;font-size:15px;margin-top:5px">申请依据：下班后清理办公室卫生</view>
+                <view style="color:red;margin-top:5px">已拒绝</view>
+              </view>
+              <view style="clear:both"></view>
+            </view>
+          </navigator>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

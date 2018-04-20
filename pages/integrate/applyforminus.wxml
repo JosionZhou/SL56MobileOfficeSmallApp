@@ -1,0 +1,71 @@
+<view class="page">
+  <form bindsubmit="save">
+    <view class="page__bd">
+      <view class="weui-cells weui-cells_after-title" style="margin-top:10px">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">日期
+              <label style="color:red;font-size:20px;margin-left:5px">*</label>
+            </view>
+          </view>
+          <view class="weui-cell__bd ">
+            <input class="weui-input" value="{{date}}" data-sign="position" name="date" disabled="true" />
+          </view>
+          <!-- <view class="weui-cell__bd">
+            <picker mode="date" value="{{date}}" start="2015-09-01" end="2017-09-01" bindchange="bindDateChange">
+              <view class="weui-input">{{date}}</view>
+            </picker>
+          </view> -->
+        </view>
+        <view class="weui-cell weui-cell_input {{positionWarning==true?'weui-cell_warn':''}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label">人员
+              <label style="color:red;font-size:20px;margin-left:5px">*</label>
+            </view>
+          </view>
+          <view class="weui-cell__bd ">
+            <input class="weui-input" value="{{name}}" data-sign="position" name="name" placeholder="申请加分人员姓名" bindinput="inputInfo" />
+          </view>
+          <view class="weui-cell__ft" wx:if="{{positionWarning}}">
+            <icon type="warn" size="23" color="#E64340"></icon>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">依据
+              <label style="color:red;font-size:20px;margin-left:5px">*</label>
+            </view>
+          </view>
+          <view class="weui-cell__bd ">
+            <input class="weui-input" value="{{item.Email}}" name="basis" placeholder="参考积分制实施细则" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">分数
+              <label style="color:red;font-size:20px;margin-left:5px">*</label>
+            </view>
+          </view>
+          <view class="weui-cell__bd ">
+            <input class="weui-input" value="{{item.QQ}}" name="mark" placeholder="参考积分制实施细则" type="number" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view>审批人
+              <label style="color:#999999;font-size:13px"> (已由管理员预设不可修改)</label>
+            </view>
+          </view>
+        </view>
+        <view style="padding-left:15px">
+          <image src="/image/examiner.png" style="width:70px;height:70px;margin-top:15px"></image>
+          <view style="font-size:13px;color:#666666">积分管理</view>
+          <view style="font-size:13px;color:#666666">(会签)</view>
+        </view>
+      </view>
+    </view>
+    <view class="weui-footer weui-footer_fixed-bottom" style="margin:30px 20px">
+      <button type="primary" form-type="submit">提交</button>
+    </view>
+  </form>
+</view>

@@ -223,6 +223,9 @@ Page({
     this.getIsAuthenticated(authCallback, unAuthCallback);
   },
   doAuth: function () {
+    wx.showLoading({
+      title: '请稍后',
+    });
     var main = this;
     wx.getUserInfo({
       success: res => {

@@ -6,13 +6,20 @@
     "pages/index/index",
     "pages/logs/logs",
     "pages/home/index",
-    "pages/actions/scanstation"
+    "pages/actions/scanstation",
+    "pages/expresssearch/index",
+    "pages/expresssearch/detail",
+    "pages/integrate/index",
+    "pages/integrate/applyforadd",
+    "pages/integrate/applyforminus",
+    "pages/integrate/examine",
+    "pages/integrate/examinedetail"
   ],
   "window": {
     "backgroundTextStyle": "light",
-    "navigationBarBackgroundColor": "#fff",
+    "navigationBarBackgroundColor": "#014fa3",
     "navigationBarTitleText": "WeChat",
-    "navigationBarTextStyle": "black"
+    "navigationBarTextStyle": "white"
   },
   "tabBar": {
     "color": "#8a8a8a",

@@ -71,5 +71,23 @@ App({
       },
       complete: complete
     })
+  },
+  dateProcess: function (p) {
+    var date = new Date();
+    date.setDate(date.getDate() + p);
+    var dateStr = date.toLocaleDateString();
+    var strs = dateStr.split('/');
+    for (var i = 0; i < strs.length; i++) {
+      if (i == 0) {
+        dateStr = strs[i];
+      } else {
+        if (strs[i].length == 1) {
+          dateStr += ("-0" + strs[i]);
+        } else {
+          dateStr += ("-" + strs[i]);
+        }
+      }
+    }
+    return dateStr;
   }
 })

@@ -1,7 +1,16 @@
+page{
+  background-color: white
+}
 .weui-cells::after{
   border-bottom: 0px
 }
 .weui-cells::before{
+  border-top: 0px
+}
+.weui-cell::after{
+  border-bottom: 0px
+}
+.weui-cell::before{
   border-top: 0px
 }
 button[type="primary"]{

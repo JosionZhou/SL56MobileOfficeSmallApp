@@ -8,3 +8,21 @@ button[type="primary"] {
   color:#99d6ff;
   background-color:#1aa3ff;
 }
+.weui-grids{
+  border: none
+}
+.weui-grid {
+  border: none
+}
+.bg{
+  background-color: #014fa3
+}
+.weui-grid__label{
+  margin-top: 10px;
+}
+.weui-grid_active1{
+  background-color: #014a98
+}
+.weui-grid_active2{
+  background-color: #f2f2f2
+}

@@ -1,0 +1,27 @@
+.weui-cells::before {
+  border-top: 0px;
+}
+
+.weui-cells::after {
+  border-bottom: 0px;
+}
+
+image {
+  border-radius: 50px;
+}
+
+.weui-footer_fixed-bottom {
+  background-color: white;
+  bottom: 0px;
+}
+
+.weui-vcode-btn{
+  color: #004ea2;
+  height: 2em
+}
+.weui-vcode-btn:active {
+  color: #3395ff;
+}
+.weui-footer{
+  padding:10px
+}

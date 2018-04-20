@@ -1,0 +1,19 @@
+.weui-cells::before{
+  border-top: 0px
+}
+.weui-cells::after{
+  border-bottom: 0px
+}
+button[type="primary"] {
+  color:#FFFFFF;
+  background: #004ea2;
+  border-radius: 5px
+}
+.button-hover[type="primary"]{
+  color:#99d6ff;
+  background-color:#004a99;
+}
+.weui-cell{
+  font-size:18px;
+  height: 45px
+}

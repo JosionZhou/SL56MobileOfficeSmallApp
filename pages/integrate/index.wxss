@@ -1,0 +1,9 @@
+.weui-grids{
+  border: none
+}
+.weui-grid {
+  border: none
+}
+.weui-grid__label{
+  margin-top: 10px;
+}

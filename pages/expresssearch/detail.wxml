@@ -1,0 +1,132 @@
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-tab">
+      <view class="weui-navbar" style="background-color:white">
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);width:{{width}}px"></view>
+      </view>
+      <view class="weui-tab__panel">
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+              <view class="weui-cell__bd">原单号</view>
+              <view class="weui-cell__ft">{{item.ObjectNo}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">转单号</view>
+              <view class="weui-cell__ft">{{item.TrackNumber}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">目的地</view>
+              <view class="weui-cell__ft">{{item.CountryName}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">收货报价</view>
+              <view class="weui-cell__ft">{{item.PriceName}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">费用(元)</view>
+              <view class="weui-cell__ft">{{item.TotalAmount}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">计费重(KG)</view>
+              <view class="weui-cell__ft">{{item.Weight}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">件数</view>
+              <view class="weui-cell__ft">{{item.Piece}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">运输方式</view>
+              <view class="weui-cell__ft">{{item.ModeOfTransportName}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">类型</view>
+              <view class="weui-cell__ft">{{item.ProductType}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">操作员</view>
+              <view class="weui-cell__ft">{{item.OperationName}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">总单号</view>
+              <view class="weui-cell__ft">{{item.ReceiveGoodsNo}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">日期</view>
+              <view class="weui-cell__ft">{{item.Date}}</view>
+            </view>
+          </view>
+        </view>
+        <navigator class="weui-tab__content" hidden="{{activeIndex != 1}}">
+          <view class="weui-cells weui-cells_after-title" wx:for="{{item.Sizes}}" wx:for-item="size">
+            <view class="weui-cell">
+              <view class="weui-cell__bd">编号</view>
+              <view class="weui-cell__ft">{{index+1}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">实重(KG)</view>
+              <view class="weui-cell__ft">{{size.ActualWeight}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">体积重</view>
+              <view class="weui-cell__ft">{{size.VolumeWeight}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">长(CM)</view>
+              <view class="weui-cell__ft">{{size.Length}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">宽(CM)</view>
+              <view class="weui-cell__ft">{{size.Width}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">高(CM)</view>
+              <view class="weui-cell__ft">{{size.Height}}</view>
+            </view>
+          </view>
+        </navigator>
+
+        <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
+          <view class="weui-cells weui-cells_after-title" wx:for="{{item.Tracks}}" wx:for-item="track">
+            <view class="weui-cell weui-cell_access">
+              <view class="weui-cell__bd" style="font-size:15px">
+                <view>{{track.Date}}</view>
+                <view class="sub_font_color">{{track.Location}}</view>
+                <view class="sub_font_color">{{track.Activity}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+
+        <view class="weui-tab__content" hidden="{{activeIndex != 3}}">
+          <view class="weui-cells weui-cells_after-title" wx:for="{{item.AccountReceivableDetails}}" wx:for-item="charge">
+            <view class="weui-cell weui-cell_access">
+              <view class="weui-cell__bd" style="font-size:15px">
+                <view>{{charge.Name}}</view>
+                <view class="sub_font_color">{{charge.Remark}}</view>
+              </view>
+              <view class="weui-cell__bd">
+                <view class="weui-cell__ft weui-cell__ft_in-access">{{charge.Amount}} {{charge.Currency}}</view>
+              </view>
+            </view>
+          </view>
+
+
+          <view class="weui-tab__content" hidden="{{activeIndex != 4}}">
+            <view class="weui-cells weui-cells_after-title" wx:for="{{item.Problems}}" wx:for-item="problem">
+              <view class="weui-cell">
+                <view class="weui-cell__bd">{{problem.Remark}}</view>
+                <view class="weui-cell__ft">{{problem.StatusName}}</view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>
