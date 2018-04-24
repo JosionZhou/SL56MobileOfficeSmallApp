@@ -6,7 +6,15 @@ Page({
    */
   data: {
     date:"",
-    name:""
+    name: "",
+    array:
+    [
+      "捡垃圾",
+      "搞卫生",
+      "帮助他人"
+    ],
+    index: 0,
+    basis: ""
   },
 
   /**
@@ -68,5 +76,11 @@ Page({
    */
   onShareAppMessage: function () {
   
+  },
+  bindPickerChange: function (e) {
+    this.setData({
+      index: e.detail.value,
+      basis: this.data.array[e.detail.value]
+    })
   }
 })

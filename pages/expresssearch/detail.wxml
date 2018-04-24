@@ -25,16 +25,24 @@
               <view class="weui-cell__ft">{{item.CountryName}}</view>
             </view>
             <view class="weui-cell">
-              <view class="weui-cell__bd">收货报价</view>
-              <view class="weui-cell__ft">{{item.PriceName}}</view>
+              <view class="weui-cell__bd">邮编</view>
+              <view class="weui-cell__ft">{{item.PostalCode}}</view>
             </view>
             <view class="weui-cell">
-              <view class="weui-cell__bd">费用(元)</view>
-              <view class="weui-cell__ft">{{item.TotalAmount}}</view>
+              <view class="weui-cell__bd">板号</view>
+              <view class="weui-cell__ft">{{palletno}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">收货报价</view>
+              <view class="weui-cell__ft">{{item.CustomerPriceName}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">出货报价</view>
+              <view class="weui-cell__ft">{{item.CostPriceName}}</view>
             </view>
             <view class="weui-cell">
               <view class="weui-cell__bd">计费重(KG)</view>
-              <view class="weui-cell__ft">{{item.Weight}}</view>
+              <view class="weui-cell__ft">{{item.SubTotalChargeableWeight}}</view>
             </view>
             <view class="weui-cell">
               <view class="weui-cell__bd">件数</view>
@@ -46,19 +54,18 @@
             </view>
             <view class="weui-cell">
               <view class="weui-cell__bd">类型</view>
-              <view class="weui-cell__ft">{{item.ProductType}}</view>
-            </view>
-            <view class="weui-cell">
-              <view class="weui-cell__bd">操作员</view>
-              <view class="weui-cell__ft">{{item.OperationName}}</view>
-            </view>
-            <view class="weui-cell">
-              <view class="weui-cell__bd">总单号</view>
-              <view class="weui-cell__ft">{{item.ReceiveGoodsNo}}</view>
+              <view class="weui-cell__ft" wx:if="{{item.ProductContent==1}}">WPX</view>
+              <view class="weui-cell__ft" wx:else>DOC</view>
             </view>
             <view class="weui-cell">
               <view class="weui-cell__bd">日期</view>
-              <view class="weui-cell__ft">{{item.Date}}</view>
+              <view class="weui-cell__ft">{{item.CreateAt}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">客户</view>
+              <view class="weui-cell__ft">
+                <navigator bindtap="open" class="weui-agree__link" style="text-decoration:underline;margin-right:5px">{{item.CustomerName}}</navigator>
+              </view>
             </view>
           </view>
         </view>
@@ -92,7 +99,7 @@
         </navigator>
 
         <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
-          <view class="weui-cells weui-cells_after-title" wx:for="{{item.Tracks}}" wx:for-item="track">
+          <view class="weui-cells weui-cells_after-title" wx:for="{{item.TrackInfos}}" wx:for-item="track">
             <view class="weui-cell weui-cell_access">
               <view class="weui-cell__bd" style="font-size:15px">
                 <view>{{track.Date}}</view>
@@ -104,26 +111,42 @@
         </view>
 
         <view class="weui-tab__content" hidden="{{activeIndex != 3}}">
-          <view class="weui-cells weui-cells_after-title" wx:for="{{item.AccountReceivableDetails}}" wx:for-item="charge">
+          <view class="weui-cells weui-cells_after-title" wx:for="{{item.AccountReceiveableDetails}}" wx:for-item="charge">
             <view class="weui-cell weui-cell_access">
               <view class="weui-cell__bd" style="font-size:15px">
-                <view>{{charge.Name}}</view>
-                <view class="sub_font_color">{{charge.Remark}}</view>
+                <view>{{charge.ObjectName}}</view>
+                <view class="sub_font_color">{{charge.Digest}}</view>
               </view>
               <view class="weui-cell__bd">
-                <view class="weui-cell__ft weui-cell__ft_in-access">{{charge.Amount}} {{charge.Currency}}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">{{charge.LocalAmount}} {{charge.Remark}}</view>
               </view>
             </view>
           </view>
+        </view>
 
 
-          <view class="weui-tab__content" hidden="{{activeIndex != 4}}">
-            <view class="weui-cells weui-cells_after-title" wx:for="{{item.Problems}}" wx:for-item="problem">
-              <view class="weui-cell">
-                <view class="weui-cell__bd">{{problem.Remark}}</view>
-                <view class="weui-cell__ft">{{problem.StatusName}}</view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 4}}">
+          <view class="weui-cells weui-cells_after-title" wx:for="{{item.Problems}}" wx:for-item="problem">
+            <view class="weui-cell">
+              <view>{{problem.ObjectName}}</view>
+              <view class="weui-cell__bd" style="color:red;font-size:13px" wx:if="{{problem.Status==0}}">[未处理]</view>
+              <view class="weui-cell__bd" style="color:#33CC33;font-size:13px" wx:else>[已处理]</view>
+              <view class="weui-cell__ft">{{problem.ModifyAt}}</view>
+            </view>
+            <view style="padding-left:15px;padding-right:15px;font-size:15px;color:#999999">{{problem.Remark}}</view>
+          </view>
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 5}}">
+          <view class="weui-cells weui-cells_after-title" wx:for="{{item.Attachments}}" wx:for-item="attachment">
+            <view class="weui-cell">
+              <view class="weui-cell__bd">{{attachment.ObjectName}}.{{attachment.Extension}}</view>
+              <view class="weui-cell__ft ">
+                <button class="weui-btn" data-id="{{attachment.ObjectId}}" style="font-size:13px" plain="true" bindtap="openAttachment">
+                  打开
+                </button>
               </view>
             </view>
+            <view style="padding-left:15px;padding-right:15px;font-size:15px;color:#999999 ">{{problem.Remark}}</view>
           </view>
         </view>
       </view>

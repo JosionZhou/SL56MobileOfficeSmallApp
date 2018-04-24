@@ -185,15 +185,9 @@ Page({
     });
     this.search();
   },
-  // bindInput: function (e) {
-  //   this.setData({
-  //     numberText: e.detail.value
-  //   });
-  // },
-  showDetail: function (e) {
-    wx.navigateTo({
-      url: e.detail.url,
-    })
+  tapItem:function(e){
+    var palletno = e.currentTarget.dataset.palletno;
+    app.globalData.palletno=palletno;
   }
 })
 
