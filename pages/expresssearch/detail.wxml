@@ -64,7 +64,39 @@
             <view class="weui-cell">
               <view class="weui-cell__bd">客户</view>
               <view class="weui-cell__ft">
-                <navigator bindtap="open" class="weui-agree__link" style="text-decoration:underline;margin-right:5px">{{item.CustomerName}}</navigator>
+                <navigator bindtap="open" data-type="1" class="weui-agree__link" style="text-decoration:underline;margin-right:5px">{{item.CustomerName}}</navigator>
+              </view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">业务员</view>
+              <view class="weui-cell__ft">
+                <navigator bindtap="open" data-type="2" class="weui-agree__link" style="text-decoration:underline;margin-right:5px">{{item.SalesmanName}}</navigator>
+              </view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">跟单员</view>
+              <view class="weui-cell__ft">
+                <view wx:if="{{item.MerchandiserName==null}}">(无跟单员)</view>
+                <navigator wx:else bindtap="open" data-type="3" class="weui-agree__link" style="text-decoration:underline;margin-right:5px">{{item.MerchandiserName}}</navigator>
+              </view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">内部备注</view>
+              <view class="weui-cell__ft" style="font-size:13px">{{item.InnerRemark}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">已选规则</view>
+              <view class="weui-cell__ft" style="font-size:13px" wx:for="{{rules}}" wx:for-item="rule">
+
+                <label class="weui-agree" >
+                  <view class="weui-agree__text">
+                    <checkbox class="weui-agree__checkbox" id="weuiAgree" value="agree" checked="true" />
+                    <view class="weui-agree__checkbox-icon">
+                      <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="9" wx:if="true"></icon>
+                    </view>
+                    {{rule.Description}}
+                  </view>
+                </label>
               </view>
             </view>
           </view>

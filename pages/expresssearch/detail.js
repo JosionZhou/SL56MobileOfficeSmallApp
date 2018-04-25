@@ -13,7 +13,8 @@ Page({
     sliderLeft: 0,
     width:0,
     palletno:"",
-    contacts:[]
+    contacts:[],
+    rules:[]
   },
 
   /**
@@ -46,8 +47,22 @@ Page({
        },
        success: function (res) {
          wx.hideLoading();
+         var rules=new Array();
+         for (var i = 0; i < res.SelectedRules.length;i++){
+           var r={
+             Description: res.SelectedRules[i].Description
+           }
+           rules.push(r);
+         }
+         for (var i = 0; i < res.SelectedTemplateRules.length; i++) {
+           var r = {
+             Description: res.SelectedTemplateRules[i].Description
+           }
+           rules.push(r);
+         }
          main.setData({
-           item:res
+           item:res,
+           rules:rules
          });
        }
      }
@@ -108,14 +123,36 @@ Page({
       activeIndex: e.currentTarget.id
     });
   },
-  open: function () {
-    var contacts = this.data.item.Contacts;
+  open: function (e) {
+    var t = e.currentTarget.dataset.type;
+    var contacts;
+    if(t==1){
+     contacts = this.data.item.Contacts;
+    }
+    if(t==2){
+      contacts=new Array();
+      var item = {
+        ObjectName: this.data.item.SalesmanName,
+        Department:"业务",
+        MobilePhone: this.data.item.SalesmanPhone
+      }
+      contacts.push(item);
+    }
+    if (t == 3) {
+      contacts = new Array();
+      var item = {
+        ObjectName: this.data.item.MerchandiserName,
+        Department: "跟单",
+        MobilePhone: this.data.item.MerchandiserPhone
+      }
+      contacts.push(item);
+    }
     this.setData({
       contacts: contacts
     });
     var showItems = new Array();
     for(var i=0;i<contacts.length;i++){
-      showItems.push(contacts[i].ObjectName + "-" + contacts[i].MobilePhone)
+      showItems.push(contacts[i].ObjectName + "-" + contacts[i].Department +"-"+ contacts[i].MobilePhone)
     }
     var main=this;
     wx.showActionSheet({
