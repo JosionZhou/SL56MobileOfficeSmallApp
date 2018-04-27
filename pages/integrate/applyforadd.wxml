@@ -1,5 +1,5 @@
 <view class="page">
-  <form bindsubmit="save">
+  <form bindsubmit="submit">
     <view class="page__bd">
       <view class="weui-cells weui-cells_after-title" style="margin-top:10px">
         <view class="weui-cell weui-cell_input">
@@ -40,8 +40,8 @@
             <input class="weui-input" value="{{basis}}" name="basis" placeholder="参考积分制实施细则" />
           </view>
           <view style="padding:10px;color:#004ea2" hover-class="hv">
-            <picker bindchange="bindPickerChange" value="{{index}}" range="{{array}}">
-                <view>...</view>
+            <picker bindchange="bindPickerChange" value="{{index}}" range="{{evaluations}}">
+              <view>...</view>
             </picker>
           </view>
         </view>

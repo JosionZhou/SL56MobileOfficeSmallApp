@@ -171,7 +171,7 @@
         <view class="weui-tab__content" hidden="{{activeIndex != 5}}">
           <view class="weui-cells weui-cells_after-title" wx:for="{{item.Attachments}}" wx:for-item="attachment">
             <view class="weui-cell">
-              <view class="weui-cell__bd">{{attachment.ObjectName}}.{{attachment.Extension}}</view>
+              <view class="weui-cell__bd">{{attachment.ObjectNo}}.{{attachment.Extension}}</view>
               <view class="weui-cell__ft ">
                 <button class="weui-btn" data-id="{{attachment.ObjectId}}" style="font-size:13px" plain="true" bindtap="openAttachment">
                   打开

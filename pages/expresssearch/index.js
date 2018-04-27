@@ -142,10 +142,16 @@ Page({
       method: "GET",
       data: requestData,
       success: function (res) {
-        if (res.length > 0) {
-          var result = main.data.result;
-          for (var i = 0; i < res.length; i++) {
-            result.push(res[i])
+        if(main.data.key!=res.key)return;
+        if (res.result.length > 0) {
+          var result;
+          if (main.data.pageIndex>1){
+           result= main.data.result;
+          }else{
+            result=new Array();
+          }
+          for (var i = 0; i < res.result.length; i++) {
+            result.push(res.result[i])
           }
           main.setData({
             result: result,
