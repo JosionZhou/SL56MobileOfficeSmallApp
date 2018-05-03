@@ -102,5 +102,65 @@ Page({
    var basis=e.detail.value.basis;
    var name=e.detail.value.name;
    var mark=e.detail.value.mark;
+   if(name.trim().length==0){
+     this.setData({
+       errorTips: "人员名称不能为空",
+       nameWarning: true
+     });
+     this.showErrorTips();
+     return;
+   }
+   if (basis.trim().length == 0) {
+     this.setData({
+       errorTips: "依据不能为空",
+       basisWarning: true
+     });
+     this.showErrorTips();
+     return;
+   }
+   if (mark.trim().length == 0) {
+     this.setData({
+       errorTips: "分数不能为空",
+       markWarning: true
+     });
+     this.showErrorTips();
+     return;
+   }
+    wx.showLoading({
+      title: '请稍后',
+    });
+   var main = this;
+   var data = {
+     url: app.globalData.serverAddress + '/Integrate/AddIntergrate?score='+mark+'&evaluation='+basis+'&name='+name,
+     success: function (res) {
+       wx.hideLoading();
+       if(res.length>0){
+         wx.showModal({
+           title: '请求错误',
+           content: res,
+           showCancel:false
+         })
+       } else {
+        wx.navigateTo({
+          url: 'history',
+        });
+       }
+     }
+   }
+   app.NetRequest(data);
+  },
+  showErrorTips: function () {
+    var that = this;
+    this.setData({
+      showErrorTips: true
+    });
+    setTimeout(function () {
+      that.setData({
+        showErrorTips: false,
+        nameWarning: false,
+        basisWarning: false,
+        markWarning:false
+      });
+    }, 2000);
   }
 })

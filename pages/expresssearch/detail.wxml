@@ -33,6 +33,10 @@
               <view class="weui-cell__ft">{{palletno}}</view>
             </view>
             <view class="weui-cell">
+              <view class="weui-cell__bd">出货账号</view>
+              <view class="weui-cell__ft">{{item.CarrierAccountNo}}</view>
+            </view>
+            <view class="weui-cell">
               <view class="weui-cell__bd">收货报价</view>
               <view class="weui-cell__ft">{{item.CustomerPriceName}}</view>
             </view>
@@ -64,7 +68,13 @@
             <view class="weui-cell">
               <view class="weui-cell__bd">客户</view>
               <view class="weui-cell__ft">
-                <navigator bindtap="open" data-type="1" class="weui-agree__link" style="text-decoration:underline;margin-right:5px">{{item.CustomerName}}</navigator>
+                <view>
+                  <picker bindchange="bindPickerChange" value="{{index}}" range="{{customerPhoneStrs}}">
+                    <navigator data-type="1" class="weui-agree__link" style="text-decoration:underline;margin-right:5px">
+                      {{item.CustomerName}}
+                    </navigator>
+                  </picker>
+                </view>
               </view>
             </view>
             <view class="weui-cell">
@@ -88,7 +98,7 @@
               <view class="weui-cell__bd">已选规则</view>
               <view class="weui-cell__ft" style="font-size:13px" wx:for="{{rules}}" wx:for-item="rule">
 
-                <label class="weui-agree" >
+                <label class="weui-agree">
                   <view class="weui-agree__text">
                     <checkbox class="weui-agree__checkbox" id="weuiAgree" value="agree" checked="true" />
                     <view class="weui-agree__checkbox-icon">

@@ -14,7 +14,9 @@ Page({
     width:0,
     palletno:"",
     contacts:[],
-    rules:[]
+    rules:[],
+    customerPhoneStrs: [],
+    customerPhoneNumbers: []
   },
 
   /**
@@ -60,9 +62,17 @@ Page({
            }
            rules.push(r);
          }
+         var showItems = new Array();
+         var numbers = new Array();
+         for (var i = 0; i < res.Contacts.length; i++) {
+           showItems.push(res.Contacts[i].ObjectName + "-" + res.Contacts[i].Department + "-" + res.Contacts[i].MobilePhone)
+           numbers.push(res.Contacts[i].MobilePhone);
+         }
          main.setData({
            item:res,
-           rules:rules
+           rules:rules,
+           customerPhoneStrs:showItems,
+           customerPhoneNumbers:numbers
          });
        }
      }
@@ -197,6 +207,11 @@ Page({
           icon: 'none'
         })
       }
+    })
+  },
+  bindPickerChange: function (e) {
+    wx.makePhoneCall({
+      phoneNumber: this.data.customerPhoneNumbers[e.detail.value]
     })
   }
 })
