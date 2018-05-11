@@ -1,40 +1,29 @@
 var sliderWidth = 120; // 需要设置slider的宽度，用于计算中间位置
-
+var app=getApp()
 Page({
   data: {
-    tabs: ["未处理(2)", "已处理"],
-    activeIndex: 0,
-    sliderOffset: 0,
-    sliderLeft: 0,
-    doneCount: 0,
-    undoCount: 0,
-    doneList: [],
-    undoList: [
-      {
-        avatar: "/image/avatar.png",
-        name:"张三",
-        date:"2014/12/12 15:20",
-        mark:10,
-        basis:"打扫办公室"
-      }
-    ]
+    items:[]
   },
   onLoad: function () {
-    var that = this;
-    wx.getSystemInfo({
+  },
+  /**
+   * 生命周期函数--监听页面显示
+   */
+  onShow: function () {
+    wx.showLoading({
+      title: '请稍后',
+    })
+    var main = this;
+    var data = {
+      url: app.globalData.serverAddress + '/Integrate/GetExamineList',
+      method: "GET",
       success: function (res) {
-        that.setData({
-          headImgWidth: parseInt(res.windowWidth * 0.2),
-          sliderLeft: (res.windowWidth / that.data.tabs.length - sliderWidth) / 2,
-          sliderOffset: res.windowWidth / that.data.tabs.length * that.data.activeIndex
+        wx.hideLoading();
+        main.setData({
+          items: res
         });
       }
-    });
-  },
-  tabClick: function (e) {
-    this.setData({
-      sliderOffset: e.currentTarget.offsetLeft,
-      activeIndex: e.currentTarget.id
-    });
+    }
+    app.NetRequest(data);
   }
 });

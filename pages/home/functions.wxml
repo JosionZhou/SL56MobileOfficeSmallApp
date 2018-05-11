@@ -12,7 +12,7 @@
     <block wx:for="{{subFunctions}}" wx:key="*this">
       <navigator class="weui-grid" hover-class="weui-grid_active2" bindtap="{{item.event}}">
         <image class="weui-grid__icon" src="/image/{{item.image}}.png" />
-        <view class="weui-badge" style="position: absolute;top: 1em;right: 2.7em;" wx:if="{{item.showbadge}}">8</view>
+        <view class="weui-badge" style="position: absolute;top: 1em;right: 2.7em;" wx:if="{{item.showbadge}}">{{count}}</view>
         <view class="weui-grid__label">{{item.name}}</view>
       </navigator>
     </block>

@@ -65,7 +65,7 @@ Page({
          var showItems = new Array();
          var numbers = new Array();
          for (var i = 0; i < res.Contacts.length; i++) {
-           showItems.push(res.Contacts[i].ObjectName + "-" + res.Contacts[i].Department + "-" + res.Contacts[i].MobilePhone)
+           showItems.push((i+1) + ". " +res.Contacts[i].ObjectName + "-" + res.Contacts[i].Department + "-" + res.Contacts[i].MobilePhone)
            numbers.push(res.Contacts[i].MobilePhone);
          }
          main.setData({

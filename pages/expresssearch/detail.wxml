@@ -53,6 +53,10 @@
               <view class="weui-cell__ft">{{item.Piece}}</view>
             </view>
             <view class="weui-cell">
+              <view class="weui-cell__bd">申报价值</view>
+              <view class="weui-cell__ft">{{item.DeclaredValue}}</view>
+            </view>
+            <view class="weui-cell">
               <view class="weui-cell__bd">运输方式</view>
               <view class="weui-cell__ft">{{item.ModeOfTransportName}}</view>
             </view>

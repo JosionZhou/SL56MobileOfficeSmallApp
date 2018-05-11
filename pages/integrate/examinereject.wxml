@@ -1,0 +1,22 @@
+<view class="page">
+  <view clas="page__bd">
+    <form bindsubmit="reject">
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">积分</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" disabled="true" value="{{score}}" name="score" type="number" />
+          </view>
+        </view>
+      </view>
+      <view style="padding-top:10px">
+        <textarea class="weui-textarea" placeholder="请输审核意见" style="height:200px;background:white;padding:10px" name="remark" />
+      </view>
+      <view class="weui-footer weui-footer_fixed-bottom" style="margin:30px 20px">
+        <button type="primary" form-type="submit">确认拒绝</button>
+      </view>
+    </form>
+  </view>
+</view>

@@ -13,7 +13,10 @@
     "pages/integrate/applyforadd",
     "pages/integrate/applyforminus",
     "pages/integrate/examine",
-    "pages/integrate/examinedetail"
+    "pages/integrate/examinedetail",
+    "pages/integrate/record",
+    "pages/integrate/examineagree",
+    "pages/integrate/examinereject"
   ],
   "window": {
     "backgroundTextStyle": "light",

@@ -141,8 +141,8 @@ Page({
            showCancel:false
          })
        } else {
-        wx.navigateTo({
-          url: 'history',
+        wx.redirectTo({
+          url: 'record',
         });
        }
      }

@@ -160,7 +160,8 @@ Page({
       data: {
         Username: userName,
         Password: password,
-        OpenId: app.globalData.openId
+        OpenId: app.globalData.openId,
+        AvatarUrl: app.globalData.userInfo.avatarUrl
       },
       success: function (res) {
         //登录验证返回true

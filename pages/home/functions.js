@@ -14,10 +14,12 @@ Page({
     ],
     subFunctions:
     [
-      { name: "申请加分", image: "add", showbadge: false,event:"addIntegrate" },
-      { name: "申请扣分", image: "minus", showbadge: false,event:"minusIntegrate" },
-      { name: "审批", image: "stamp", showbadge: true,event:"examine" }
-    ]
+      { name: "申请加分", image: "add", showbadge: false, event: "addIntegrate" },
+      { name: "申请扣分", image: "minus", showbadge: false, event: "minusIntegrate" },
+      { name: "审批", image: "stamp", showbadge: false, event: "examine" },
+      { name: "申请记录", image: "history", showbadge: false, event: "record" }
+    ],
+    count: 0
   },
 
   /**
@@ -33,6 +35,7 @@ Page({
       this.setData({
         isLogin: isLogin
       });
+
     }
   },
 
@@ -51,6 +54,35 @@ Page({
     this.setData({
       isLogin: isLogin
     });
+    if (isLogin) {
+      wx.showLoading({
+        title: '请稍后',
+      });
+      var main = this;
+      var data = {
+        url: app.globalData.serverAddress + '/Integrate/GetCount',
+        method: "GET",
+        success: function (res) {
+          wx.hideLoading();
+          if (res > 0) {
+            var items = main.data.subFunctions;
+            items[2].showbadge = true;
+            main.setData({
+              count: res,
+              subFunctions: items
+            });
+          } else {
+            var items = main.data.subFunctions;
+            items[2].showbadge = false;
+            main.setData({
+              count: res,
+              subFunctions: items
+            });
+          }
+        }
+      }
+      app.NetRequest(data);
+    }
   },
 
   /**
@@ -180,29 +212,36 @@ Page({
       url: '/pages/login/index',
     })
   },
-  expresssearch:function(){
+  expresssearch: function () {
     wx.navigateTo({
       url: '/pages/expresssearch/index',
     })
   },
-  integrateManager:function(){
+  integrateManager: function () {
     wx.navigateTo({
       url: '/pages/integrate/index',
     })
   },
-  addIntegrate:function(){
+  addIntegrate: function () {
     wx.navigateTo({
       url: '/pages/integrate/applyforadd',
     })
   },
-  minusIntegrate:function(){
+  minusIntegrate: function () {
     wx.navigateTo({
       url: '/pages/integrate/applyforminus',
     })
   },
-  examine:function(){
+  examine: function () {
+    if (this.data.count > 0) {
+      wx.navigateTo({
+        url: '/pages/integrate/examine',
+      })
+    }
+  },
+  record: function () {
     wx.navigateTo({
-      url: '/pages/integrate/examine',
+      url: '/pages/integrate/record',
     })
   }
 })

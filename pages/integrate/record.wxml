@@ -1,0 +1,22 @@
+<view class="page">
+  <view class="page__bd">
+    <navigator url="examinedetail?id={{item.objectId}}&&type=0" style="margin-top:5px;padding-left:10px;padding-bottom:10px;text-align:left;background-color:white;width:100%;font-size:15px" wx:for="{{items}}">
+      <view>{{item.createBy}}对{{item.scoreOwner}}的{{item.integralType==0?'加分':'减分'}}申请</view>
+      <view style="color:#999999;font-size:15px;margin-top:5px">申请日期：{{item.createAt}}</view>
+      <view style="color:#999999;font-size:15px;margin-top:5px">申请分数：{{item.score}}</view>
+      <view style="color:#999999;font-size:15px;margin-top:5px">申请依据：{{item.description}}</view>
+      <view style="color:#004ea2;margin-top:5px" wx:if="{{item.status==0}}">待审批</view>
+      <view style="color:red;margin-top:5px" wx:if="{{item.status==1}}">已拒绝</view>
+      <view style="color:#00e600;margin-top:5px" wx:if="{{item.status==2}}">已通过</view>
+    </navigator>
+    <view>
+      <view class="weui-loadmore" hidden="{{!isShowLoading}}">
+        <view class="weui-loading"></view>
+        <view class="weui-loadmore__tips">正在加载</view>
+      </view>
+      <view class="weui-loadmore weui-loadmore_line" hidden="{{!isShowNoDataMark}}">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无更多数据</view>
+      </view>
+    </view>
+  </view>
+</view>
