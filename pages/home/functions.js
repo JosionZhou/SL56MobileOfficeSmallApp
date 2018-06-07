@@ -14,10 +14,12 @@ Page({
     ],
     subFunctions:
     [
-      { name: "申请加分", image: "add", showbadge: false, event: "addIntegrate" },
-      { name: "申请扣分", image: "minus", showbadge: false, event: "minusIntegrate" },
-      { name: "审批", image: "stamp", showbadge: false, event: "examine" },
-      { name: "申请记录", image: "history", showbadge: false, event: "record" }
+      // { name: "申请加分", image: "add", showbadge: false, event: "addIntegrate" },
+      // { name: "申请扣分", image: "minus", showbadge: false, event: "minusIntegrate" },
+      // { name: "审批", image: "stamp", showbadge: false, event: "examine" },
+      // { name: "申请记录", image: "history", showbadge: false, event: "record" },
+      { name: "岗位退出", image: "exitstation", showbadge: false, event: "exitStation" },
+      { name: "外价计算", image: "calculateprice", showbadge: false, event: "customerPrice" }
     ],
     count: 0
   },
@@ -54,35 +56,6 @@ Page({
     this.setData({
       isLogin: isLogin
     });
-    if (isLogin) {
-      wx.showLoading({
-        title: '请稍后',
-      });
-      var main = this;
-      var data = {
-        url: app.globalData.serverAddress + '/Integrate/GetCount',
-        method: "GET",
-        success: function (res) {
-          wx.hideLoading();
-          if (res > 0) {
-            var items = main.data.subFunctions;
-            items[2].showbadge = true;
-            main.setData({
-              count: res,
-              subFunctions: items
-            });
-          } else {
-            var items = main.data.subFunctions;
-            items[2].showbadge = false;
-            main.setData({
-              count: res,
-              subFunctions: items
-            });
-          }
-        }
-      }
-      app.NetRequest(data);
-    }
   },
 
   /**
@@ -242,6 +215,11 @@ Page({
   record: function () {
     wx.navigateTo({
       url: '/pages/integrate/record',
+    })
+  },
+  customerPrice: function () {
+    wx.navigateTo({
+      url: '/pages/customerpricecalc/index',
     })
   }
 })

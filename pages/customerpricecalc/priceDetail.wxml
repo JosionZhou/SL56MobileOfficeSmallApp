@@ -1,0 +1,78 @@
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-tab">
+      <view class="weui-navbar" style="background-color:white">
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px); width:{{width}}px"></view>
+      </view>
+      <view class="weui-tab__panel">
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell">
+              <view class="weui-cell__bd">报价编码</view>
+              <view class="weui-cell__ft">{{item.PriceNo}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">报价名称</view>
+              <view class="weui-cell__ft">{{item.ShortPriceName}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">运输方式</view>
+              <view class="weui-cell__ft">{{item.ModeOfTransportName}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">金额</view>
+              <view class="weui-cell__ft">{{item.TotalAmount}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">币别</view>
+              <view class="weui-cell__ft">{{item.Currency}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">计费重量</view>
+              <view class="weui-cell__ft">{{item.ChargeableWeight}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">体积除数</view>
+              <view class="weui-cell__ft">{{item.Volumetric}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">含油参价</view>
+              <view class="weui-cell__ft">{{item.UnitPrice}}</view>
+            </view>
+          </view>
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+          <view class="weui-cells weui-cells_after-title">
+            <view class="weui-cell" wx:for="{{item.Charges}}" wx:for-item="charge">
+              <view class="weui-cell__bd">{{charge.ChargeName}}</view>
+              <view class="weui-cell__ft">{{charge.Expression}}={{charge.Amount}}</view>
+            </view>
+          </view>
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
+          <view class="weui-article" style="padding-top:5px;text-align:left">
+            <view class="weui-article__h3" wx:for="{{commonRemark}}">{{item}}</view>
+          </view>
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 3}}">
+          <view class="weui-article" style="padding-top:5px;text-align:left">
+            <view class="weui-article__h3" wx:for="{{remark}}">{{item}}</view>
+          </view>
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 4}}">
+          <view class="weui-article" style="padding-top:5px;text-align:left">
+            <view class="weui-article__h3" wx:for="{{countryRemark}}">{{item}}</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="weui-footer">
+    <view class="weui-footer__text">Copyright © 2004-2017 升蓝物流</view>
+  </view>
+</view>

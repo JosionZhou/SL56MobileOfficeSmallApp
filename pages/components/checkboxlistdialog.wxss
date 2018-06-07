@@ -1,0 +1,105 @@
+@import '/style/weui.wxss';
+.drawer_screen {
+width: 100%;
+height: 100%;
+position: fixed;
+top: 0;
+left: 0;
+z-index: 1000;
+background: #000;
+opacity: 0.5;
+overflow: hidden;
+}
+
+.drawer_box {
+width: 76%;
+overflow: hidden;
+position: fixed;
+top: 30%;
+left: 0;
+z-index: 1001;
+background: #fafafa;
+margin: -150px 12% 0 12%;
+border-radius: 3px;
+}
+
+.drawer_title {
+padding: 10px;
+text-align: center;
+background-color: 
+gazure;
+}
+
+
+.title {
+height: 30px;
+line-height: 30px;
+width: 160rpx;
+text-align: center;
+display: inline-block;
+font: 300 28rpx/30px
+"microsoft yahei";
+}
+
+.text {
+color: black;
+}
+
+.sureQuery {
+width: 100%;
+display: flex;
+flex-direction: row;
+align-items: center;
+justify-content: space-between;
+box-sizing: border-box;
+background-color: white;
+}
+
+.btn {
+width: 100%;
+padding: 10px;
+text-align: center;
+color: red;
+}
+
+.btn:active{
+width: 100%;
+padding: 10px;
+text-align: center;
+color: red;
+background-color: gray;
+}
+
+.btnSure {
+width: 100%;
+padding: 10px;
+background-color: gainsboro;
+text-align: center;
+}
+
+.titleMsg {
+font: 200 35rpx/30px;
+text-align: center;
+margin-top: 45px;
+display: block;
+}
+
+.input_base {
+padding-top: 3px;
+padding-bottom: 3px;
+max-block-size: 10;
+display: block;
+background-color: white;
+margin-top: 45px;
+border: 2rpx solid #ccc;
+padding-left: 20rpx;
+margin-right: 10%;
+border-radius: 3px;
+margin-left: 10%;
+}
+.weui-btn{
+  width:50%;
+  border-radius: 0;
+  margin-top: 0px;
+  padding: none
+}

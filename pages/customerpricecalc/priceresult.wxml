@@ -1,0 +1,51 @@
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-cells weui-cells_after-title" wx:for="{{result}}" wx:for-item="item" data-index="{{index}}" bindtap='clickItem'>
+
+      <view url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+        <view class="weui-cell__bd">
+          <view>
+            {{item.PriceNo}}
+          </view>
+          <view style="font-size:13px;color:#999999">
+            {{item.ShortPriceName}}
+          </view>
+        </view>
+        <view class="weui-cell__bd ">
+          <view class="weui-cell__ft weui-cell__ft_in-access " style="color:black">￥ {{item.TotalAmount}} </view>
+        </view>
+      </view>
+      <view class="weui-form-preview__hd " style="padding:0 15px " hover-class="weui-form-preview__btn_active " bindtap=''>
+        <view class="weui-form-preview__item ">
+          <view class="weui-form-preview__label ">
+            <!-- <view style="color:black ">
+              {{item.PriceCode}}
+            </view>
+            <view style="font-size:15px ">
+              {{item.PriceName}}
+            </view> -->
+          </view>
+          <!-- <view class="weui-form-preview__value_in-hd ">¥{{item.TotalAmount}}</view> -->
+        </view>
+      </view>
+      <!-- <view class="weui-form-preview__bd " hidden='{{item.hideDetail}}'>
+        <view class="weui-form-preview__item ">
+          <view class="weui-form-preview__label ">报价名</view>
+          <view class="weui-form-preview__value ">{{item.PriceName}}</view>
+        </view>
+        <view class="weui-form-preview__item ">
+          <view class="weui-form-preview__label ">渠道</view>
+          <view class="weui-form-preview__value ">{{item.ModeOfTransportName}}</view>
+        </view>
+        <view class="weui-form-preview__item " wx:for="{{item.ChargeList}} " wx:for-item="charge ">
+          <view class="weui-form-preview__label ">{{charge.RuleName}}</view>
+          <view class="weui-form-preview__value ">{{charge.Expression}}</view>
+        </view>
+      </view> -->
+      <!-- <view class="weui-form-preview__ft ">
+        <navigator name='btnRemark' class="weui-form-preview__btn weui-form-preview__btn_primary " data-index="{{index}} " hover-class="weui-form-preview__btn_active " hidden='{{item.hideDetail}}' bindtap='countryRemark'>备注及声明</navigator>
+      </view> -->
+    </view>
+
+  </view>
+</view>

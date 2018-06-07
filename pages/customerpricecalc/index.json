@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "外价计算",
+  "usingComponents":{
+    "checkboxlistdialog":"/pages/components/checkboxlistdialog"
+  }
+}

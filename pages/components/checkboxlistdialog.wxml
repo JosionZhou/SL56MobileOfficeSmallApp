@@ -1,0 +1,23 @@
+<view wx:if="{{isShowDialog}}">
+  <view class='drawer_screen' bindtap='cancleBtn' />
+  <view class="drawer_box">
+    <view class="drawer_title">选择项</view>
+    <scroll-view class="weui-cells weui-cells_after-title" scroll-y="true" style="height:{{height}}">
+      <checkbox-group bindchange="checkboxChange">
+        <label class="weui-cell weui-check__label" wx:for="{{items}}" wx:key="value">
+          <checkbox class="weui-check" checked="{{item.IsSelected}}" value="{{index}}" />
+
+          <view class="weui-cell__hd weui-check__hd_in-checkbox">
+            <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.IsSelected}}"></icon>
+            <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.IsSelected}}"></icon>
+          </view>
+          <view class="weui-cell__bd">{{item.Description}}</view>
+        </label>
+      </checkbox-group>
+    </scroll-view>
+    <view class='sureQuery'>
+      <button class="weui-btn" type="default" bindtap="btnCancel">取消</button>
+      <button class="weui-btn" type="default" style="color:#1AAD19" bindtap="btnOk">确定</button>
+    </view>
+  </view>
+</view>

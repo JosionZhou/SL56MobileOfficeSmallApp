@@ -16,7 +16,10 @@
     "pages/integrate/examinedetail",
     "pages/integrate/record",
     "pages/integrate/examineagree",
-    "pages/integrate/examinereject"
+    "pages/integrate/examinereject",
+    "pages/customerpricecalc/index",
+    "pages/customerpricecalc/priceresult",
+    "pages/customerpricecalc/priceDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",
