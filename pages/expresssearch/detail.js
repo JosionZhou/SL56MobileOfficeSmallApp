@@ -192,6 +192,14 @@ Page({
         if (res.statusCode == 200) {
           wx.openDocument({
             filePath: res.tempFilePath,
+            //图片类型用openDocument会打开失败，在失败方法里用previewImage打开即可
+            fail:function(e){
+              console.log(e);
+              wx.previewImage({
+                urls: [res.tempFilePath],
+                current:res.tempFilePath
+              })
+            }
           })
         } else {
           wx.showToast({
