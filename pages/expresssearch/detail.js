@@ -56,12 +56,12 @@ Page({
            }
            rules.push(r);
          }
-         for (var i = 0; i < res.SelectedTemplateRules.length; i++) {
+         /*for (var i = 0; i < res.SelectedTemplateRules.length; i++) {
            var r = {
              Description: res.SelectedTemplateRules[i].Description
            }
            rules.push(r);
-         }
+         }*/
          var showItems = new Array();
          var numbers = new Array();
          for (var i = 0; i < res.Contacts.length; i++) {
