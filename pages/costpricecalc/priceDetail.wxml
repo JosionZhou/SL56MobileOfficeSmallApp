@@ -33,10 +33,6 @@
               <view class="weui-cell__ft">{{item.ChargeableWeight}}</view>
             </view>
             <view class="weui-cell">
-              <view class="weui-cell__bd">体积除数</view>
-              <view class="weui-cell__ft">{{item.Volumetric}}</view>
-            </view>
-            <view class="weui-cell">
               <view class="weui-cell__bd">含油参价</view>
               <view class="weui-cell__ft">{{item.UnitPrice}}</view>
             </view>

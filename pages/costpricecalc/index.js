@@ -9,7 +9,6 @@ Page({
     cities:[],
     cityId:null,
     customerText:"",
-    customerId:null,
     filtCountryList: {},
     modeofTransportList: {},
     modeofTransportNameList: {},
@@ -243,8 +242,7 @@ Page({
         ActualWeight: e.detail.value.weight,
         Piece:e.detail.value.piece,
         PostalCode: e.detail.value.postalcode,
-        SelectRuleIds: main.data.SelectRuleIds,
-        CustomerId:main.data.customerId
+        SelectRuleIds: main.data.SelectRuleIds
       },
       success: function (res) {
         main.setData({
@@ -321,16 +319,6 @@ Page({
     }
     app.NetRequest(data);
   },
-  selectCustomer:function(e){
-    var customerText = e.currentTarget.dataset["text"];
-    var customerId = e.currentTarget.dataset["value"];
-    var main = this;
-    this.setData({
-      customerText: customerText,
-      customerId: customerId,
-      hideCustomer:true
-    });
-  },
   cityChange:function(e){
     this.setData({
       cityIndex: e.detail.value,
@@ -390,7 +378,7 @@ Page({
     var rules = this.data.rules;
     var text="";
     for (var i = 0; i < selectedRuleIndexs.length;i++){
-      text = (text + rules[selectedRuleIndexs[i]].Description+",");
+      text = (text + rules[selectedRuleIndexs[i]].AttributeName+",");
       this.data.SelectRuleIds.push(rules[selectedRuleIndexs[i]].ObjectId);
     }
     this.setData({
