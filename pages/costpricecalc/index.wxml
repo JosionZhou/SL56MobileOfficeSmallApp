@@ -1,0 +1,130 @@
+<view class='page'>
+  <view class='page__bd'>
+  <view class="weui-toptips weui-toptips_warn" wx:if="{{showErrorTips}}">{{errorTips}}</view>
+    <form bindsubmit='search'>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input {{countryWarning==true?'weui-cell_warn':''}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label">国家</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-search-bar" style="background-color:white;padding:8px 0px;border-bottom:none">
+              <view class="weui-search-bar__form" style="border:none">
+                <view class="weui-search-bar__box" style="padding:0px">
+                  <input type="text" name="country" class="weui-search-bar__input" placeholder="请输入国家" value="{{countryText}}" bindinput="inputCountry" style="font-size:17px" />
+                </view>
+              </view>
+            </view>
+            <view class="weui-cells searchbar-result" style="position:absolute;z-index:999;margin-top:0px;background-color:#efeff4;width:60%;" wx:if="{{filtCountryList.length > 0 && countryText.length>0 && !hideCP}}">
+              <navigator class="weui-cell" hover-class="weui-cell_active" wx:for="{{filtCountryList}}">
+                <view class="weui-cell__bd" bindtap='selectCountry' data-text='{{item.Name}}' data-value='{{item.Id}}'>
+                  <view>{{item.Name}}</view>
+                </view>
+              </navigator>
+            </view>
+          </view>
+          <view class="weui-cell__ft" wx:if="{{countryWarning}}">
+            <icon type="warn" size="23" color="#E64340"></icon>
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_input {{weightWarning==true?'weui-cell_warn':''}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label">重量</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" name='weight' placeholder="请输入货物重量" />
+          </view>
+          <view class="weui-cell__ft" wx:if="{{weightWarning}}">
+            <icon type="warn" size="23" color="#E64340"></icon>
+          </view>
+        </view>
+
+        <view class="weui-cell weui-cell_input weui-cell_vcode" hidden='{{hideDetail}}'>
+          <view class="weui-cell__hd">
+            <view class="weui-label">件数</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" name='piece' placeholder="请输入件数" type="number" value="1" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input weui-cell_vcode" hidden='{{hideDetail}}'>
+          <view class="weui-cell__hd">
+            <view class="weui-label">城市</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker name='cityId' bindchange="cityChange" value="cityIndex" range="{{cityNames}}">
+              <view class="weui-select weui-select_in-select-after">{{cities[cityIndex].ChineseName}}</view>
+            </picker>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input weui-cell_vcode" hidden='{{hideDetail}}'>
+          <view class="weui-cell__hd">
+            <view class="weui-label">邮编</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" name='postalcode' placeholder="请输入目的地邮编" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input weui-cell_vcode" hidden='{{hideDetail}}'>
+          <view class="weui-cell__hd">
+            <view class="weui-label">申报价值</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" name='declaredvalue' placeholder="请输入货物申报价值(单位：$)" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input weui-cell_vcode" hidden='{{hideDetail}}'>
+          <view class="weui-cell__hd">
+            <view class="weui-label">选项</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" disabled="true" placeholder="请选择规则" value="{{ruleText}}" style="color:#FF6666" />
+          </view>
+          <view style="padding:10px;color:#004ea2" hover-class="hv" bindtap="showRules">
+              <view>...</view>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_select" hidden='{{hideDetail}}'>
+          <view class="weui-cell__hd weui-cell__hd_in-select-after">
+            <view class="weui-label">渠道</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker bindchange="modeofTransportChange" value="{{modeofTransportIndex}}" range="{{modeofTransportNameList}}">
+              <view class="weui-select weui-select_in-select-after">{{modeofTransportList[modeofTransportIndex].Name}}</view>
+            </picker>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_link" bindtap='showDetail'>
+          <view class="weui-cell__bd">{{ctrlText}}</view>
+        </view>
+        <view class="weui-cells__title">货物类型</view>
+        <view class="weui-cells weui-cells_after-title">
+          <radio-group bindchange="typeChange" name='productcode'>
+            <label class="weui-cell weui-check__label" wx:for="{{productTypes}}" wx:key="value">
+              <radio class="weui-check" value="{{item.value}}" checked="{{item.checked}}" />
+
+              <view class="weui-cell__bd">{{item.name}}</view>
+              <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{item.checked}}">
+                <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+              </view>
+            </label>
+          </radio-group>
+        </view>
+      </view>
+      <view class="weui-btn-area">
+        <button class='weui-btn' type='primary' form-type='submit' loading="{{isLoading}}" style="background:#004ea2">查询</button>
+      </view>
+      <checkboxlistdialog isShowDialog="{{showRules}}" height="{{dialogHeight}}" items="{{rules}}" bind:checkItem="checkItem" bind:cancel="cancelRules" bind:ok="confirmRules"></checkboxlistdialog>
+
+
+
+    </form>
+  </view>
+  <!-- <view class="weui-footer">
+     <view class="weui-footer__links">
+          <navigator url="" class="weui-footer__link">升蓝物流</navigator>
+      </view> 
+    <view class="weui-footer__text">Copyright © 2004-2017 升蓝物流</view>
+  </view> -->
+</view>

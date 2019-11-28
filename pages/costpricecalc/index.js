@@ -8,8 +8,6 @@ Page({
     countryList: {},
     cities:[],
     cityId:null,
-    cityNames:[],
-    customers:{},
     customerText:"",
     customerId:null,
     filtCountryList: {},
@@ -235,7 +233,7 @@ Page({
     });
     var main = this;
     var data = {
-      url: app.globalData.serverAddress + '/Calculation/Calculate1',
+      url: app.globalData.serverAddress + '/Calculation/Calculate2',
       data: {
         ProductType: e.detail.value.productcode,
         CountryId: main.data.countryId,
@@ -296,36 +294,6 @@ Page({
         filtCountryList: filtCountryList,
         hideCP: false
       });
-    }
-  },
-  inputCustomer:function(e){
-    var customer=e.detail.value;
-    this.setData({
-      customerText:customer
-    });
-    if (customer == "") {
-      this.setData({
-        customers: {}
-      });
-    } else {
-      if(customer.length<=2){
-        this.setData({
-          hideCustomer:true
-        });
-        return;
-      }
-      var main=this;
-      var data = {
-        url: app.globalData.serverAddress + '/Calculation/FiltCustomer?key='+customer,
-        method: "GET",
-        success: function (res) {
-          main.setData({
-            customers: res,
-            hideCustomer: false
-          });
-        }
-      }
-      app.NetRequest(data);
     }
   },
   selectCountry: function (e) {
@@ -422,7 +390,7 @@ Page({
     var rules = this.data.rules;
     var text="";
     for (var i = 0; i < selectedRuleIndexs.length;i++){
-      text = (text + rules[selectedRuleIndexs[i]].AttributeName+",");
+      text = (text + rules[selectedRuleIndexs[i]].Description+",");
       this.data.SelectRuleIds.push(rules[selectedRuleIndexs[i]].ObjectId);
     }
     this.setData({

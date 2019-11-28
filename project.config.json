@@ -12,6 +12,8 @@
 	"appid": "wx3eb7651e35ad1127",
 	"projectname": "SL56MobileOfficeSmallApp",
 	"isGameTourist": false,
+	"simulatorType": "wechat",
+	"simulatorPluginLibVersion": {},
 	"condition": {
 		"search": {
 			"current": -1,

@@ -19,7 +19,8 @@ Page({
       // { name: "审批", image: "stamp", showbadge: false, event: "examine" },
       // { name: "申请记录", image: "history", showbadge: false, event: "record" },
       { name: "岗位退出", image: "exitstation", showbadge: false, event: "exitStation" },
-      { name: "外价计算", image: "calculateprice", showbadge: false, event: "customerPrice" }
+      { name: "外价计算", image: "calculateprice", showbadge: false, event: "customerPrice" },
+      { name: "内价计算", image: "costpricecalc", showbadge: false, event: "costPrice" }
     ],
     count: 0
   },
@@ -220,6 +221,11 @@ Page({
   customerPrice: function () {
     wx.navigateTo({
       url: '/pages/customerpricecalc/index',
+    })
+  },
+  costPrice: function () {
+    wx.navigateTo({
+      url: '/pages/costpricecalc/index',
     })
   }
 })

@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "内价计算",
+  "usingComponents":{
+    "checkboxlistdialog":"/pages/components/checkboxlistdialog"
+  }
+}

@@ -19,7 +19,10 @@
     "pages/integrate/examinereject",
     "pages/customerpricecalc/index",
     "pages/customerpricecalc/priceresult",
-    "pages/customerpricecalc/priceDetail"
+    "pages/customerpricecalc/priceDetail",
+    "pages/costpricecalc/index",
+    "pages/costpricecalc/priceresult",
+    "pages/costpricecalc/priceDetail"
   ],
   "window": {
     "backgroundTextStyle": "light",
@@ -46,5 +49,6 @@
         "selectedIconPath": "image/my-selected.png"
       }
     ]
-  }
+  },
+  "sitemapLocation": "sitemap.json"
 }

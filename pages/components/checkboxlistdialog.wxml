@@ -11,7 +11,7 @@
             <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.IsSelected}}"></icon>
             <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.IsSelected}}"></icon>
           </view>
-          <view class="weui-cell__bd">{{item.Description}}</view>
+          <view class="weui-cell__bd">{{item.AttributeName}}</view>
         </label>
       </checkbox-group>
     </scroll-view>

@@ -1,0 +1,23 @@
+
+.weui-navbar__title
+{
+  font-size: 12px;
+}
+.weui-navbar__item
+{
+  padding: 5px 0;
+}
+.weui-tab__panel
+{
+  padding-top: 30px;
+}
+.weui-article__h3{
+  font-size:14px
+}
+.weui-navbar__slider {
+  background-color: #004ea2;
+}
+
+.weui-navbar__item.weui-bar__item_on {
+  color: #004ea2;
+}
