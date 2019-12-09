@@ -17,6 +17,21 @@ Page({
    */
   onLoad: function (options) {
     var data = app.priceResult;
+    for (var i = 0; i < data.length; i++) {
+      data[i].bg = "";
+      /*不出货 可分货 */
+      if(data[i].IsShipment==false && data[i].IsSortation==true){
+        data[i].bg="background-color:red";
+      }
+      /*可出货 不分货 */
+      if (data[i].IsShipment ==true && data[i].IsSortation == false) {
+        data[i].bg = "background-color:yellow";
+      }
+      /*不出货 不分货 */
+      if (data[i].IsShipment == false && data[i].IsSortation == false){
+        data[i].bg = "background-image: linear-gradient(to right, yellow,red)";
+      }
+    }
     this.setData({
       result: data
     });

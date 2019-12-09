@@ -1,6 +1,6 @@
 <view class="page">
   <view class="page__bd">
-    <view class="weui-cells weui-cells_after-title" wx:for="{{result}}" wx:for-item="item" data-index="{{index}}" bindtap='clickItem'>
+    <view class="weui-cells weui-cells_after-title" wx:for="{{result}}" wx:for-item="item" data-index="{{index}}" bindtap='clickItem' style="{{item.bg}}">
 
       <view url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__bd" style="flex:2;font:13px">
