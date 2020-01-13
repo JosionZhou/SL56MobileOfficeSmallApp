@@ -148,9 +148,13 @@
           <view class="weui-cells weui-cells_after-title" wx:for="{{item.TrackInfos}}" wx:for-item="track">
             <view class="weui-cell weui-cell_access">
               <view class="weui-cell__bd" style="font-size:15px">
-                <view>{{track.Date}}</view>
-                <view class="sub_font_color">{{track.Location}}</view>
-                <view class="sub_font_color">{{track.Activity}}</view>
+                <view>时间：<span class="sub_font_color">{{track.ActivityDate}}</span></view>
+                <view>地 点：<span class="sub_font_color">{{track.Location}}</span></view>
+                <view>状 态：<span class="sub_font_color">{{track.Activity}}</span></view>
+                <view wx:if="{{track.FurtherDetails.length>0}}">详 情：<span class="sub_font_color">{{track.FurtherDetails}}</span></view>
+                <view wx:else>详 情：<span class="sub_font_color">[无]</span></view>
+                <view wx:if="{{track.NextSteps.length>0}}">下一步：<span class="sub_font_color">{{track.NextSteps}}</span></view>
+                <view wx:else>下一步：<span class="sub_font_color">[无]</span></view>
               </view>
             </view>
           </view>
