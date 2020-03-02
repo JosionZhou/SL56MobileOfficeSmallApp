@@ -1,0 +1,42 @@
+<view class="weui-search-bar" hidden="{{hideSearch}}">
+  <view class="weui-search-bar__form">
+    <view class="weui-search-bar__box">
+      <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+      <input type="text" class="weui-search-bar__input" placeholder="输入职员名字" value="{{key}}" bindinput="search" focus="{{searchFocus}}" />
+      <view class="weui-icon-clear" wx:if="{{key.length > 0}}" bindtap="clearInput">
+        <icon type="clear" size="14"></icon>
+      </view>
+    </view>
+  </view>
+</view>
+<view class="weui-cells searchbar-result searchresult"  wx:if="{{showSearchResultView}}">
+  <navigator class="weui-cell" hover-class="weui-cell_active" wx:for="{{searchResult}}">
+    <view class="weui-cell__bd" bindtap='selectEmployee' data-name='{{item.Name}}' data-id='{{item.Id}}'>
+      <view>{{item.Name}}</view>
+    </view>
+  </navigator>
+</view>
+
+
+<view class="weui-cell weui-cell_select stationSt">
+  <view class="weui-cell__hd weui-cell__hd_in-select-after">
+    <view class="weui-label">岗位</view>
+  </view>
+  <view class="weui-cell__bd">
+    <picker bindchange="stationChange" value="{{stationIndex}}" range="{{stationNames}}">
+      <view class="weui-select weui-select_in-select-after">{{stations[stationIndex].Name}}</view>
+    </picker>
+  </view>
+</view>
+
+<view class="weui-cells weui-cells_after-title" wx:for="{{stationMembers}}">
+  <view class="weui-cell">
+    <view class="weui-cell__bd number-ft">{{item.Name}}</view>
+    <button class="weui-btn" plain="true" bindtap="removeMember" data-id="{{item.Id}}">移除</button>
+  </view>
+</view>
+  <!-- <button class="addmember" bindtap="" hover-class="addmember-hover" style="left:{{middleWidth-25}}px;width:{{circleBtnWidth}}px;height:{{circleBtnWidth}}px"> -->
+  <button class="addmember" hover-class="addmember-hover" bindtap="addMember" style="left:{{middleWidth-(circleBtnWidth/2)}}px;width:{{circleBtnWidth}}px;height:{{circleBtnWidth}}px; border-radius: 100px">
+  <image class="weui-grid__icon " src="/image/add.png" style="left:{{middleWidth-(circleBtnWidth/2)}}px;width:{{circleBtnWidth}}px;height:{{circleBtnWidth}}px; border-radius: 100px" />
+  </button>
+<!-- </button> -->

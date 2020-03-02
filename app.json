@@ -22,7 +22,8 @@
     "pages/customerpricecalc/priceDetail",
     "pages/costpricecalc/index",
     "pages/costpricecalc/priceresult",
-    "pages/costpricecalc/priceDetail"
+    "pages/costpricecalc/priceDetail",
+    "pages/managerstation/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

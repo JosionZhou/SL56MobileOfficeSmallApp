@@ -20,7 +20,8 @@ Page({
       // { name: "申请记录", image: "history", showbadge: false, event: "record" },
       { name: "岗位退出", image: "exitstation", showbadge: false, event: "exitStation" },
       { name: "外价计算", image: "calculateprice", showbadge: false, event: "customerPrice" },
-      { name: "内价计算", image: "costpricecalc", showbadge: false, event: "costPrice" }
+      { name: "内价计算", image: "costpricecalc", showbadge: false, event: "costPrice" },
+      { name: "岗位管理", image: "costpricecalc", showbadge: false, event: "managerStation" }
     ],
     count: 0
   },
@@ -227,5 +228,35 @@ Page({
     wx.navigateTo({
       url: '/pages/costpricecalc/index',
     })
+  },
+  managerStation:function(){
+    var data = {
+      url: app.globalData.serverAddress + '/Station/GetStations',
+      method: "GET",
+      success: function (res) {
+        if (res == null) {
+          wx.showModal({
+            title: '提示',
+            content: '所属岗位无权限修改成员',
+            showCancel: false,
+            cancelText: '',
+            cancelColor: '',
+            confirmText: '确定',
+            confirmColor: '',
+            success: function (res) { },
+            fail: function (res) { },
+            complete: function (res) { },
+          });
+          return;
+        }
+        else{
+          app.stations=res;
+          wx.navigateTo({
+            url: '/pages/managerstation/index',
+          })
+        }
+      }
+    }
+    app.NetRequest(data);
   }
 })
