@@ -99,19 +99,9 @@
               <view class="weui-cell__ft" style="font-size:13px">{{item.InnerRemark}}</view>
             </view>
             <view class="weui-cell">
-              <view class="weui-cell__bd">已选规则</view>
-              <view class="weui-cell__ft" style="font-size:13px" wx:for="{{rules}}" wx:for-item="rule">
-
-                <label class="weui-agree">
-                  <view class="weui-agree__text">
-                    <checkbox class="weui-agree__checkbox" id="weuiAgree" value="agree" checked="true" />
-                    <view class="weui-agree__checkbox-icon">
-                      <icon class="weui-agree__checkbox-icon-check" type="success_no_circle" size="9" wx:if="true"></icon>
-                    </view>
-                    {{rule.Description}}
-                  </view>
-                </label>
-              </view>
+              <view class="weui-cell__bd">货物属性</view>
+              <view class="weui-cell__ft" style="font-size:13px">{{rules}}</view>
+              
             </view>
           </view>
         </view>

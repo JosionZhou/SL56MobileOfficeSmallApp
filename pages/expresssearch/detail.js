@@ -14,7 +14,7 @@ Page({
     width:0,
     palletno:"",
     contacts:[],
-    rules:[],
+    rules:"",
     customerPhoneStrs: [],
     customerPhoneNumbers: []
   },
@@ -51,10 +51,8 @@ Page({
          wx.hideLoading();
          var rules=new Array();
          for (var i = 0; i < res.SelectedRules.length;i++){
-           var r={
-             Description: res.SelectedRules[i].Description
-           }
-           rules.push(r);
+          
+           rules.push(res.SelectedRules[i].AttributeName);
          }
          /*for (var i = 0; i < res.SelectedTemplateRules.length; i++) {
            var r = {
@@ -70,7 +68,7 @@ Page({
          }
          main.setData({
            item:res,
-           rules:rules,
+           rules:rules.toString(),
            customerPhoneStrs:showItems,
            customerPhoneNumbers:numbers
          });
