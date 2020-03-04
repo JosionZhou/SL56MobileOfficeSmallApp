@@ -112,6 +112,10 @@ Page({
           that.setData({
             stationMembers:res
           });
+        }else{
+          that.setData({
+            stationMembers: []
+            });
         }
         wx.hideLoading();
       }
@@ -149,6 +153,9 @@ Page({
                 wx.hideLoading();
                 that.getStationMembers();
               }
+            },
+            fail:function(res){
+              wx.hideLoading();
             }
           }
           app.NetRequest(data);
