@@ -53,9 +53,9 @@ App({
     var auth = wx.getStorageSync('ASPAUTH');
     var header;
     if (session_id != null && session_id != "") {
-      header = { 'content-type': 'application/x-www-form-urlencoded', 'Cookie': 'ASP.NET_SessionId=' + session_id + ';sl56Auth=' + auth + ';OpenId=' + this.globalData.openId }
+      header = { 'content-type': 'application/json', 'Cookie': 'ASP.NET_SessionId=' + session_id + ';sl56Auth=' + auth + ';OpenId=' + this.globalData.openId }
     } else {
-      header = { 'content-type': 'application/x-www-form-urlencoded' }
+      header = { 'content-type': 'application/json' }
     }
     this.globalData.header = header;
     wx.request({
