@@ -21,3 +21,6 @@
 .weui-navbar__item.weui-bar__item_on {
   color: #004ea2;
 }
+.chargeFont{
+  font-size: 13px
+}
