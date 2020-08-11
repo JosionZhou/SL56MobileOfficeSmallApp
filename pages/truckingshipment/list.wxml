@@ -1,0 +1,37 @@
+<view>
+  <view class="weui-cells weui-cells_after-title" wx:for="{{truckLoadings}}">
+    <view url="" class="weui-cell weui-cell_access" bindtap="bindConfirmCheck" data-id="{{item.ObjectId}}" data-index="{{index}}">
+      <view class="weui-cell__bd number-ft">出货编号:{{item.ObjectNo}}</view>
+    </view>
+    <navigator url="\index?id={{item.ObjectId}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" data-item="{{item}}" bindtap="tapItem">
+      <view class="weui-cell__bd" style="font-size:13px">
+        <view class="sub_font_color">车牌：{{item.CarNumber}}</view>
+        <view class="sub_font_color">状态：
+          <span class="warning" wx:if="{{item.Status==0}}">未发车</span>
+          <span class="success" wx:else>已发车</span>
+        </view>
+        <view class="sub_font_color">出货时间：{{item.CreateAt}}</view>
+      </view>
+      <view class="weui-cell__ft">
+        <view class="weui-cell__ft weui-cell__ft_in-access price-amount-ft"></view>
+      </view>
+    </navigator>
+  </view>
+  
+    <view>
+      <view class="weui-loadmore" hidden="{{!isShowLoading}}">
+        <view class="weui-loading"></view>
+        <view class="weui-loadmore__tips">正在加载</view>
+      </view>
+      <view class="weui-loadmore weui-loadmore_line" hidden="{{!isShowNoDataMark}}">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无更多数据</view>
+      </view>
+    </view>
+    
+  <view class="weui-btn-area">
+    <button class="weui-btn btnAdd" type="primary" bindtap="addTruckLoading">
+      <!-- <image  src="/image/add.png"></image> -->
+      <span>+</span>
+    </button>
+  </view>
+</view>

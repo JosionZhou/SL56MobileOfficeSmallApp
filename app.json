@@ -23,7 +23,9 @@
     "pages/costpricecalc/index",
     "pages/costpricecalc/priceresult",
     "pages/costpricecalc/priceDetail",
-    "pages/managerstation/index"
+    "pages/managerstation/index",
+    "pages/truckingshipment/index",
+    "pages/truckingshipment/list"
   ],
   "window": {
     "backgroundTextStyle": "light",

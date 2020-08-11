@@ -1,0 +1,92 @@
+<view>
+  <view class="weui-cells__title">出货信息</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell ">
+      <view class="weui-cell__hd ">
+        <view class="weui-label">出货编号</view>
+      </view>
+      <view class="weui-cell__bd">{{truckLoadingNo}}</view>
+    </view>
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">出货到</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="truckLoadingTypeChange" value="{{truckLoadingTypeIndex}}" range="{{truckLoadingTypes}}" disabled="{{!isNew}}">
+          <view class="weui-select weui-select_in-select-after">{{truckLoadingTypes[truckLoadingTypeIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_select" wx:if="{{truckLoadingTypeIndex==1}}">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">分公司</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="companyChange" value="{{companyIndex}}" range="{{companyNames}}" disabled="{{!isNew}}">
+          <view class="weui-select weui-select_in-select-after">{{companys[companyIndex].ObjectName}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">车牌</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="carChange" value="{{selectedCarIndex}}" range="{{carNumbers}}"  disabled="{{!isNew}}">
+          <view class="weui-select weui-select_in-select-after">{{carNumber}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell ">
+      <view class="weui-cell__hd ">
+        <view class="weui-label">状态</view>
+      </view>
+      <view class="weui-cell__bd success" wx:if="{{status==1}}">已发车</view>
+      <view class="weui-cell__bd warning" wx:else>初始状态</view>
+    </view>
+    <view class="weui-cell weui-cell_switch" wx:if="{{!isNew}}">
+        <view class="weui-cell__bd">显示单号</view>
+        <view class="weui-cell__ft">
+            <switch checked="{{isShowReferenceNumber?'checked':''}}" bindchange="toggleNo" />
+        </view>
+    </view>
+  </view>
+  <!-- <view class="weui-btn-area">
+    <button class="weui-btn" type="primary" bindtap="scanPalletNo">
+      <image class="btn-scan" src="/image/scan.png"></image>
+      <span>扫描板号</span>
+    </button>
+  </view> -->
+  <view class="weui-btn-area"  wx:if="{{isNew}}">
+    <button class="weui-btn btnScan" type="primary" bindtap="scanPalletNo">
+      <image  src="/image/scan.png"></image>
+    </button>
+  </view>
+  <view wx:if="{{!isShowReferenceNumber}}">
+    <view class="weui-cells__title">板号列表<span wx:if="{{isNew}}">（长按可移除）</span></view>
+    <view class="weui-cells weui-cells_after-title" wx:if="{{palletNumbers.length==0}}">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">无板号</view>
+            <view class="weui-cell__ft">待扫描添加板号</view>
+        </view>
+    </view>
+    <view class="weui-cells weui-cells_after-title" wx:else>
+        <view class="weui-cell" wx:for="{{palletNumbers}}" bindlongtap="showRemoveMenu" data-no="{{item}}">
+            <view class="weui-cell__bd">{{item}}</view>
+        </view>
+    </view>
+  </view>
+  <view wx:else>
+    <view class="weui-cells__title">单号列表</view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell" wx:for="{{referenceNumbers}}" data-no="{{item}}">
+            <view class="weui-cell__bd">{{item}}</view>
+        </view>
+    </view>
+  </view>
+  <view class="weui-btn-area" wx:if="{{isNew}}">
+    <button class="weui-btn" type="primary" bindtap="truckingShipment">
+      <span>装车出货</span>
+    </button>
+  </view>
+</view>
