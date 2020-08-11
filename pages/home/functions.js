@@ -21,7 +21,8 @@ Page({
       { name: "岗位退出", image: "exitstation", showbadge: false, event: "exitStation" },
       { name: "外价计算", image: "calculateprice", showbadge: false, event: "customerPrice" },
       { name: "内价计算", image: "costpricecalc", showbadge: false, event: "costPrice" },
-      { name: "岗位管理", image: "costpricecalc", showbadge: false, event: "managerStation" }
+      { name: "岗位管理", image: "costpricecalc", showbadge: false, event: "managerStation" },
+      { name: "装车出货", image: "trucking", showbadge: false, event: "truckingShipment" }
     ],
     count: 0
   },
@@ -258,5 +259,10 @@ Page({
       }
     }
     app.NetRequest(data);
+  },
+  truckingShipment:function(){
+    wx.navigateTo({
+      url: '/pages/truckingshipment/list',
+    });
   }
 })

@@ -42,8 +42,8 @@ App({
   },
   globalData: {
     userInfo: null,
-    // serverAddress: 'http://192.168.0.20:8033/api',
-    // authServerAddress: 'http://192.168.0.20:8032',
+    // serverAddress: 'http://192.168.0.58:8033/api',
+    // authServerAddress: 'http://192.168.0.58:8034',
     serverAddress: 'https://api.sl56.com/api',
     authServerAddress: 'https://www.sl56.com',
   },
