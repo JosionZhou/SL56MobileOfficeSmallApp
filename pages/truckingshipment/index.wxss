@@ -1,6 +1,7 @@
 button[type="primary"] {
   color:#FFFFFF;
   background-color:#33adff;
+  margin: 5px
 }
 .button-hover[type="primary"]{
   color:#FFFFFF;
@@ -14,7 +15,9 @@ button[type="primary"] {
   left: 30%
 }
 .btnScan{
-  right: 15px;
+  right: 0;
+  left: 0;
+  margin: 0 auto !important;
   bottom: 30px;
   width: 60px;
   height: 60px;
@@ -36,4 +39,8 @@ button[type="primary"] {
 }
 .warning{
   color:#e64340
+}
+.tempSave{
+  background-color:#ff8d00;
+  color:#FFFFFF
 }

@@ -21,7 +21,8 @@ Page({
     selectedCarId:null,
     palletNumbers:[],
     isShowReferenceNumber:false,
-    status:0
+    status:0,
+    objectId:null
   },
 
   /**
@@ -33,11 +34,13 @@ Page({
     var truckLoading = app.globalData.TruckLoading;
     if (truckLoading!=null){
       main.setData({
+        objectId:truckLoading.ObjectId,
         truckLoadingNo: truckLoading.ObjectNo,
         carNumber:truckLoading.CarNumber,
         truckLoadingTypeIndex: truckLoading.TruckLoadingType,
         companyId: truckLoading.ToCompanyId,
-        status:truckLoading.Status
+        status:truckLoading.Status,
+        selectedCarId:truckLoading.CarId
       });
       app.globalData.TruckLoading=null;
     }
@@ -159,6 +162,22 @@ Page({
   },
   scanPalletNo:function(e){
     var main=this;
+    if (this.data.truckLoadingTypeIndex == 1 && this.data.companyId == null) {
+      wx.showModal({
+        title: '提示',
+        content: '请选择分公司',
+        showCancel: false
+      });
+      return;
+    }
+    if (this.data.selectedCarId == null) {
+      wx.showModal({
+        title: '提示',
+        content: '请选择车牌号',
+        showCancel: false
+      });
+      return;
+    }
     wx.scanCode({
       onlyFromCamera: true,
       success: function (res) {
@@ -174,6 +193,7 @@ Page({
               main.setData({
                 palletNumbers:palletNumbers
               });
+              main.truckingShipment(true);
             }else{
               wx.showToast({
                 title: '板号已存在',
@@ -200,7 +220,7 @@ Page({
   },
   showRemoveMenu: function (e) {
     var main=this;
-    if(!this.data.isNew){
+    if(!this.data.isNew && this.data.status==1){
       return;
     }
     wx.showActionSheet({
@@ -210,16 +230,29 @@ Page({
         if (!res.cancel && res.tapIndex==0) {
           var tapNo = e.currentTarget.dataset.no;
           var palletNumbers = main.data.palletNumbers;
+          if(palletNumbers.length==1){
+            wx.showModal({
+              title: '操作失败',
+              content: '板号列表不能为空 \n 请添加其他板号后再删除',
+              showCancel:false
+            });
+            return;
+          }
           palletNumbers.splice(palletNumbers.indexOf(tapNo),1);
           main.setData({
             palletNumbers:palletNumbers
           });
+          main.postTruckloading(true);
         }
       }
     });
   },
-  truckingShipment:function(){
+  truckingShipment:function(e){
     var main=this;
+    var isTempSave=false;
+    if(e==true){
+      isTempSave=true;
+    }
     if(this.data.truckLoadingTypeIndex==1 && this.data.companyId==null){
       wx.showModal({
         title: '提示',
@@ -244,53 +277,75 @@ Page({
       });
       return;
     }
-    wx.showModal({
-      title: '提示',
-      content: '确认出货吗？\n 出货后板号将不可修改！',
-      success:function(res){
-        if(res.confirm){
-          wx.showLoading({
-            title: '请稍后',
-          });
-          var data = {
-            url: app.globalData.serverAddress + '/TruckingShipment/TruckLoading',
-            type: 'POST',
-            data: {
-              truckLoadingType: main.data.truckLoadingTypeIndex,
-              toCompanyId: main.data.companyId,
-              palletizedNos: main.data.palletNumbers.toString(),
-              carId:main.data.selectedCarId
-            },
-            success: function (res) {
-              wx.hideLoading();
-              if (res.Success) {
-                main.setData({
-                  truckLoadingNo: res.Message,
-                  isNew: false,
-                  status: 1
-                });
-              } else {
-                wx.showModal({
-                  title: '错误',
-                  content: res.Message,
-                  showCancel: false
-                });
-              }
-            },
-            fail:function(res){
-              wx.hideLoading();
-              console.log(res);
-              wx.showModal({
-                title: '操作失败',
-                content: res.data.message + "：" + res.data.exceptionMessage,
-                showCancel:false
-              })
-            }
+    if(!isTempSave){
+      wx.showModal({
+        title: '提示',
+        content: '确认出货吗？\n 出货后板号将不可修改！',
+        success:function(res){
+          if(res.confirm){
+            main.postTruckloading(false);
           }
-          app.NetRequest(data);
         }
-      }
+      });
+    }else{
+      main.postTruckloading(true);
+    }
+  },
+  postTruckloading: function (isTempSave){
+    var main=this;
+    wx.showLoading({
+      title: '请稍后',
     });
+    var data = {
+      url: app.globalData.serverAddress + '/TruckingShipment/TruckLoading',
+      type: 'POST',
+      data: {
+        truckLoadingType: main.data.truckLoadingTypeIndex,
+        toCompanyId: main.data.companyId,
+        palletizedNos: main.data.palletNumbers.toString(),
+        carId: main.data.selectedCarId,
+        objectId: main.data.objectId,
+        isTempSave: isTempSave
+      },
+      success: function (res) {
+        wx.hideLoading();
+        if (res.Success) {
+          var status=0;
+          if(!isTempSave){
+            status=1;
+          }
+          main.setData({
+            truckLoadingNo: res.Message,
+            isNew: false,
+            status: status,
+            objectId:res.ObjectId
+          });
+          if(!isTempSave){
+            wx.showModal({
+              title: '提示',
+              content: '出货成功！',
+              showCancel:false
+            });
+          }
+        } else {
+          wx.showModal({
+            title: '错误',
+            content: res.Message,
+            showCancel: false
+          });
+        }
+      },
+      fail: function (res) {
+        wx.hideLoading();
+        console.log(res);
+        wx.showModal({
+          title: '操作失败',
+          content: res.data.message + "：" + res.data.exceptionMessage,
+          showCancel: false
+        })
+      }
+    }
+    app.NetRequest(data);
   },
   truckLoadingTypeChange: function (e) {
     this.setData({

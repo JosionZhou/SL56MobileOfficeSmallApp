@@ -12,7 +12,7 @@
         <view class="weui-label">出货到</view>
       </view>
       <view class="weui-cell__bd">
-        <picker bindchange="truckLoadingTypeChange" value="{{truckLoadingTypeIndex}}" range="{{truckLoadingTypes}}" disabled="{{!isNew}}">
+        <picker bindchange="truckLoadingTypeChange" value="{{truckLoadingTypeIndex}}" range="{{truckLoadingTypes}}" disabled="{{status==1}}">
           <view class="weui-select weui-select_in-select-after">{{truckLoadingTypes[truckLoadingTypeIndex]}}</view>
         </picker>
       </view>
@@ -22,7 +22,7 @@
         <view class="weui-label">分公司</view>
       </view>
       <view class="weui-cell__bd">
-        <picker bindchange="companyChange" value="{{companyIndex}}" range="{{companyNames}}" disabled="{{!isNew}}">
+        <picker bindchange="companyChange" value="{{companyIndex}}" range="{{companyNames}}" disabled="{{status==1}}">
           <view class="weui-select weui-select_in-select-after">{{companys[companyIndex].ObjectName}}</view>
         </picker>
       </view>
@@ -32,7 +32,7 @@
         <view class="weui-label">车牌</view>
       </view>
       <view class="weui-cell__bd">
-        <picker bindchange="carChange" value="{{selectedCarIndex}}" range="{{carNumbers}}"  disabled="{{!isNew}}">
+        <picker bindchange="carChange" value="{{selectedCarIndex}}" range="{{carNumbers}}"  disabled="{{status==1}}">
           <view class="weui-select weui-select_in-select-after">{{carNumber}}</view>
         </picker>
       </view>
@@ -44,7 +44,7 @@
       <view class="weui-cell__bd success" wx:if="{{status==1}}">已发车</view>
       <view class="weui-cell__bd warning" wx:else>初始状态</view>
     </view>
-    <view class="weui-cell weui-cell_switch" wx:if="{{!isNew}}">
+    <view class="weui-cell weui-cell_switch" wx:if="{{!isNew && status==1}}">
         <view class="weui-cell__bd">显示单号</view>
         <view class="weui-cell__ft">
             <switch checked="{{isShowReferenceNumber?'checked':''}}" bindchange="toggleNo" />
@@ -57,13 +57,22 @@
       <span>扫描板号</span>
     </button>
   </view> -->
-  <view class="weui-btn-area"  wx:if="{{isNew}}">
+  <view class="weui-btn-area"  wx:if="{{isNew || status==0}}">
     <button class="weui-btn btnScan" type="primary" bindtap="scanPalletNo">
       <image  src="/image/scan.png"></image>
     </button>
   </view>
+  <view class="weui-btn-area" wx:if="{{isNew || status==0}}">
+    <view class="weui-flex">
+      <view class="weui-flex__item">
+        <button class="weui-btn" type="primary" bindtap="truckingShipment">
+          <span>装车出货</span>
+        </button>
+      </view>
+    </view>
+  </view>
   <view wx:if="{{!isShowReferenceNumber}}">
-    <view class="weui-cells__title">板号列表<span wx:if="{{isNew}}">（长按可移除）</span></view>
+    <view class="weui-cells__title">板号列表<span wx:if="{{isNew || status==0}}">（长按可移除）</span></view>
     <view class="weui-cells weui-cells_after-title" wx:if="{{palletNumbers.length==0}}">
         <view class="weui-cell">
             <view class="weui-cell__bd">无板号</view>
@@ -83,10 +92,5 @@
             <view class="weui-cell__bd">{{item}}</view>
         </view>
     </view>
-  </view>
-  <view class="weui-btn-area" wx:if="{{isNew}}">
-    <button class="weui-btn" type="primary" bindtap="truckingShipment">
-      <span>装车出货</span>
-    </button>
   </view>
 </view>

@@ -34,7 +34,9 @@ button[type="primary"] {
   left: 30%
 }
 .btnAdd{
-  right: 15px;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
   bottom: 30px;
   width: 60px;
   height: 60px;
