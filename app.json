@@ -25,7 +25,8 @@
     "pages/costpricecalc/priceDetail",
     "pages/managerstation/index",
     "pages/truckingshipment/index",
-    "pages/truckingshipment/list"
+    "pages/truckingshipment/list",
+    "pages/expresssearch/addproblem"
   ],
   "window": {
     "backgroundTextStyle": "light",

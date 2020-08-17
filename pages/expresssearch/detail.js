@@ -16,7 +16,8 @@ Page({
     contacts:[],
     rules:"",
     customerPhoneStrs: [],
-    customerPhoneNumbers: []
+    customerPhoneNumbers: [],
+    id:null
   },
 
   /**
@@ -40,6 +41,7 @@ Page({
       mask:true
     });
      var id = options.id
+     this.data.id=id;
      var main=this;
      var data = {
        url: app.globalData.serverAddress + '/Express/Detail',
@@ -218,6 +220,11 @@ Page({
   bindPickerChange: function (e) {
     wx.makePhoneCall({
       phoneNumber: this.data.customerPhoneNumbers[e.detail.value]
+    })
+  },
+  addProblem:function(e){
+    wx.navigateTo({
+      url: '/pages/expresssearch/addproblem?id='+this.data.id,
     })
   }
 })

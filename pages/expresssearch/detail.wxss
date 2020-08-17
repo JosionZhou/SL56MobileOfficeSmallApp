@@ -1,6 +1,6 @@
 .weui-navbar__title
 {
-  font-size: 12px;
+  font-size: 14px;
 }
 .weui-navbar__item
 {
@@ -8,7 +8,7 @@
 }
 .weui-tab__panel
 {
-  padding-top: 30px;
+  padding-top: 40px;
 }
 .sub_font_color{
   color: #999999
@@ -41,4 +41,24 @@ button[plain]{
 .button-hover[plain]{
   color: white;
   background-color: #488aff
+}
+.weui-navbar{
+  height:40px
+}
+.btnAdd{
+  background-color: #488aff;
+  right: 0;
+  left: 0;
+  margin: 0 auto;
+  bottom: 30px;
+  width: 60px;
+  height: 60px;
+  position: fixed;
+  border-radius: 100px;
+  padding: 0;
+  box-shadow: 0px 5px 5px 0px #999;
+}
+.btnAdd span{
+  font-size: 50px;
+  line-height: 1.25;
 }

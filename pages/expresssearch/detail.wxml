@@ -175,6 +175,10 @@
             </view>
             <view style="padding-left:15px;padding-right:15px;font-size:15px;color:#999999">{{problem.Remark}}</view>
           </view>
+          
+          <button class="weui-btn btnAdd" type="primary" bindtap="addProblem">
+            <span>+</span>
+          </button>
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 5}}">
           <view class="weui-cells weui-cells_after-title" wx:for="{{item.Attachments}}" wx:for-item="attachment">
@@ -191,5 +195,7 @@
         </view>
       </view>
     </view>
+    <view class="weui-btn-area">
+  </view>
   </view>
 </view>

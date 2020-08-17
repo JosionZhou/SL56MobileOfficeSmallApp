@@ -1,0 +1,29 @@
+<view>
+  <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">问题类型</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="problemChange" value="{{problemIndex}}" range="{{problemNames}}">
+          <view class="weui-select weui-select_in-select-after">{{problems[problemIndex].Description}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cells__title">问题备注</view>
+    <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell">
+            <view class="weui-cell__bd">
+                <textarea class="weui-textarea" placeholder="请输入备注(非必填)" style="height: 4.3em" bindinput="input" />
+            </view>
+        </view>
+    </view>
+    <view class="weui-btn-area">
+    <view class="weui-flex">
+      <view class="weui-flex__item">
+        <button class="weui-btn" type="primary" bindtap="submit">
+          <span>提交</span>
+        </button>
+      </view>
+    </view>
+  </view>
+</view>
