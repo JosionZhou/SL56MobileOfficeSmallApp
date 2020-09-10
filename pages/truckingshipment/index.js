@@ -189,11 +189,7 @@ Page({
             var palletNumbers = main.data.palletNumbers;
             if(palletNumbers.indexOf(result)==-1)
             {
-              palletNumbers.push(result);
-              main.setData({
-                palletNumbers:palletNumbers
-              });
-              main.truckingShipment(true);
+              main.truckingShipment(true,result);
             }else{
               wx.showToast({
                 title: '板号已存在',
@@ -247,7 +243,7 @@ Page({
       }
     });
   },
-  truckingShipment:function(e){
+  truckingShipment:function(e,palletNo){
     var main=this;
     var isTempSave=false;
     if(e==true){
@@ -269,7 +265,7 @@ Page({
       });
       return;
     }
-    if(this.data.palletNumbers.length==0){
+    if(!isTempSave && this.data.palletNumbers.length==0){
       wx.showModal({
         title: '提示',
         content: '请扫描添加板号',
@@ -288,11 +284,18 @@ Page({
         }
       });
     }else{
-      main.postTruckloading(true);
+      main.postTruckloading(true,palletNo);
     }
   },
-  postTruckloading: function (isTempSave){
+  postTruckloading: function (isTempSave,palletNo){
     var main=this;
+    var tempPalletNos = new Array();
+    for (var i = 0; i < main.data.palletNumbers.length;i++){
+      tempPalletNos.push(main.data.palletNumbers[i]);
+    }
+    if(palletNo!=null && palletNo.length>0){
+      tempPalletNos.push(palletNo);
+    }
     wx.showLoading({
       title: '请稍后',
     });
@@ -302,7 +305,7 @@ Page({
       data: {
         truckLoadingType: main.data.truckLoadingTypeIndex,
         toCompanyId: main.data.companyId,
-        palletizedNos: main.data.palletNumbers.toString(),
+        palletizedNos: tempPalletNos.toString(),
         carId: main.data.selectedCarId,
         objectId: main.data.objectId,
         isTempSave: isTempSave
@@ -318,7 +321,8 @@ Page({
             truckLoadingNo: res.Message,
             isNew: false,
             status: status,
-            objectId:res.ObjectId
+            objectId:res.ObjectId,
+            palletNumbers: tempPalletNos
           });
           if(!isTempSave){
             wx.showModal({
