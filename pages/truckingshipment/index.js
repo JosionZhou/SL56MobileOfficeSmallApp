@@ -22,7 +22,9 @@ Page({
     palletNumbers:[],
     isShowReferenceNumber:false,
     status:0,
-    objectId:null
+    objectId:null,
+    lastChanged:null,
+    truckLoading:null
   },
 
   /**
@@ -30,8 +32,11 @@ Page({
    */
   onLoad: function (options) {
     var main = this;
-    var id = options.id;
-    var truckLoading = app.globalData.TruckLoading;
+    var truckLoading = main.data.truckLoading;
+    if(truckLoading==null)
+    {
+      truckLoading = app.globalData.TruckLoading;
+    }
     if (truckLoading!=null){
       main.setData({
         objectId:truckLoading.ObjectId,
@@ -40,7 +45,9 @@ Page({
         truckLoadingTypeIndex: truckLoading.TruckLoadingType,
         companyId: truckLoading.ToCompanyId,
         status:truckLoading.Status,
-        selectedCarId:truckLoading.CarId
+        selectedCarId:truckLoading.CarId,
+        lastChanged:truckLoading.LastChanged,
+        truckLoading:truckLoading
       });
       app.globalData.TruckLoading=null;
     }
@@ -77,13 +84,13 @@ Page({
         });
       }
     }
-    if(id!=null)
+    if (main.data.objectId!=null)
     {
       var data3={
         url: app.globalData.serverAddress + '/TruckingShipment/GetTruckLoadingDetail',
         method: "GET",
         data:{
-          id:id
+          id: main.data.objectId
         },
         success:function(res){
           var isShowReferenceNumber = res.PalletNos.length==0 || res.PalletNos[0].length==0;
@@ -91,7 +98,10 @@ Page({
           main.setData({
             referenceNumbers:res.ReferenceNumbers,
             palletNumbers:res.PalletNos,
-            isShowReferenceNumber: isShowReferenceNumber
+            isShowReferenceNumber: isShowReferenceNumber,
+            lastChanged:res.LastChanged,
+            isNew:false,
+            status: res.TruckLoadingInfo.Status
           });
         }
       }
@@ -234,11 +244,11 @@ Page({
             });
             return;
           }
-          palletNumbers.splice(palletNumbers.indexOf(tapNo),1);
-          main.setData({
-            palletNumbers:palletNumbers
-          });
-          main.postTruckloading(true);
+          // palletNumbers.splice(palletNumbers.indexOf(tapNo),1);
+          // main.setData({
+          //   palletNumbers:palletNumbers
+          // });
+          main.postTruckloading(2,tapNo);
         }
       }
     });
@@ -279,23 +289,16 @@ Page({
         content: '确认出货吗？\n 出货后板号将不可修改！',
         success:function(res){
           if(res.confirm){
-            main.postTruckloading(false);
+            main.postTruckloading(1);
           }
         }
       });
     }else{
-      main.postTruckloading(true,palletNo);
+      main.postTruckloading(0,palletNo);
     }
   },
-  postTruckloading: function (isTempSave,palletNo){
+  postTruckloading: function (type,palletNo){
     var main=this;
-    var tempPalletNos = new Array();
-    for (var i = 0; i < main.data.palletNumbers.length;i++){
-      tempPalletNos.push(main.data.palletNumbers[i]);
-    }
-    if(palletNo!=null && palletNo.length>0){
-      tempPalletNos.push(palletNo);
-    }
     wx.showLoading({
       title: '请稍后',
     });
@@ -305,26 +308,28 @@ Page({
       data: {
         truckLoadingType: main.data.truckLoadingTypeIndex,
         toCompanyId: main.data.companyId,
-        palletizedNos: tempPalletNos.toString(),
+        palletizedNo: palletNo,
         carId: main.data.selectedCarId,
         objectId: main.data.objectId,
-        isTempSave: isTempSave
+        type: type,
+        lastChanged: main.data.lastChanged
       },
       success: function (res) {
         wx.hideLoading();
+        var status=main.data.status;
+        if(type==1){
+          status=1;
+        }
         if (res.Success) {
-          var status=0;
-          if(!isTempSave){
-            status=1;
-          }
           main.setData({
             truckLoadingNo: res.Message,
             isNew: false,
             status: status,
             objectId:res.ObjectId,
-            palletNumbers: tempPalletNos
+            palletNumbers: res.PalletizeNos,
+            lastChanged:res.LastChanged
           });
-          if(!isTempSave){
+          if(status==1){
             wx.showModal({
               title: '提示',
               content: '出货成功！',
@@ -337,6 +342,9 @@ Page({
             content: res.Message,
             showCancel: false
           });
+          if (res.Message.indexOf("数据已被修改")==0){
+            main.onLoad();
+          }
         }
       },
       fail: function (res) {
