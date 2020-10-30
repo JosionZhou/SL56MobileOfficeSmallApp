@@ -81,6 +81,7 @@
     </view>
     <view class="weui-cells weui-cells_after-title" wx:else>
         <view class="weui-cell" wx:for="{{palletNumbers}}" bindlongtap="showRemoveMenu" data-no="{{item}}">
+            <view class="seqnumber">{{index+1}})</view>
             <view class="weui-cell__bd">{{item}}</view>
         </view>
     </view>
