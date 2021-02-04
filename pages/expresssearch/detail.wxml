@@ -154,11 +154,11 @@
           <view class="weui-cells weui-cells_after-title" wx:for="{{item.AccountReceiveableDetails}}" wx:for-item="charge">
             <view class="weui-cell weui-cell_access">
               <view class="weui-cell__bd" style="font-size:15px">
-                <view>{{charge.ObjectName}}</view>
+                <view>{{charge.AccountTitleName}}</view>
                 <view class="sub_font_color">{{charge.Digest}}</view>
               </view>
               <view class="weui-cell__bd">
-                <view class="weui-cell__ft weui-cell__ft_in-access">{{charge.LocalAmount}} {{charge.Remark}}</view>
+                <view class="weui-cell__ft weui-cell__ft_in-access">{{charge.LocalAmount}}[{{charge.CurrencyName}}]</view>
               </view>
             </view>
           </view>
@@ -183,7 +183,7 @@
         <view class="weui-tab__content" hidden="{{activeIndex != 5}}">
           <view class="weui-cells weui-cells_after-title" wx:for="{{item.Attachments}}" wx:for-item="attachment">
             <view class="weui-cell">
-              <view class="weui-cell__bd">{{attachment.ObjectNo}}.{{attachment.Extension}}</view>
+              <view class="weui-cell__bd">[{{attachment.AttachmentTypeName}}]-{{attachment.ObjectName}}.{{attachment.Extension}} <label class="invalid" wx:if="{{attachment.IsInvalid}}">(已作废)</label> </view>
               <view class="weui-cell__ft ">
                 <button class="weui-btn" data-id="{{attachment.ObjectId}}" style="font-size:13px" plain="true" bindtap="openAttachment">
                   打开
@@ -193,9 +193,23 @@
             <view style="padding-left:15px;padding-right:15px;font-size:15px;color:#999999 ">{{problem.Remark}}</view>
           </view>
         </view>
+
+        <view id="records" class="weui-tab__content" hidden="{{activeIndex != 6}}">
+          <view class="weui-cells weui-cells_after-title" wx:for="{{item.ActionRecords}}" wx:for-item="action">
+            <view class="weui-cell">
+              <view class="weui-cell__bd">{{action.CreateAtString}}</view>
+              <view class="weui-cell__ft ">
+                <label>{{action.CreateByName}}</label>
+              </view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">{{action.ActionContent}} </view>
+            </view>
+          </view>
+      </view>
       </view>
     </view>
-    <view class="weui-btn-area">
-  </view>
+
+
   </view>
 </view>

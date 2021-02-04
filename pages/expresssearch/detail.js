@@ -7,7 +7,7 @@ Page({
    */
   data: {
     item:null,
-    tabs: ["基本信息", "规格", "轨迹","费用","待跟进问题","附件"],
+    tabs: ["基本信息", "规格", "轨迹","费用","问题","附件","操作记录"],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,

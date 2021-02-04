@@ -62,3 +62,16 @@ button[plain]{
   font-size: 50px;
   line-height: 1.25;
 }
+.invalid{
+  color: red;
+  font-size: 12px;
+}
+#records .weui-cell:before {
+  border: none;
+}
+#records .weui-cells:nth-of-type(odd) {
+  background-color:#f3f3f3;
+}
+#records weui-cells:nth-of-type(even) {
+  background-color:white;
+}
