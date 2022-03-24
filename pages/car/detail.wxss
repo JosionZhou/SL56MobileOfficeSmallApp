@@ -1,0 +1,52 @@
+button[type="primary"] {
+  color:#FFFFFF;
+  background-color:#33adff;
+  margin: 5px
+}
+.button-hover[type="primary"]{
+  color:#FFFFFF;
+  background-color:#1aa3ff;
+}
+.btn-scan{
+  width: 20px;
+  height: 20px;
+  position: absolute;
+  top: 12px;
+  left: 30%
+}
+.btnScan{
+  right: 0;
+  left: 0;
+  margin: 0 auto !important;
+  bottom: 30px;
+  width: 60px;
+  height: 60px;
+  position: fixed;
+  border-radius: 100px;
+  padding: 0;
+  box-shadow: 0px 5px 5px 0px #999;
+  z-index: 999
+}
+/* .btnScan:hover{
+  box-shadow: none
+} */
+.btnScan image{
+  padding: 12px;
+  width: 36px;
+  height: 36px;
+}
+.success{
+  color:#3cc51f
+}
+.warning{
+  color:#e64340
+}
+.tempSave{
+  background-color:#ff8d00;
+  color:#FFFFFF
+}
+.seqnumber{
+  text-align: right;
+  width: 20px;
+  margin-right: 10px;
+}

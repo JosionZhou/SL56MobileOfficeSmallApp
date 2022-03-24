@@ -1,0 +1,35 @@
+<view>
+  <view class="weui-cells weui-cells_after-title" wx:for="{{cars}}">
+    <navigator url="\detail?id={{item.ObjectId}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" data-item="{{item}}" bindtap="tapItem">
+    <view url="" class="weui-cell weui-cell_access" data-id="{{item.ObjectId}}" data-index="{{index}}">
+      <view class="weui-cell__bd number-ft">车牌:{{item.ObjectNo}}</view>
+    </view>
+      <view class="weui-cell__bd" style="font-size:13px">
+        <view class="sub_font_color">状态：
+          <span class="success" wx:if="{{item.Status==0}}">正常</span>
+          <span class="warning" wx:else>停用</span>
+        </view>
+      </view>
+      <view class="weui-cell__ft">
+        <view class="weui-cell__ft weui-cell__ft_in-access price-amount-ft"></view>
+      </view>
+    </navigator>
+  </view>
+  
+    <view>
+      <view class="weui-loadmore" hidden="{{!isShowLoading}}">
+        <view class="weui-loading"></view>
+        <view class="weui-loadmore__tips">正在加载</view>
+      </view>
+      <view class="weui-loadmore weui-loadmore_line" hidden="{{!isShowNoDataMark}}">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无更多数据</view>
+      </view>
+    </view>
+    
+  <view class="weui-btn-area">
+    <button class="weui-btn btnAdd" type="primary" bindtap="addCar">
+      <!-- <image  src="/image/add.png"></image> -->
+      <span>+</span>
+    </button>
+  </view>
+</view>

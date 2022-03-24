@@ -22,7 +22,8 @@ Page({
       { name: "外价计算", image: "calculateprice", showbadge: false, event: "customerPrice" },
       { name: "内价计算", image: "costpricecalc", showbadge: false, event: "costPrice" },
       { name: "岗位管理", image: "costpricecalc", showbadge: false, event: "managerStation" },
-      { name: "装车出货", image: "trucking", showbadge: false, event: "truckingShipment" }
+      { name: "装车出货", image: "trucking", showbadge: false, event: "truckingShipment" },
+      { name: "车辆管理", image: "truck", showbadge: false, event: "truckManager" }
     ],
     count: 0
   },
@@ -263,6 +264,11 @@ Page({
   truckingShipment:function(){
     wx.navigateTo({
       url: '/pages/truckingshipment/list',
+    });
+  },
+  truckManager:function(){
+    wx.navigateTo({
+      url: '/pages/car/index',
     });
   }
 })

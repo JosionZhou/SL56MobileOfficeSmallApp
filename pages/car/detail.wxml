@@ -1,0 +1,44 @@
+<view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell ">
+      <view class="weui-cell__hd ">
+        <view class="weui-label">车牌号码</view>
+      </view>
+      <input type="text" id="ObjectNo" class="weui-search-bar__input" placeholder="请输入车牌号码" bindinput="inputInfo" value="{{car.ObjectNo}}" style="font-size:17px" />
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_switch">
+        <view class="weui-cell__bd">状态：
+          <span class="success" wx:if="{{car.Status==0}}">正常</span>
+          <span class="warning" wx:else>停用</span>
+        </view>
+        <view class="weui-cell__ft">
+          <switch checked wx:if="{{car.Status==0}}" bindtap="switchStatus" />
+          <switch wx:else bindtap="switchStatus" />
+        </view>
+      </view>
+    </view>
+  </view>
+  <view class="weui-cells__title">备注</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell">
+      <view class="weui-cell__bd">
+        <textarea id="Remark" class="weui-textarea"  style="height: 3.3em" value="{{car.Remark}}" bindinput="inputInfo" />
+        <!-- <view class="weui-textarea-counter">0/200</view> -->
+      </view>
+    </view>
+  </view>
+  <view class="weui-btn-area">
+    <view class="weui-flex">
+      <view class="weui-flex__item">
+        <button class="weui-btn" type="primary" bindtap="save">
+          <span>保存</span>
+        </button>
+        <button class="weui-btn" type="warn" bindtap="delete" wx:if="{{car.ObjectId>0}}">
+          <span>删除</span>
+        </button>
+      </view>
+    </view>
+  </view>
+
+</view>
