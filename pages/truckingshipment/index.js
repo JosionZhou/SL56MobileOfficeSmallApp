@@ -56,11 +56,17 @@ Page({
       method:"GET",
       success: function (res) {
         var carNumbers = new Array();
+        //新增时，过滤无效的车辆
+        var filtCar=(main.data.objectId==null);
+        var tempCarData = new Array();
         for(var i=0;i<res.length;i++){
-          carNumbers.push(res[i].ObjectNo);
+          if(!filtCar || (filtCar && res[i].Status==0)){
+              carNumbers.push(res[i].ObjectNo);
+              tempCarData.push(res[i]);
+          }
         }
         main.setData({
-          cars: res,
+          cars: tempCarData,
           carNumbers: carNumbers
         });
       }
