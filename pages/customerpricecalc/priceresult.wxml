@@ -5,10 +5,10 @@
       <view url="" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
         <view class="weui-cell__bd">
           <view>
-            {{item.PriceNo}}
+            {{item.PriceCode}}
           </view>
           <view style="font-size:13px;color:#999999">
-            {{item.ShortPriceName}}
+            {{item.PriceName}}
           </view>
         </view>
         <view class="weui-cell__bd ">
