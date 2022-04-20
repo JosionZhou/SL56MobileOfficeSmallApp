@@ -14,11 +14,11 @@
           <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
               <view class="weui-cell__bd">报价编码</view>
-              <view class="weui-cell__ft">{{item.PriceNo}}</view>
+              <view class="weui-cell__ft">{{item.PriceCode}}</view>
             </view>
             <view class="weui-cell">
               <view class="weui-cell__bd">报价名称</view>
-              <view class="weui-cell__ft">{{item.ShortPriceName}}</view>
+              <view class="weui-cell__ft">{{item.PriceName}}</view>
             </view>
             <view class="weui-cell">
               <view class="weui-cell__bd">运输方式</view>
