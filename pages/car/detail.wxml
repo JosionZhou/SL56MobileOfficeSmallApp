@@ -4,7 +4,7 @@
       <view class="weui-cell__hd ">
         <view class="weui-label">车牌号码</view>
       </view>
-      <input type="text" id="ObjectNo" class="weui-search-bar__input" placeholder="请输入车牌号码" bindinput="inputInfo" value="{{car.ObjectNo}}" style="font-size:17px" />
+      <input disabled="{{car.ObjectId>0}}" type="text" id="ObjectNo" class="weui-search-bar__input" placeholder="请输入车牌号码" bindinput="inputInfo" value="{{car.ObjectNo}}" style="font-size:17px" />
     </view>
     <view class="weui-cells weui-cells_after-title">
       <view class="weui-cell weui-cell_switch">
