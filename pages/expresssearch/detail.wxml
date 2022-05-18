@@ -66,7 +66,11 @@
               <view class="weui-cell__ft" wx:else>DOC</view>
             </view>
             <view class="weui-cell">
-              <view class="weui-cell__bd">日期</view>
+              <view class="weui-cell__bd">计价时间</view>
+              <view class="weui-cell__ft">{{item.PriceTime}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">收货日期</view>
               <view class="weui-cell__ft">{{item.CreateAt}}</view>
             </view>
             <view class="weui-cell">
