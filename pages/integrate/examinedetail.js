@@ -92,14 +92,14 @@ Page({
         main.setData({
           item: res
         });
-        if (res.status == 1||res.status==2){
+        if (res.Status == 1||res.Status==2){
           main.setData({
             isShowButton:false
           });
         }
-        var integralType = res.integralType == 0 ? "加分" : "减分";
+        var integralType = res.IntegralType == 0 ? "加分" : "减分";
         wx.setNavigationBarTitle({
-          title: res.createBy + "对" + res.scoreOwner + "的" + integralType + "申请",
+          title: res.CreateBy + "对" + res.ScoreOwner + "的" + integralType + "申请",
         });
       }
     }
@@ -107,12 +107,12 @@ Page({
   },
   agree:function(){
     wx.navigateTo({
-      url: 'examineagree?score='+this.data.item.score+'&objectId='+this.data.item.objectId,
+      url: 'examineagree?score='+this.data.item.Score+'&objectId='+this.data.item.ObjectId,
     })
   },
   reject: function () {
     wx.navigateTo({
-      url: 'examinereject?score=' + this.data.item.score + '&objectId=' + this.data.item.objectId,
+      url: 'examinereject?score=' + this.data.item.Score + '&objectId=' + this.data.item.ObjectId,
     })
   }
 })

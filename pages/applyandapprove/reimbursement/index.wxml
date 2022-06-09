@@ -1,0 +1,10 @@
+<view class="weui-grids">
+  <block wx:for="{{subFunctions}}" wx:key="*this">
+    <navigator class="weui-grid" hover-class="weui-grid_active2" bindtap="{{item.event}}">
+      <view class="weui-badge" style="position: absolute;top: 3em;right: 3.5em;" wx:if="{{item.showBadge && waitApprovalCount>0}}">{{waitApprovalCount}}</view>
+      <image class="weui-grid__icon" src="/image/{{item.image}}.png" />
+      <view class="weui-badge" style="position: absolute;top: 1em;right: 2.7em;" wx:if="{{item.showbadge}}">{{count}}</view>
+      <view class="weui-grid__label">{{item.name}}</view>
+    </navigator>
+  </block>
+</view>

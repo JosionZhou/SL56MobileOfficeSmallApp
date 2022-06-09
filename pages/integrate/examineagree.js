@@ -15,8 +15,8 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      score:options.score,
-      objectId:options.objectId
+      score:options.Score,
+      objectId:options.ObjectId
     });
   },
 

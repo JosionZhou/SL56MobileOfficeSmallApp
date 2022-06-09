@@ -1,0 +1,10 @@
+.required{
+  color:red
+}
+button[type='primary']{
+  background-color: #004ea2;
+  margin:10px
+}
+.button-hover[type='primary']{
+  background-color: #007bff
+}

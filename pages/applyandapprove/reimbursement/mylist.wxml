@@ -1,0 +1,43 @@
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-tab">
+      <view class="weui-navbar" style="background-color:white">
+        <block wx:for="{{tabs}}" wx:key="*this">
+          <view id="{{index}}" class="weui-navbar__item {{activeIndex == index ? 'weui-bar__item_on' : ''}}" bindtap="tabClick">
+            <view class="weui-navbar__title">{{item}}</view>
+          </view>
+        </block>
+        <view class="weui-navbar__slider" style="left: {{sliderLeft}}px; transform: translateX({{sliderOffset}}px); -webkit-transform: translateX({{sliderOffset}}px);width:{{width}}px"></view>
+      </view>
+      <view class="weui-tab__panel">
+        <view class="weui-tab__content" hidden="{{activeIndex != 0}}">
+          <navigator data-type="0" data-index="{{index}}" bindtap="toDetail" data-index="{{index}}" style="margin-top:5px;padding-left:10px;padding-bottom:10px;text-align:left;background-color:white;width:100%;font-size:15px" wx:for="{{items1}}">
+            <view>{{item.ObjectName}}</view>
+            <view style="color:#999999;font-size:15px;margin-top:5px"> 申请人：{{item.CreateBy}}</view>
+            <view class="weui-select weui-select_in-select-after" style="color:#999999;font-size:15px;margin-top:5px">申请日期：{{item.CreateAt}}</view>
+            <view style="color:#999999;font-size:15px;margin-top:5px">当前节点：{{item.Remark}}</view>
+          </navigator>
+          <view class="weui-loadmore weui-loadmore_line" wx:if="{{items1.length==0}}">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无待审批</view>
+          </view>
+        </view>
+        <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
+          <navigator data-type="1" data-index="{{index}}" bindtap="toDetail" data-index="{{index}}" style="margin-top:5px;padding-left:10px;padding-bottom:10px;text-align:left;background-color:white;width:100%;font-size:15px" wx:for="{{items2}}">
+            <view>{{item.ObjectName}}</view>
+            <view style="color:#999999;font-size:15px;margin-top:5px"> 申请人：{{item.CreateBy}}</view>
+            <view class="weui-select weui-select_in-select-after" style="color:#999999;font-size:15px;margin-top:5px">申请日期：{{item.CreateAt}}</view>
+            <view style="color:#999999;font-size:15px;margin-top:5px">当前状态：
+              <span wx:if="{{item.CurrentState==0}}">审批中</span>
+              <span style="color: #004ea2;" wx:if="{{item.CurrentState==1}}">已主动取消</span>
+              <span style="color:red;" wx:if="{{item.CurrentState==2}}">已拒绝</span>
+              <span style="color: #00a264;" wx:if="{{item.CurrentState==3}}">已批准</span>
+            </view>
+          </navigator>
+          <view class="weui-loadmore weui-loadmore_line" wx:if="{{items2.length==0}}">
+            <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无已完成</view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

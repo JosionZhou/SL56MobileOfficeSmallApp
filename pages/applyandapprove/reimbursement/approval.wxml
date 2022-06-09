@@ -1,0 +1,12 @@
+<view class="page">
+  <view class="page__bd">
+    <navigator bindtap="approval" data-index="{{index}}" style="margin-top:5px;padding-left:10px;padding-bottom:10px;text-align:left;background-color:white;width:100%;font-size:15px" wx:for="{{items}}">
+      <view>{{item.ObjectName}}</view>
+      <view style="color:#999999;font-size:15px;margin-top:5px"> 申请人：{{item.CreateBy}}</view>
+      <view class="weui-select weui-select_in-select-after" style="color:#999999;font-size:15px;margin-top:5px">申请日期：{{item.CreateAt}}</view>
+    </navigator>
+  </view>
+  <view class="weui-loadmore weui-loadmore_line" wx:if="{{items.length==0}}">
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无待审批申请</view>
+  </view>
+</view>

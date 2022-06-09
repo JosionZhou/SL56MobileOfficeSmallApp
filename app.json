@@ -28,7 +28,13 @@
     "pages/truckingshipment/list",
     "pages/expresssearch/addproblem",
     "pages/car/index",
-    "pages/car/detail"
+    "pages/car/detail",
+    "pages/applyandapprove/index",
+    "pages/applyandapprove/reimbursement/index",
+    "pages/applyandapprove/reimbursement/apply",
+    "pages/applyandapprove/reimbursement/detail",
+    "pages/applyandapprove/reimbursement/approval",
+    "pages/applyandapprove/reimbursement/mylist"
   ],
   "window": {
     "backgroundTextStyle": "light",

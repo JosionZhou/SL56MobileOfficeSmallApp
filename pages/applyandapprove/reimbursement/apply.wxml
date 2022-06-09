@@ -1,0 +1,102 @@
+<view class="weui-toptips weui-toptips_warn" wx:if="{{IsError}}">{{ErrorMessage}}</view>
+<form bindsubmit="submit">
+  <view class="weui-cells__title">基本信息</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">报销名称</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" name="ObjectName" placeholder="请输入报销名称" model:value="{{ObjectName}}" disabled="{{!IsEditable}}" />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">申请人</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" disabled model:value="{{CreateBy}}" />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">报销时间</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" disabled value="{{CreateAt}}" />
+      </view>
+    </view>
+  </view>
+  <view class="weui-cells__title">报销明细(点击打开/长按移除)</view>
+  <input hidden name="Details" model:value="{{Details[0].ObjectName}}" />
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_link" bindlongpress="removeDetail" bindtap="editDetail" wx:for="{{Details}}" data-detail-index="{{index}}">
+      <view>
+        {{item.ObjectName}}
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_link" bindtap="addDetail" wx:if="{{IsEditable}}">
+      <view>
+        添加明细
+      </view>
+    </view>
+  </view>
+
+  <view class="weui-cells__title">报销附件(点击打开/长按移除)</view>
+  <input hidden name="Attachments" model:value="{{Attachments[0].ObjectName}}" />
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_link" bindlongpress="removeAttachment" wx:for="{{Attachments}}">
+      <view class="weui-cell__hd">
+        <view class="weui-label attTypeLabel" data-attachment-index="{{index}}" bindtap="selectAttachmentType">
+          <view wx:if="{{Attachments[index].AttachmentType==1}}">
+            物品图片
+          </view>
+          <view wx:elif="{{Attachments[index].AttachmentType==2}}">发票/收据</view>
+          <view wx:else>选择附件类型</view>
+        </view>
+      </view>
+      <view class="weui-cell__bd attName" bindtap="previewAttachment" data-attachment-index="{{index}}">
+        附件{{index+1}} (点击预览)
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_link" bindtap="addAttachment" wx:if="{{IsEditable}}">
+      <view>
+        添加附件
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{!IsEditable && IsApprovaling}}">
+    <view class="weui-cells__title">审核意见</view>
+    <view class="weui-cells weui-cells_after-title">
+      <radio-group bindchange="approvalChange" model:value="{{IsPass}}">
+        <label class="weui-cell weui-check__label">
+          <radio class="weui-check" model:checked="{{IsPass}}" />
+          <view class="weui-cell__bd">同意</view>
+          <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{IsPass==true}}">
+            <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+          </view>
+        </label>
+
+        <label class="weui-cell weui-check__label" bindtap="bindStartFalse">
+          <radio class="weui-check" model:checked="{{!IsPass}}" />
+          <view class="weui-cell__bd">不同意</view>
+          <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{IsPass==false}}">
+            <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+          </view>
+        </label>
+      </radio-group>
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <textarea class="weui-textarea" placeholder="此处可输入审核意见" style="height: 5.3em" model:value="{{ApprovalRemark}}" maxlength="500" />
+          <view class="weui-textarea-counter">{{ApprovalRemark.length}}/500</view>
+        </view>
+      </view>
+    </view>
+    <button type="primary" form-type="submit">提交审核</button>
+  </view>
+
+  <button type="primary" form-type="submit" wx:if="{{IsEditable}}">提交申请</button>
+  <button type="primary" bindtap="cancel" wx:if="{{!IsEditable && IsCancelable}}">取消申请</button>
+</form>

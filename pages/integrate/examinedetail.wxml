@@ -4,23 +4,23 @@
       <view style="position:relative;background-color:white">
         <view style="float:left">
           <view>
-            <image src="{{item.scoreOwnerAvatar}}" style="width:50px;height:50px;"></image>
+            <image src="{{item.ScoreOwnerAvatar}}" style="width:50px;height:50px;"></image>
           </view>
         </view>
         <view style="float:left;margin-left:20px;text-align:left">
-          <view>{{item.scoreOwner}}的{{item.integralType==0?'加分':'减分'}}申请</view>
+          <view>{{item.ScoreOwner}}的{{item.IntegralType==0?'加分':'减分'}}申请</view>
 
           <view style="color:#999999;font-size:15px;margin-top:5px">申请日期：
-            <label style="color:#666666">{{item.createAt}}</label>
+            <label style="color:#666666">{{item.CreateAt}}</label>
           </view>
           <view style="color:#999999;font-size:15px;margin-top:5px">申请分数：
-            <label style="color:#666666">{{item.score}}</label>
+            <label style="color:#666666">{{item.Score}}</label>
           </view>
           <view style="color:#999999;font-size:15px;margin-top:5px">申请依据：
-            <label style="color:#666666">{{item.description}}</label>
+            <label style="color:#666666">{{item.Description}}</label>
           </view>
           <view style="color:#999999;font-size:15px;margin-top:5px">所属部门：
-            <label style="color:#666666">{{item.department}}</label>
+            <label style="color:#666666">{{item.Department}}</label>
           </view>
         </view>
         <view style="clear:both"></view>
@@ -37,61 +37,61 @@
         <view style="float:left;text-align:left;width:100%">
           <view class="weui-flex" style="text-align:center">
             <view>
-              <image src="{{item.createByAtatar}}" style="width:50px;height:50px;"></image>
+              <image src="{{item.CreateByAtatar}}" style="width:50px;height:50px;"></image>
             </view>
             <view style="margin-top:15px;margin-left:20px;color:#666666">
-              <view>{{item.createBy}}</view>
+              <view>{{item.CreateBy}}</view>
             </view>
             <view class="weui-flex__item" style="color:#666666;margin-top:15px">
               <view>发起申请</view>
             </view>
             <view class="weui-flex__item" style="color:#666666;margin-top:15px;font-size:15px">
-              <view>{{item.createAtShort}}</view>
+              <view>{{item.CreateAtShort}}</view>
             </view>
           </view>
-          <view wx:for="{{item.activities}}" wx:for-item="active">
+          <view wx:for="{{item.Activities}}" wx:for-item="active">
             <image src="/image/line.png" style="width:5px;height:30px;margin-left:20px;"></image>
             <view class="weui-flex" style="text-align:center;font-size:15px">
               <view>
-                <image src="{{active.avatarUrl}}" style="width:50px;height:50px;"></image>
+                <image src="{{active.AvatarUrl}}" style="width:50px;height:50px;"></image>
               </view>
               <view style="margin-top:5px;margin-left:20px;color:#666666">
-                <view>{{active.currentActive}}{{active.processBy}}</view>
+                <view>{{active.CurrentActive}}{{active.ProcessBy}}</view>
               </view>
               <view class="" style="margin-top:5px;margin-left:10px">
-                <view style="color:#004ea2" wx:if="{{active.currentStatus=='待审批'}}">待审批</view>
-                <view style="color:red" wx:if="{{active.currentStatus=='已拒绝'}}">已拒绝</view>
-                <view style="color:#00e600" wx:if="{{active.currentStatus=='已通过'}}">已通过</view>
+                <view style="color:#004ea2" wx:if="{{active.CurrentStatus=='待审批'}}">待审批</view>
+                <view style="color:red" wx:if="{{active.CurrentStatus=='已拒绝'}}">已拒绝</view>
+                <view style="color:#00e600" wx:if="{{active.CurrentStatus=='已通过'}}">已通过</view>
               </view>
               <view class="weui-flex__item" style="color:#666666;margin-top:5px;font-size:15px">
-                <view>{{active.processAt}}</view>
+                <view>{{active.ProcessAt}}</view>
               </view>
               <view style="position:absolute;padding-top:30px;padding-left:70px;color:#666666;font-size:13px">
-                审核意见：{{active.remark}}
+                审核意见：{{active.Remark}}
               </view>
             </view>
           </view>
           <view wx:if="{{!isShowButton}}">
             <image src="/image/line.png" style="width:5px;height:30px;margin-left:20px;"></image>
-            <view class="icon-box" wx:if="{{item.status==0}}">
+            <view class="icon-box" wx:if="{{item.Status==0}}">
               <icon type="waiting" size="50"></icon>
               <view class="icon-box__ctn">
                 <view class="icon-box__title" style="color:#004ea2">等待审批</view>
                 <view class="icon-box__desc">正在等待下一步审批，请耐心等待</view>
               </view>
             </view>
-            <view class="icon-box" wx:if="{{item.status==1}}">
+            <view class="icon-box" wx:if="{{item.Status==1}}">
               <icon type="cancel" size="50"></icon>
               <view class="icon-box__ctn">
                 <view class="icon-box__title" style="color:red">审批拒绝</view>
-                <view class="icon-box__desc">当前{{item.integralType==0?'加分':'减分'}}审批已被拒绝</view>
+                <view class="icon-box__desc">当前{{item.IntegralType==0?'加分':'减分'}}审批已被拒绝</view>
               </view>
             </view>
-            <view class="icon-box" wx:if="{{item.status==2}}">
+            <view class="icon-box" wx:if="{{item.Status==2}}">
               <icon type="success" size="50"></icon>
               <view class="icon-box__ctn">
                 <view class="icon-box__title" style="color:#00e600">审批通过</view>
-                <view class="icon-box__desc">当前{{item.integralType==0?'加分':'减分'}}审批已通过</view>
+                <view class="icon-box__desc">当前{{item.IntegralType==0?'加分':'减分'}}审批已通过</view>
               </view>
             </view>
           </view>

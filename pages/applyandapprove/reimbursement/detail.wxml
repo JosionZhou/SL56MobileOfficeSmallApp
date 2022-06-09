@@ -1,0 +1,68 @@
+<view class="weui-toptips weui-toptips_warn" wx:if="{{IsError}}">{{ErrorMessage}}</view>
+<view class="weui-cells__title">带 * 为必填项</view>
+<form bindsubmit="add">
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">名称*</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" name="ObjectName" placeholder="请输入报销明细名称" model:value="{{ObjectName}}" disabled="{{!IsEditable}}" />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">金额*</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" type="number" name="Amount" placeholder="请输入报销明细金额" model:value="{{Amount}}" disabled="{{!IsEditable}}" />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">币别*</view>
+      </view>
+
+      <view class="weui-cell__bd">
+        <picker bindchange="bindCountryChange" model:value="{{CurrencyIndex}}" range="{{CurrencyNames}}" disabled="{{!IsEditable}}">
+          <view class="weui-select weui-select_in-select-after">{{Currencies[CurrencyIndex].ObjectName}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">部门</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindCountryChange" model:value="{{DepartmentIndex}}" range="{{DepartmentNames}}" disabled="{{!IsEditable}}">
+          <view class="weui-select weui-select_in-select-after">{{Departments[DepartmentIndex].ObjectName}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">项目/车辆</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindCountryChange" model:value="{{CarIndex}}" range="{{CarNos}}" disabled="{{!IsEditable}}">
+          <view class="weui-select weui-select_in-select-after">{{Cars[CarIndex].ObjectNo}}</view>
+        </picker>
+      </view>
+    </view>
+  </view>
+
+  <view class="weui-cells__title">备注</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell">
+      <view class="weui-cell__bd">
+        <textarea class="weui-textarea" placeholder="此处可输入备注内容" style="height: 5.3em" model:value="{{Remark}}" maxlength="500" disabled="{{!IsEditable}}" />
+        <view class="weui-textarea-counter">{{Remark.length}}/500</view>
+      </view>
+    </view>
+  </view>
+  <view wx:if="{{IsEditable}}">
+    <button type="primary" form-type="submit" wx:if="{{EditDetail==null}}">添加</button>
+    <button type="primary" form-type="submit" wx:else>保存</button>
+  </view>
+
+</form>

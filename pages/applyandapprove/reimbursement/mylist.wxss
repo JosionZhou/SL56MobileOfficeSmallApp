@@ -1,0 +1,47 @@
+.weui-navbar__title
+{
+  font-size: 14px;
+}
+.weui-navbar__item
+{
+  padding: 5px 0;
+}
+.weui-tab__panel
+{
+  padding-top: 40px;
+}
+.sub_font_color{
+  color: #999999
+}
+.weui-cells::after{
+  border-bottom: none
+}
+.weui-cell__ft_in-access::after{
+  border: none
+}
+.weui-navbar__slider {
+  background-color: #004ea2;
+}
+
+.weui-navbar__item.weui-bar__item_on {
+  color: #004ea2;
+}
+.weui-btn{
+  padding: 6px 6px 6px 6px;
+  line-height: 1.2;
+  font-size:13px; 
+  margin-top: 0px;
+  width:50px
+}
+button[plain]{
+  border-color :#488aff;
+  color:#488aff;
+ 
+}
+.button-hover[plain]{
+  color: white;
+  background-color: #488aff
+}
+.weui-navbar{
+  height:40px
+}

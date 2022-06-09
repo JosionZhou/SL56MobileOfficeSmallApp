@@ -15,8 +15,8 @@ Page({
    */
   onLoad: function (options) {
     this.setData({
-      score: options.score,
-      objectId: options.objectId
+      score: options.Score,
+      objectId: options.ObjectId
     });
   },
 
@@ -74,7 +74,7 @@ Page({
     });
     var main = this;
     var data = {
-      url: app.globalData.serverAddress + '/Integrate/Reject?objectId=' + this.data.objectId + '&score=' + e.detail.value.score + '&remark=' + e.detail.value.remark,
+      url: app.globalData.serverAddress + '/Integrate/Reject?objectId=' + this.data.ObjectId + '&score=' + e.detail.value.Score + '&remark=' + e.detail.value.Remark,
       success: function (res) {
         wx.hideLoading();
         if (res.length > 0) {

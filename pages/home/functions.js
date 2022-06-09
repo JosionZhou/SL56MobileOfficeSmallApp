@@ -1,4 +1,5 @@
-var app = getApp()
+var util = require('../../utils/util.js')
+var app = getApp();
 Page({
 
   /**
@@ -6,11 +7,12 @@ Page({
    */
   data: {
     isLogin: false,
+    waitApprovalCount:0,
     mainFunctions:
     [
-      { name: "岗位扫描", image: "scan", event: "scanStation" },
-      { name: "积分管理", image: "manager", event: "integrateManager" },
-      { name: "快件查询", image: "search", event: "expresssearch" }
+      { name: "岗位扫描", image: "scan", event: "scanStation",showBadge:false },
+      { name: "申请/审批", image: "approve", event: "applyandapprove",showBadge:true },
+      { name: "快件查询", image: "search", event: "expresssearch",showBadge:false }
     ],
     subFunctions:
     [
@@ -56,9 +58,15 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-    var isLogin = app.globalData.isLogin;
+    let isLogin = app.globalData.isLogin;
     this.setData({
       isLogin: isLogin
+    });
+    let that=this;
+    util.getWaitApprovalCount(function(res){
+      that.setData({
+        waitApprovalCount:res
+      });
     });
   },
 
@@ -194,9 +202,9 @@ Page({
       url: '/pages/expresssearch/index',
     })
   },
-  integrateManager: function () {
+  applyandapprove: function () {
     wx.navigateTo({
-      url: '/pages/integrate/index',
+      url: '/pages/applyandapprove/index',
     })
   },
   addIntegrate: function () {
