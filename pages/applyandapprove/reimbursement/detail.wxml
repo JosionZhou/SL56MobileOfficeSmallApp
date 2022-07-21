@@ -61,7 +61,8 @@
     </view>
   </view>
   <view wx:if="{{IsEditable}}">
-    <button type="primary" form-type="submit" wx:if="{{EditDetail==null}}">添加</button>
+    <button type="primary" form-type="submit" wx:if="{{EditDetail==null}}" data-iscontinue="true" bindtap="tapNext">添加下一项</button>
+    <button type="primary" form-type="submit" wx:if="{{EditDetail==null}}">完成添加</button>
     <button type="primary" form-type="submit" wx:else>保存</button>
   </view>
 

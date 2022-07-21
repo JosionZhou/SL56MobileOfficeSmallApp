@@ -34,7 +34,8 @@
     "pages/applyandapprove/reimbursement/apply",
     "pages/applyandapprove/reimbursement/detail",
     "pages/applyandapprove/reimbursement/approval",
-    "pages/applyandapprove/reimbursement/mylist"
+    "pages/applyandapprove/reimbursement/mylist",
+    "pages/bankcardinfo/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

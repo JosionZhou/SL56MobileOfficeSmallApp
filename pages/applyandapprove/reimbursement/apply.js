@@ -24,7 +24,9 @@ Page({
     IsPass: null,
     ApprovalRemark: "",
     ApprovalObj: null,
-    IsCancelable: false
+    IsCancelable: false,
+    AllAmount: 0,
+    IsAddNew: false
   },
 
   /**
@@ -33,17 +35,21 @@ Page({
   onLoad(options) {
     let that = this;
     this.FileHelper = new FileHelper();
-    if (options.item != null) {
+    if (options!=null && options.item != null) {
       let item = JSON.parse(options.item);
       that.data.ApprovalObj = item;
       wx.showLoading({
         title: '获取数据中...',
       });
       let data = {
-        url: app.globalData.serverAddress + "/Reimbursement/GetApproval?formId=" + item.FormId,
+        url: app.globalData.serverAddress + "/Reimbursement/GetApproval?formId=" + item.FormId+"&instanceId="+item.InstanceId,
         method: "GET",
         success: function (res) {
           wx.hideLoading();
+          let allAmount = 0.0;
+          res.Details.forEach(element => {
+            allAmount += parseFloat(element.Amount);
+          });
           that.setData({
             ObjectName: res.ObjectName,
             CreateBy: res.CreateBy,
@@ -52,7 +58,9 @@ Page({
             Details: res.Details,
             IsEditable: res.IsEditable,
             IsCancelable: item.IsCancelable,
-            IsApprovaling: item.IsApprovaling
+            IsApprovaling: item.IsApprovaling,
+            AllAmount: allAmount,
+            Activities:res.Tracks
           });
         }
       }
@@ -241,9 +249,32 @@ Page({
                 content: res
               });
             } else {
-              wx.redirectTo({
-                url: './mylist',
-              })
+              if (that.data.IsAddNew) {
+                let data = {
+                  CreateAt: null,
+                  CreateBy: null,
+                  ObjectName: "",
+                  Details: [],
+                  Attachments: [],
+                  IsError: false,
+                  ErrorMessage: "",
+                  Object: null,
+                  NoAttachmentTypesCount: 0,
+                  IsEditable: true, //true表示新增，false表示打开查看
+                  IsPass: null,
+                  ApprovalRemark: "",
+                  ApprovalObj: null,
+                  IsCancelable: false,
+                  AllAmount: 0,
+                  IsAddNew: false
+                }
+                that.setData(data);
+                that.onLoad();
+              } else {
+                wx.redirectTo({
+                  url: './mylist',
+                });
+              }
             }
           },
           fail: function (res) {
@@ -268,8 +299,13 @@ Page({
         addDetail: function (detail) {
           let details = that.data.Details;
           details.push(detail.data);
+          let allAmount = 0.0;
+          details.forEach(element => {
+            allAmount += parseFloat(element.Amount);
+          });
           that.setData({
-            Details: details
+            Details: details,
+            AllAmount: allAmount
           });
           console.log("data", that.data.Details);
         }
@@ -287,8 +323,13 @@ Page({
         addDetail: function (detail) {
           let details = that.data.Details;
           details.splice(index, 1, detail.data);
+          let allAmount = 0.0;
+          details.forEach(element => {
+            allAmount += parseFloat(element.Amount);
+          });
           that.setData({
-            Details: details
+            Details: details,
+            AllAmount: allAmount
           });
         }
       },
@@ -399,9 +440,9 @@ Page({
             fail(res) {
               console.error("readFileFail", res);
               wx.showModal({
-                showCancel:false,
-                title:"操作异常",
-                content:"读取文件失败，请重试！"
+                showCancel: false,
+                title: "操作异常",
+                content: "读取文件失败，请重试！"
               })
             }
           });
@@ -475,7 +516,7 @@ Page({
     }
     let that = this;
     wx.showActionSheet({
-      itemList: ["物品图片", "发票/收据"],
+      itemList: ["物品图片", "发票/收据", "支付凭证", "店面图片"],
       success: function (res) {
         if (!res.cancel) {
           let index = event.currentTarget.dataset.attachmentIndex;
@@ -507,15 +548,15 @@ Page({
             title: '数据提交中...',
           });
           let data = {
-            url: app.globalData.serverAddress + "/Reimbursement/Cancel?formId="+that.data.ApprovalObj.FormId,
+            url: app.globalData.serverAddress + "/Reimbursement/Cancel?formId=" + that.data.ApprovalObj.FormId,
             method: "POST",
             success: function (res) {
               wx.hideLoading();
               if (res.length > 0) {
                 wx.showModal({
-                  showCancel:false,
-                  title:"操作失败",
-                  content:res
+                  showCancel: false,
+                  title: "操作失败",
+                  content: res
                 });
               } else {
                 wx.navigateBack();
@@ -525,6 +566,11 @@ Page({
           app.NetRequest(data);
         }
       }
+    })
+  },
+  addNew() {
+    this.setData({
+      IsAddNew: true
     })
   }
 })

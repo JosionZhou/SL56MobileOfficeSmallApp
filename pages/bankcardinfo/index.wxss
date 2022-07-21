@@ -1,0 +1,13 @@
+button[type="primary"]{
+  border-radius:35px;
+}
+button[type="primary"] {
+  color:#FFFFFF;
+  background-color:#004ea2;
+  margin-left: 10px;
+  margin-right: 10px;
+}
+.button-hover[type="primary"]{
+  color:white;
+  background-color:#1aa3ff;
+}

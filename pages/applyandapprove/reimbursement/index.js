@@ -1,4 +1,5 @@
-var util = require('../../../utils/util.js')
+var util = require('../../../utils/util.js');
+const app=getApp();
 Page({
 
   /**
@@ -10,23 +11,24 @@ Page({
         image: "apply",
         showbadge: false,
         event: "apply",
-        showBadge:false 
+        showBadge: false
       },
       {
         name: "审批",
         image: "approval1",
         showbadge: false,
         event: "approval",
-        showBadge:true 
+        showBadge: true
       },
       {
         name: "我的报销",
         image: "reimbursement",
         showbadge: false,
         event: "mylist",
-        showBadge:false 
+        showBadge: false
       }
-    ]
+    ],
+    bankAccountId: null
   },
 
   /**
@@ -47,10 +49,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    let that=this;
-    util.getWaitApprovalCount(function(res){
+    let that = this;
+    util.getWaitApprovalCount(function (res) {
       that.setData({
-        waitApprovalCount:res
+        waitApprovalCount: res
       });
     });
   },
@@ -91,9 +93,30 @@ Page({
   },
   //报销申请
   apply() {
-    wx.navigateTo({
-      url: '/pages/applyandapprove/reimbursement/apply',
-    });
+    let data = {
+      url: app.globalData.serverAddress + "/Reimbursement/GetBankCardInfo",
+      method: "GET",
+      success: function (res) {
+        wx.hideLoading();
+        if (res != null) {
+          wx.navigateTo({
+            url: '/pages/applyandapprove/reimbursement/apply',
+          });
+        } else {
+          wx.showModal({
+            showCancel: false,
+            title: "提示",
+            content: "报销申请前，需要完善银行卡信息",
+            success: function (res) {
+              wx.navigateTo({
+                url: '/pages/bankcardinfo/index',
+              })
+            }
+          })
+        }
+      }
+    }
+    app.NetRequest(data);
   },
   //报销审批
   approval() {

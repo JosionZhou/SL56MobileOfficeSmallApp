@@ -14,3 +14,9 @@ button[type='primary']{
 .attName{
   padding-left: 10px;
 }
+.border-top{
+  border-top: #d0d0d0 1px solid;
+}
+.border-bottom{
+  border-bottom: #d0d0d0 1px solid;
+}

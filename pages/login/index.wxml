@@ -61,7 +61,8 @@
     <view class="page__ft">
 
       <view class="weui-footer" style="margin:30px">
-        <button bindtap="changeAccount">切换账号</button>
+        <button class="weui-btn" type="primary" plain="true" bindtap="bankInfo" >银行卡信息</button>
+        <button  class="weui-btn" type="primary"  bindtap="changeAccount">切换账号</button>
       </view>
     </view>
   </view>

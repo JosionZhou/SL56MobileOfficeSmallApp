@@ -32,9 +32,10 @@
   <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell weui-cell_link" bindlongpress="removeDetail" bindtap="editDetail" wx:for="{{Details}}" data-detail-index="{{index}}">
       <view>
-        {{item.ObjectName}}
+        {{item.ObjectName}}：{{item.Amount}}({{item.CurrencyName}})
       </view>
     </view>
+    <view wx:if="{{Details.length>0}}" class="weui-cell">总金额：{{AllAmount}}</view>
     <view class="weui-cell weui-cell_link" bindtap="addDetail" wx:if="{{IsEditable}}">
       <view>
         添加明细
@@ -48,10 +49,10 @@
     <view class="weui-cell weui-cell_link" bindlongpress="removeAttachment" wx:for="{{Attachments}}">
       <view class="weui-cell__hd">
         <view class="weui-label attTypeLabel" data-attachment-index="{{index}}" bindtap="selectAttachmentType">
-          <view wx:if="{{Attachments[index].AttachmentType==1}}">
-            物品图片
-          </view>
+          <view wx:if="{{Attachments[index].AttachmentType==1}}">物品图片</view>
           <view wx:elif="{{Attachments[index].AttachmentType==2}}">发票/收据</view>
+          <view wx:elif="{{Attachments[index].AttachmentType==3}}">支付凭证</view>
+          <view wx:elif="{{Attachments[index].AttachmentType==4}}">店面图片</view>
           <view wx:else>选择附件类型</view>
         </view>
       </view>
@@ -97,6 +98,26 @@
     <button type="primary" form-type="submit">提交审核</button>
   </view>
 
+  <view class="weui-cells__title" wx:if="{{Activities.length>0}}">审批轨迹</view>
+  <view class="border-top border-bottom" wx:for="{{Activities}}" wx:for-item="active" style="background-color: white;">
+    <view class="weui-flex" style="text-align:center;font-size:15px">
+      <view style="margin-top:5px;margin-left:20px;color:#666666">
+        <view>{{active.ObjectName}}：{{active.EmployeeName}}</view>
+      </view>
+      <view class="" style="margin-top:5px;margin-left:10px">
+        <view style="color:red" wx:if="{{active.IsPass=='否'}}">已拒绝</view>
+        <view style="color:#00e600" wx:if="{{active.IsPass=='是'}}">已通过</view>
+      </view>
+      <view class="weui-flex__item" style="color:#666666;margin-top:5px;font-size:15px">
+        <view>[{{active.EndDate}}]</view>
+      </view>
+    </view>
+      <view style="padding-left:20px;color:#666666;font-size:15px;background-color: white;">
+        审核意见：{{active.Remark.length>0?active.Remark:"(无)"}}
+      </view>
+  </view>
+
+  <button type="primary" form-type="submit" wx:if="{{IsEditable}}" bindtap="addNew">提交并新增</button>
   <button type="primary" form-type="submit" wx:if="{{IsEditable}}">提交申请</button>
   <button type="primary" bindtap="cancel" wx:if="{{!IsEditable && IsCancelable}}">取消申请</button>
 </form>

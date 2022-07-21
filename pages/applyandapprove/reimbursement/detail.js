@@ -13,7 +13,8 @@ Page({
     IsError: false,
     ErrorMessage: "",
     EditDetail:null,
-    IsEditable:true
+    IsEditable:true,
+    IsContinue:false
   },
 
   /**
@@ -168,7 +169,7 @@ Page({
   onShareAppMessage() {
 
   },
-  add: function (e) {
+  add(e) {
     // 传入表单数据，调用验证方法
     if (!this.WxValidate.checkForm(e.detail.value)) {
       this.setData({
@@ -190,6 +191,7 @@ Page({
       Detail.Amount = this.data.Amount;
       Detail.CurrencyId = this.data.Currencies[this.data.CurrencyIndex].ObjectId;
       Detail.Remark = this.data.Remark;
+      Detail.CurrencyName=this.data.Currencies[this.data.CurrencyIndex].ObjectName;
       if (this.data.DepartmentIndex !=null) {
         Detail.DepartmentId = this.data.Departments[this.data.DepartmentIndex].ObjectId;
       }
@@ -199,7 +201,31 @@ Page({
       eventChannel.emit('addDetail', {
         data: Detail
       });
-      wx.navigateBack();
+      if(this.data.IsContinue){
+        this.addAndNext();
+      }else{
+        wx.navigateBack();
+      }
     }
+  },
+  addAndNext(){
+    let data= {
+      ObjectName: null,
+      Amount: null,
+      CurrencyIndex: 0,
+      Remark: "",
+      IsError: false,
+      ErrorMessage: "",
+      EditDetail:null,
+      IsEditable:true,
+      IsContinue:false
+    }
+    this.setData(data)
+    this.onLoad();
+  },
+  tapNext(){
+    this.setData({
+      IsContinue:true
+    })
   }
 })

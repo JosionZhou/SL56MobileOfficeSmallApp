@@ -361,5 +361,10 @@ Page({
         }
       }
     });
+  },
+  bankInfo(){
+    wx.navigateTo({
+      url: '/pages/bankcardinfo/index',
+    })
   }
 })
