@@ -66,6 +66,27 @@
       </view>
     </view>
   </view>
+
+
+  <view class="weui-cells__title" wx:if="{{Activities.length>0}}">审批轨迹</view>
+  <view class="border-top border-bottom" wx:for="{{Activities}}" wx:for-item="active" style="background-color: white;">
+    <view class="weui-flex" style="text-align:center;font-size:15px">
+      <view style="margin-top:5px;margin-left:20px;color:#666666">
+        <view>{{active.ObjectName}}：{{active.EmployeeName}}</view>
+      </view>
+      <view class="" style="margin-top:5px;margin-left:10px">
+        <view style="color:red" wx:if="{{active.IsPass=='否'}}">已拒绝</view>
+        <view style="color:#00e600" wx:if="{{active.IsPass=='是'}}">已通过</view>
+      </view>
+      <view class="weui-flex__item" style="color:#666666;margin-top:5px;font-size:15px">
+        <view>[{{active.EndDate}}]</view>
+      </view>
+    </view>
+      <view style="padding-left:20px;color:#666666;font-size:15px;background-color: white;">
+        审核意见：{{active.Remark.length>0?active.Remark:"(无)"}}
+      </view>
+  </view>
+
   <view wx:if="{{!IsEditable && IsApprovaling}}">
     <view class="weui-cells__title">审核意见</view>
     <view class="weui-cells weui-cells_after-title">
@@ -98,24 +119,6 @@
     <button type="primary" form-type="submit">提交审核</button>
   </view>
 
-  <view class="weui-cells__title" wx:if="{{Activities.length>0}}">审批轨迹</view>
-  <view class="border-top border-bottom" wx:for="{{Activities}}" wx:for-item="active" style="background-color: white;">
-    <view class="weui-flex" style="text-align:center;font-size:15px">
-      <view style="margin-top:5px;margin-left:20px;color:#666666">
-        <view>{{active.ObjectName}}：{{active.EmployeeName}}</view>
-      </view>
-      <view class="" style="margin-top:5px;margin-left:10px">
-        <view style="color:red" wx:if="{{active.IsPass=='否'}}">已拒绝</view>
-        <view style="color:#00e600" wx:if="{{active.IsPass=='是'}}">已通过</view>
-      </view>
-      <view class="weui-flex__item" style="color:#666666;margin-top:5px;font-size:15px">
-        <view>[{{active.EndDate}}]</view>
-      </view>
-    </view>
-      <view style="padding-left:20px;color:#666666;font-size:15px;background-color: white;">
-        审核意见：{{active.Remark.length>0?active.Remark:"(无)"}}
-      </view>
-  </view>
 
   <button type="primary" form-type="submit" wx:if="{{IsEditable}}" bindtap="addNew">提交并新增</button>
   <button type="primary" form-type="submit" wx:if="{{IsEditable}}">提交申请</button>
