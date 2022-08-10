@@ -45,6 +45,10 @@ Page({
       });
 
     }
+    
+    wx.requestSubscribeMessage({
+      tmplIds: ['P9CH_RVjJMuQbSNpzqp6_drxKKj3va4sj4mMDaDXWJY'],
+    });
   },
 
   /**
@@ -203,9 +207,14 @@ Page({
     })
   },
   applyandapprove: function () {
-    wx.navigateTo({
-      url: '/pages/applyandapprove/index',
-    })
+    wx.requestSubscribeMessage({
+      tmplIds: ['P9CH_RVjJMuQbSNpzqp6_drxKKj3va4sj4mMDaDXWJY'],
+      complete:function(){
+        wx.navigateTo({
+          url: '/pages/applyandapprove/index',
+        })
+      }
+    });
   },
   addIntegrate: function () {
     wx.navigateTo({
