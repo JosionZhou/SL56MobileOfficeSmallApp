@@ -43,7 +43,8 @@
     </view>
   </view>
 
-  <view class="weui-cells__title">报销附件(点击打开/长按移除)</view>
+  <!-- 附件移动到明细里面去添加 -->
+  <!-- <view class="weui-cells__title">报销附件(点击打开/长按移除)</view>
   <input hidden name="Attachments" model:value="{{Attachments[0].ObjectName}}" />
   <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell weui-cell_link" bindlongpress="removeAttachment" wx:for="{{Attachments}}">
@@ -65,7 +66,7 @@
         添加附件
       </view>
     </view>
-  </view>
+  </view> -->
 
 
   <view class="weui-cells__title" wx:if="{{Activities.length>0}}">审批轨迹</view>

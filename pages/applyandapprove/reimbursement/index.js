@@ -26,6 +26,13 @@ Page({
         showbadge: false,
         event: "mylist",
         showBadge: false
+      },
+      {
+        name: "审批历史",
+        image: "approval1",
+        showbadge: false,
+        event: "approvalhistory",
+        showBadge: false
       }
     ],
     bankAccountId: null
@@ -127,6 +134,11 @@ Page({
   mylist() {
     wx.navigateTo({
       url: '/pages/applyandapprove/reimbursement/mylist',
+    });
+  },
+  approvalhistory(){
+    wx.navigateTo({
+      url: '/pages/applyandapprove/reimbursement/approvalhistory',
     });
   }
 })

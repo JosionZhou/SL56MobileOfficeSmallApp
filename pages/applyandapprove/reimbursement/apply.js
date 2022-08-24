@@ -78,9 +78,9 @@ Page({
         Details: {
           required: true
         },
-        Attachments: {
-          required: true
-        },
+        // Attachments: {
+        //   required: true
+        // },
         NoAttachmentTypesCount: {
           max: 0
         }
@@ -94,9 +94,9 @@ Page({
         Details: {
           required: '报销明细不能为空'
         },
-        Attachments: {
-          required: '附件不能为空'
-        },
+        // Attachments: {
+        //   required: '附件不能为空'
+        // },
         NoAttachmentTypesCount: {
           max: "请选择附件类型"
         }
@@ -208,11 +208,11 @@ Page({
     }
     //编辑模式
     else {
-      let count = this.data.Attachments.filter(p => p.AttachmentType == null).length;
-      this.setData({
-        NoAttachmentTypesCount: count
-      });
-      e.detail.value.NoAttachmentTypesCount = count;
+      // let count = this.data.Attachments.filter(p => p.AttachmentType == null).length;
+      // this.setData({
+      //   NoAttachmentTypesCount: count
+      // });
+      // e.detail.value.NoAttachmentTypesCount = count;
       // 传入表单数据，调用验证方法
       if (!this.WxValidate.checkForm(e.detail.value)) {
         console.log(e.detail.value);
@@ -316,6 +316,7 @@ Page({
     var that = this;
     let index = event.currentTarget.dataset.detailIndex;
     let detail = this.data.Details[index];
+    detail.IsEditable=that.data.IsEditable;
     wx.navigateTo({
       url: './detail',
       events: {

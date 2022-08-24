@@ -51,6 +51,30 @@
     </view>
   </view>
 
+  <view class="weui-cells__title">报销附件(点击打开/长按移除)</view>
+  <input hidden name="Attachments" model:value="{{Attachments[0].ObjectName}}" />
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_link" bindlongpress="removeAttachment" wx:for="{{Attachments}}">
+      <view class="weui-cell__hd">
+        <view class="weui-label attTypeLabel" data-attachment-index="{{index}}" bindtap="selectAttachmentType">
+          <view wx:if="{{Attachments[index].AttachmentType==1}}">物品图片</view>
+          <view wx:elif="{{Attachments[index].AttachmentType==2}}">发票/收据</view>
+          <view wx:elif="{{Attachments[index].AttachmentType==3}}">支付凭证</view>
+          <view wx:elif="{{Attachments[index].AttachmentType==4}}">店面图片</view>
+          <view wx:else>选择附件类型</view>
+        </view>
+      </view>
+      <view class="weui-cell__bd attName" bindtap="previewAttachment" data-attachment-index="{{index}}">
+        附件{{index+1}} (点击预览)
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_link" bindtap="addAttachment" wx:if="{{IsEditable}}">
+      <view>
+        添加附件
+      </view>
+    </view>
+  </view>
+
   <view class="weui-cells__title">备注</view>
   <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell">

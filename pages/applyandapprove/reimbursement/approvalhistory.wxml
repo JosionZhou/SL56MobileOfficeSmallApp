@@ -1,0 +1,12 @@
+
+<navigator data-type="1" data-index="{{index}}" bindtap="toDetail" data-index="{{index}}" style="margin-top:5px;padding-left:10px;padding-bottom:10px;text-align:left;background-color:white;width:100%;font-size:15px" wx:for="{{list}}">
+  <view>{{item.ObjectName}}</view>
+  <!-- <view style="color:#999999;font-size:15px;margin-top:5px"> 申请人：{{item.CreateBy}}</view> -->
+  <view class="weui-select weui-select_in-select-after" style="color:#999999;font-size:15px;margin-top:5px">申请日期：{{item.CreateAt}}</view>
+  <view style="color:#999999;font-size:15px;margin-top:5px">当前状态：
+    <span wx:if="{{item.CurrentState==0}}">审批中</span>
+    <span style="color: #004ea2;" wx:if="{{item.CurrentState==1}}">已主动取消</span>
+    <span style="color:red;" wx:if="{{item.CurrentState==2}}">已拒绝</span>
+    <span style="color: #00a264;" wx:if="{{item.CurrentState==3}}">已批准</span>
+  </view>
+</navigator>
