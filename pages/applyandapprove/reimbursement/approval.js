@@ -145,7 +145,14 @@ Page({
           wx.showModal({
             showCancel: false,
             title: "操作失败",
-            content: res
+            content: res+",页面将重新刷新,请在页面刷新后重试",
+            success:function(res){
+              that.setData({
+                items: [],
+                IsSelectAll: false
+              });
+              that.onShow();
+            }
           });
         }
       },
