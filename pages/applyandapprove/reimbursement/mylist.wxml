@@ -26,11 +26,20 @@
             <view>{{item.ObjectName}}</view>
             <view style="color:#999999;font-size:15px;margin-top:5px"> 申请人：{{item.CreateBy}}</view>
             <view class="weui-select weui-select_in-select-after" style="color:#999999;font-size:15px;margin-top:5px">申请日期：{{item.CreateAt}}</view>
-            <view style="color:#999999;font-size:15px;margin-top:5px">当前状态：
-              <span wx:if="{{item.CurrentState==0}}">审批中</span>
-              <span style="color: #004ea2;" wx:if="{{item.CurrentState==1}}">已主动取消</span>
-              <span style="color:red;" wx:if="{{item.CurrentState==2}}">已拒绝</span>
-              <span style="color: #00a264;" wx:if="{{item.CurrentState==3}}">已批准</span>
+            <view style="color:#999999;font-size:15px;margin-top:5px;position: relative;">
+              <view style="width: 55%;float: left;">
+                当前状态：
+                <span wx:if="{{item.CurrentState==0}}">审批中</span>
+                <span style="color: #004ea2;" wx:if="{{item.CurrentState==1}}">已主动取消</span>
+                <span style="color:red;" wx:if="{{item.CurrentState==2}}">已拒绝</span>
+                <span style="color: #00a264;" wx:if="{{item.CurrentState==3}}">已批准</span>
+              </view>
+              <view style="width: 40%;float: right;" wx:if="{{item.CurrentState!=3}}">
+                <navigator class="weui-form-preview__btn weui-form-preview__btn_primary" hover-class="weui-form-preview__btn_active" style="text-decoration: underline;color: #004ea2;" data-type="3" bindtap="reapproval">
+                重新申请
+                </navigator>
+              </view>
+              <view style="clear: both;"></view>
             </view>
           </navigator>
           <view class="weui-loadmore weui-loadmore_line" wx:if="{{items2.length==0}}">

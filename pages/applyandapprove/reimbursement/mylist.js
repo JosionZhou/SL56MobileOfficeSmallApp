@@ -97,9 +97,30 @@ Page({
     });
   },
   toDetail(e){
+    let that=this;
     let data = null;
     let type=e.currentTarget.dataset.type;
-    if(type==0){
+    if(this.data.touchType!=null){
+      type=this.data.touchType;
+    }
+    console.log(type);
+    if(type==3){
+      this.data.touchType=null;
+      data = this.data.items2[e.currentTarget.dataset.index];
+      let formId = data.FormId;
+      wx.showModal({
+        showCancel:true,
+        title:"提示",
+        content:"确定重新发起申请吗",
+        success:function(res){
+          if(res.confirm){
+            that.doReapproval(formId);
+          }
+        }
+      })
+      return;
+    }
+    else if(type==0){
       data = this.data.items1[e.currentTarget.dataset.index];
     }else{
       data = this.data.items2[e.currentTarget.dataset.index];
@@ -109,5 +130,40 @@ Page({
     wx.navigateTo({
       url: './apply?item='+ params
     });
+  },
+  reapproval(e){
+    let type=e.currentTarget.dataset.type;
+    this.data.touchType=type;
+  },
+  doReapproval(formId){
+    let that=this;
+    wx.showLoading({
+      title: '请稍后',
+    });
+    let data = {
+      url: app.globalData.serverAddress + "/Reimbursement/ReApply?formId="+formId,
+      success: function (res) {
+        wx.hideLoading();
+        if(res.length>0){
+          wx.showModal({
+            showCancel:false,
+            title:"操作失败",
+            content:res+";请重试"
+          });
+        }else{
+          wx.showModal({
+            showCancel:false,
+            title:"提示",
+            content:"操作成功"
+          });
+          that.onShow();
+          that.setData({
+            activeIndex:0,
+            sliderOffset:0
+          });
+        }
+      }
+    }
+    app.NetRequest(data);
   }
 })

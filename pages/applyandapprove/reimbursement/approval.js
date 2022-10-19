@@ -182,11 +182,21 @@ Page({
     this.doApprovalAction(item,action);
   },
   reject(e) {
-    let action="Approval";
-    let id= e.currentTarget.dataset.id;
-    let item = this.data.items.find(p=>p.FormId==id);
-    item.IsPass=false;
-    this.doApprovalAction(item,action);
+    let that=this;
+    wx.showModal({
+      showCancel:true,
+      title:"提示",
+      content:"确定拒绝吗？",
+      success:function(res){
+        if(res.confirm){
+          let action="Approval";
+          let id= e.currentTarget.dataset.id;
+          let item = that.data.items.find(p=>p.FormId==id);
+          item.IsPass=false;
+          that.doApprovalAction(item,action);
+        }
+      }
+    });
   },
   batchAgree() {
     let action="Approvals";
@@ -198,12 +208,22 @@ Page({
     this.doApprovalAction(selectItems,action);
   },
   batchReject() {
-    let action="Approvals";
-    let selectItems = this.data.items.filter(p=>p.IsSelected);
-    selectItems.forEach(element => {
-      element.IsPass=false;
-      element.Remark="批量拒绝";
+    let that=this;
+    wx.showModal({
+      showCancel:true,
+      title:"提示",
+      content:"确定拒绝吗？",
+      success:function(res){
+        if(res.confirm){
+          let action="Approvals";
+          let selectItems = that.data.items.filter(p=>p.IsSelected);
+          selectItems.forEach(element => {
+            element.IsPass=false;
+            element.Remark="批量拒绝";
+          });
+          that.doApprovalAction(selectItems,action);
+        }
+      }
     });
-    this.doApprovalAction(selectItems,action);
   }
 })
