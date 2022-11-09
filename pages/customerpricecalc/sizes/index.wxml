@@ -1,0 +1,49 @@
+<form bindsubmit='submit'>
+  <view class="weui-cells weui-cells_after-title" wx:for="{{sizes}}">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">第{{index+1}}件</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" name='weight{{index}}' value="{{item.ActualWeight}}" placeholder="重量" type="digit" />
+      </view>
+      <view class="weui-cell__ft" wx:if="{{errors['weight'+index]}}">
+        <icon type="warn" size="23" color="#E64340"></icon>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label"></view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" name='length{{index}}' value="{{item.Length}}" placeholder="长" type="digit" />
+      </view>
+      <view class="weui-cell__ft" wx:if="{{errors['length'+index]}}">
+        <icon type="warn" size="23" color="#E64340"></icon>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label"></view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" name='width{{index}}' value="{{item.Width}}" placeholder="宽" type="digit" />
+      </view>
+      <view class="weui-cell__ft" wx:if="{{errors['width'+index]}}">
+        <icon type="warn" size="23" color="#E64340"></icon>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label"></view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" name='height{{index}}' value="{{item.Height}}" placeholder="高" type="digit" />
+      </view>
+      <view class="weui-cell__ft" wx:if="{{errors['height'+index]}}">
+        <icon type="warn" size="23" color="#E64340"></icon>
+      </view>
+    </view>
+  </view>
+  <button class="weui-btn btn" type="primary" form-type="submit"  style="background:#004ea2">确认</button>
+</form>

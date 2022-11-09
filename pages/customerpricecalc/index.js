@@ -6,12 +6,12 @@ Page({
    */
   data: {
     countryList: {},
-    cities:[],
-    cityId:null,
-    cityNames:[],
-    customers:{},
-    customerText:"",
-    customerId:null,
+    cities: [],
+    cityId: null,
+    cityNames: [],
+    customers: {},
+    customerText: "",
+    customerId: null,
     filtCountryList: {},
     modeofTransportList: {},
     modeofTransportNameList: {},
@@ -19,16 +19,22 @@ Page({
     modeofTransportId: 0,
     showCountryLIst: false,
     hideCP: true,
-    hideCustomer:true,
+    hideCustomer: true,
     hideDetail: true,
     countryText: "",
     countryId: null,
     ctrlText: '更多信息',
     countryWarning: false,
     weightWarning: false,
-    productTypes: [
-      { name: 'DOC', value: '0' },
-      { name: 'WPX', value: '1', checked: true }
+    productTypes: [{
+        name: 'DOC',
+        value: '0'
+      },
+      {
+        name: 'WPX',
+        value: '1',
+        checked: true
+      }
     ],
     volumes: [],
     volumeNames: [],
@@ -37,12 +43,14 @@ Page({
     showErrorTips: false,
     errorTips: "",
     isLoading: false,
-    rules:null,
-    showRules:false,
-    selectedRuleIndexs:[],
-    dialogHeight:"300px",
-    rulesText:"",
-    SelectRuleIds:[]
+    rules: null,
+    showRules: false,
+    selectedRuleIndexs: [],
+    dialogHeight: "300px",
+    rulesText: "",
+    sizes: [],
+    piece: 1,
+    SelectRuleIds: []
   },
 
   /**o
@@ -53,10 +61,10 @@ Page({
       title: '请稍后',
       mask: true
     })
-    var requestMark=0;
+    var requestMark = 0;
     var res = wx.getSystemInfoSync();
     this.setData({
-      dialogHeight:res.windowHeight*0.7+"px"
+      dialogHeight: res.windowHeight * 0.7 + "px"
     });
     var main = this;
     var data = {
@@ -64,7 +72,7 @@ Page({
       method: "GET",
       success: function (res) {
         requestMark++;
-        if(requestMark==4){
+        if (requestMark == 4) {
           wx.hideLoading();
         }
         var names = new Array();
@@ -121,11 +129,11 @@ Page({
           wx.hideLoading();
         }
         var items = res;
-        for(var i=0;i<items.length;i++){
-          items.IsSelected=false;
+        for (var i = 0; i < items.length; i++) {
+          items.IsSelected = false;
         }
         main.setData({
-          rules:items
+          rules: items
         });
       }
     }
@@ -230,6 +238,15 @@ Page({
         weightWarning: false
       });
     }
+    //如果填写了尺寸规格，则必须跟件数匹配
+    if(this.data.sizes.length>0 && this.data.piece!=this.data.sizes.length){
+      wx.showModal({
+        showCancel:false,
+        title:"提示",
+        content:"规格与件数不一致，请确认每件规格！"
+      });
+      return;
+    }
     this.setData({
       isLoading: true
     });
@@ -243,10 +260,11 @@ Page({
         DeclaredValue: e.detail.value.declaredvalue,
         ModeOfTransportId: main.data.modeofTransportId,
         ActualWeight: e.detail.value.weight,
-        Piece:e.detail.value.piece,
+        Piece: e.detail.value.piece,
         PostalCode: e.detail.value.postalcode,
         SelectRuleIds: main.data.SelectRuleIds,
-        CustomerId:main.data.customerId
+        CustomerId: main.data.customerId,
+        Sizes:main.data.sizes
       },
       success: function (res) {
         main.setData({
@@ -298,25 +316,25 @@ Page({
       });
     }
   },
-  inputCustomer:function(e){
-    var customer=e.detail.value;
+  inputCustomer: function (e) {
+    var customer = e.detail.value;
     this.setData({
-      customerText:customer
+      customerText: customer
     });
     if (customer == "") {
       this.setData({
         customers: {}
       });
     } else {
-      if(customer.length<=2){
+      if (customer.length <= 2) {
         this.setData({
-          hideCustomer:true
+          hideCustomer: true
         });
         return;
       }
-      var main=this;
+      var main = this;
       var data = {
-        url: app.globalData.serverAddress + '/Calculation/FiltCustomer?key='+customer,
+        url: app.globalData.serverAddress + '/Calculation/FiltCustomer?key=' + customer,
         method: "GET",
         success: function (res) {
           main.setData({
@@ -331,19 +349,19 @@ Page({
   selectCountry: function (e) {
     var countryText = e.currentTarget.dataset["text"];
     var countryId = e.currentTarget.dataset["value"];
-    var main=this;
+    var main = this;
     this.setData({
       countryText: countryText,
       countryId: countryId
     });
-    hideCountryList(this);
+    this.hideCountryList(this);
     var data = {
-      url: app.globalData.serverAddress + '/Calculation/GetCities?countryId='+countryId,
+      url: app.globalData.serverAddress + '/Calculation/GetCities?countryId=' + countryId,
       method: "GET",
       success: function (res) {
         var names = new Array();
         for (var i = 0; i < res.length; i++) {
-          names.push(res[i].ChineseName+"-"+res[i].ObjectName);
+          names.push(res[i].ChineseName + "-" + res[i].ObjectName);
         }
         main.setData({
           cityNames: names,
@@ -353,17 +371,17 @@ Page({
     }
     app.NetRequest(data);
   },
-  selectCustomer:function(e){
+  selectCustomer: function (e) {
     var customerText = e.currentTarget.dataset["text"];
     var customerId = e.currentTarget.dataset["value"];
     var main = this;
     this.setData({
       customerText: customerText,
       customerId: customerId,
-      hideCustomer:true
+      hideCustomer: true
     });
   },
-  cityChange:function(e){
+  cityChange: function (e) {
     this.setData({
       cityIndex: e.detail.value,
       cityId: this.data.cities[e.detail.value].ObjectId
@@ -394,51 +412,77 @@ Page({
       });
     }, 2000);
   },
-  checkItem:function(e){
+  checkItem: function (e) {
     var rules = this.data.rules;
-    this.data.selectedRuleIndexs=new Array();
-    for(var i=0;i<rules.length;i++){
-      rules[i].IsSelected=false;
+    this.data.selectedRuleIndexs = new Array();
+    for (var i = 0; i < rules.length; i++) {
+      rules[i].IsSelected = false;
     }
-    for(var i=0;i<e.detail.length;i++){
-      rules[e.detail[i]].IsSelected=true;
+    for (var i = 0; i < e.detail.length; i++) {
+      rules[e.detail[i]].IsSelected = true;
       this.data.selectedRuleIndexs.push(e.detail[i]);
     }
     this.setData({
-      rules:rules
+      rules: rules
     });
   },
-  cancelRules:function(){
+  cancelRules: function () {
     // var rules = this.data.rules;
     // for(var i=0;i<rules.length;i++){
     //   rules[i].IsSelected=false;
     // }
     this.setData({
-      showRules:false
+      showRules: false
     });
   },
-  confirmRules:function(){
+  confirmRules: function () {
     var selectedRuleIndexs = this.data.selectedRuleIndexs;
     var rules = this.data.rules;
-    var text="";
-    for (var i = 0; i < selectedRuleIndexs.length;i++){
-      text = (text + rules[selectedRuleIndexs[i]].AttributeName+",");
+    var text = "";
+    for (var i = 0; i < selectedRuleIndexs.length; i++) {
+      text = (text + rules[selectedRuleIndexs[i]].AttributeName + ",");
       this.data.SelectRuleIds.push(rules[selectedRuleIndexs[i]].ObjectId);
     }
     this.setData({
-      showRules:false,
-      ruleText:text
+      showRules: false,
+      ruleText: text
     });
   },
-  showRules:function(){
+  showRules: function () {
     this.setData({
-      showRules:true
+      showRules: true
     });
+  },
+  hideCountryList: function (res) {
+    res.setData({
+      filtCountryList: {},
+      hideCP: true
+    });
+  },
+  showSizes: function () {
+    let that = this;
+    if (that.data.piece > 0) {
+      wx.navigateTo({
+        url: './sizes/index',
+        events: {
+          submitSizes: function (data) {
+            that.data.sizes = data.sizes;
+            console.log(data.sizes);
+          }
+        },
+        success: function (res) {
+          res.eventChannel.emit("editSizes", {
+            sizes: that.data.sizes,
+            pieces: that.data.piece
+          });
+        }
+      });
+    }else{
+      wx.showModal({
+        showCancel:false,
+        title:"提示",
+        content:"件数必须大于0！",
+      });
+    }
   }
 })
-function hideCountryList(res) {
-  res.setData({
-    filtCountryList: {},
-    hideCP: true
-  });
-}
