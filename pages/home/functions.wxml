@@ -10,7 +10,7 @@
     </block>
   </view>
   <view class="weui-grids">
-    <block wx:for="{{subFunctions}}" wx:key="*this">
+    <block wx:for="{{subFunctions}}" wx:key="*this" wx:if="{{!item.hide}}">
       <navigator class="weui-grid" hover-class="weui-grid_active2" bindtap="{{item.event}}">
         <image class="weui-grid__icon" src="/image/{{item.image}}.png" />
         <view class="weui-badge" style="position: absolute;top: 1em;right: 2.7em;" wx:if="{{item.showbadge}}">{{count}}</view>

@@ -7,25 +7,68 @@ Page({
    */
   data: {
     isLogin: false,
-    waitApprovalCount:0,
-    mainFunctions:
-    [
-      { name: "岗位扫描", image: "scan", event: "scanStation",showBadge:false },
-      { name: "申请/审批", image: "approve", event: "applyandapprove",showBadge:true },
-      { name: "快件查询", image: "search", event: "expresssearch",showBadge:false }
+    waitApprovalCount: 0,
+    mainFunctions: [{
+        name: "岗位扫描",
+        image: "scan",
+        event: "scanStation",
+        showBadge: false
+      },
+      {
+        name: "申请/审批",
+        image: "approve",
+        event: "applyandapprove",
+        showBadge: true
+      },
+      {
+        name: "快件查询",
+        image: "search",
+        event: "expresssearch",
+        showBadge: false
+      }
     ],
-    subFunctions:
-    [
+    subFunctions: [
       // { name: "申请加分", image: "add", showbadge: false, event: "addIntegrate" },
       // { name: "申请扣分", image: "minus", showbadge: false, event: "minusIntegrate" },
       // { name: "审批", image: "stamp", showbadge: false, event: "examine" },
       // { name: "申请记录", image: "history", showbadge: false, event: "record" },
-      { name: "岗位退出", image: "exitstation", showbadge: false, event: "exitStation" },
-      { name: "外价计算", image: "calculateprice", showbadge: false, event: "customerPrice" },
-      { name: "内价计算", image: "costpricecalc", showbadge: false, event: "costPrice" },
-      { name: "岗位管理", image: "costpricecalc", showbadge: false, event: "managerStation" },
-      { name: "装车出货", image: "trucking", showbadge: false, event: "truckingShipment" },
-      { name: "车辆管理", image: "truck", showbadge: false, event: "truckManager" }
+      {
+        name: "岗位退出",
+        image: "exitstation",
+        showbadge: false,
+        event: "exitStation"
+      },
+      {
+        name: "外价计算",
+        image: "calculateprice",
+        showbadge: false,
+        event: "customerPrice"
+      },
+      {
+        name: "内价计算",
+        image: "costpricecalc",
+        showbadge: false,
+        event: "costPrice",
+        hide: true
+      },
+      {
+        name: "岗位管理",
+        image: "costpricecalc",
+        showbadge: false,
+        event: "managerStation"
+      },
+      {
+        name: "装车出货",
+        image: "trucking",
+        showbadge: false,
+        event: "truckingShipment"
+      },
+      {
+        name: "车辆管理",
+        image: "truck",
+        showbadge: false,
+        event: "truckManager"
+      }
     ],
     count: 0
   },
@@ -43,12 +86,7 @@ Page({
       this.setData({
         isLogin: isLogin
       });
-
     }
-    
-    wx.requestSubscribeMessage({
-      tmplIds: ['P9CH_RVjJMuQbSNpzqp6_drxKKj3va4sj4mMDaDXWJY'],
-    });
   },
 
   /**
@@ -62,16 +100,30 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
+    let that=this;
     let isLogin = app.globalData.isLogin;
     this.setData({
       isLogin: isLogin
     });
-    let that=this;
-    util.getWaitApprovalCount(function(res){
+    util.getWaitApprovalCount(function (res) {
       that.setData({
-        waitApprovalCount:res
+        waitApprovalCount: res
       });
     });
+
+    let data = {
+      url: app.globalData.serverAddress + '/UserHome/GetCostPricePermission',
+      method:"GET",
+      success: function (res) {
+        let subFuns = that.data.subFunctions;
+        let item = subFuns.find(p=>p.name=="内价计算");
+        item.hide=!res;
+        that.setData({
+          subFunctions:subFuns
+        });
+      }
+    }
+    app.NetRequest(data);
   },
 
   /**
@@ -209,7 +261,7 @@ Page({
   applyandapprove: function () {
     wx.requestSubscribeMessage({
       tmplIds: ['P9CH_RVjJMuQbSNpzqp6_drxKKj3va4sj4mMDaDXWJY'],
-      complete:function(){
+      complete: function () {
         wx.navigateTo({
           url: '/pages/applyandapprove/index',
         })
@@ -248,7 +300,7 @@ Page({
       url: '/pages/costpricecalc/index',
     })
   },
-  managerStation:function(){
+  managerStation: function () {
     var data = {
       url: app.globalData.serverAddress + '/Station/GetStations',
       method: "GET",
@@ -262,14 +314,13 @@ Page({
             cancelColor: '',
             confirmText: '确定',
             confirmColor: '',
-            success: function (res) { },
-            fail: function (res) { },
-            complete: function (res) { },
+            success: function (res) {},
+            fail: function (res) {},
+            complete: function (res) {},
           });
           return;
-        }
-        else{
-          app.stations=res;
+        } else {
+          app.stations = res;
           wx.navigateTo({
             url: '/pages/managerstation/index',
           })
@@ -278,12 +329,12 @@ Page({
     }
     app.NetRequest(data);
   },
-  truckingShipment:function(){
+  truckingShipment: function () {
     wx.navigateTo({
       url: '/pages/truckingshipment/list',
     });
   },
-  truckManager:function(){
+  truckManager: function () {
     wx.navigateTo({
       url: '/pages/car/index',
     });
