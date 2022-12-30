@@ -37,7 +37,9 @@
     "pages/applyandapprove/reimbursement/mylist",
     "pages/bankcardinfo/index",
     "pages/applyandapprove/reimbursement/approvalhistory",
-    "pages/customerpricecalc/sizes/index"
+    "pages/customerpricecalc/sizes/index",
+    "pages/arkpricecalc/index",
+    "pages/arkpricecalc/result"
   ],
   "window": {
     "backgroundTextStyle": "light",

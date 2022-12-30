@@ -68,6 +68,12 @@ Page({
         image: "truck",
         showbadge: false,
         event: "truckManager"
+      },
+      {
+        name: "Ark报价计算",
+        image: "costpricecalc",
+        showbadge: false,
+        event: "arkPrice"
       }
     ],
     count: 0
@@ -298,6 +304,11 @@ Page({
   costPrice: function () {
     wx.navigateTo({
       url: '/pages/costpricecalc/index',
+    })
+  },
+  arkPrice:function(){
+    wx.navigateTo({
+      url: '/pages/arkpricecalc/index',
     })
   },
   managerStation: function () {

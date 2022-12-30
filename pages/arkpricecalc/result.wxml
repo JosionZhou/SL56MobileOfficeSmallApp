@@ -1,0 +1,57 @@
+<view class="page">
+  <view class="weui-form-preview item" wx:for="{{list}}">
+    <view class="weui-form-preview__hd">
+      <view class="weui-form-preview__label">QuoteTotal</view>
+      <view class="weui-form-preview__value_in-hd">{{item.QuoteTotal}}</view>
+    </view>
+    <view class="weui-form-preview__bd">
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">ShippingDate</view>
+        <view class="weui-form-preview__value">{{item.ShippingDate}}</view>
+      </view>
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">TotalWeight</view>
+        <view class="weui-form-preview__value">{{item.TotalWeight}}</view>
+      </view>
+      <view class="weui-form-preview__item">
+        <view class="weui-form-preview__label">TransitDaysTotal</view>
+        <view class="weui-form-preview__value">{{item.TransitDaysTotal}}</view>
+      </view>
+    </view>
+    <view class="weui-form-preview__ft">
+      <navigator class="weui-form-preview__btn weui-form-preview__btn_primary {{item.ShowChargeLineItems?'activited':''}}" hover-class="weui-form-preview__btn_active" data-index="{{index}}" bindtap="openChargeLineItems">Charge Line Items</navigator>
+      <navigator class="weui-form-preview__btn weui-form-preview__btn_primary {{item.ShowWeightAdjusted?'activited':''}}" hover-class="weui-form-preview__btn_active" data-index="{{index}}" bindtap="openWeightAdjusted">Weight Adjusted</navigator>
+    </view>
+    <view class="subView activited">
+      <view class="weui-form-preview__bd" wx:for="{{item.ChargeLineItems}}" wx:for-item="chargeItem" hidden="{{!item.ShowChargeLineItems}}">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">Code</view>
+          <view class="weui-form-preview__value">{{chargeItem.Code}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">Description</view>
+          <view class="weui-form-preview__value">{{chargeItem.Description}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">Zone</view>
+          <view class="weui-form-preview__value">{{chargeItem.Zone}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">ServiceLevel</view>
+          <view class="weui-form-preview__value">{{chargeItem.ServiceLevel}}</view>
+        </view>
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">Amount</view>
+          <view class="weui-form-preview__value">{{chargeItem.Amount}}</view>
+        </view>
+      </view>
+      
+      <view class="weui-form-preview__bd" wx:for="{{item.WeightAdjusted}}" wx:for-item="weightItem" hidden="{{!item.ShowWeightAdjusted}}">
+        <view class="weui-form-preview__item">
+          <view class="weui-form-preview__label">{{weightItem}}</view>
+          <view class="weui-form-preview__value"></view>
+        </view>
+      </view>
+    </view>
+  </view>
+</view>

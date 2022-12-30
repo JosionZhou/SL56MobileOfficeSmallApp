@@ -1,0 +1,9 @@
+.item{
+  margin-bottom: 10px;
+}
+.activited{
+  background-color: #eee;
+}
+.weui-form-preview__btn{
+  color: #004ea2;
+}

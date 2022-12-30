@@ -1,0 +1,116 @@
+<view class="weui-toptips weui-toptips_warn" wx:if="{{IsError}}">{{ErrorMessage}}</view>
+<view class='page'>
+  <view class='page__bd'>
+    <view class="weui-toptips weui-toptips_warn" wx:if="{{showErrorTips}}">{{errorTips}}</view>
+    <form bindsubmit='search'>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label" style="font-size: 16px;">最早发货日期</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker name="dateStart" mode="date" model:value="{{dateStart}}">
+              <view class="weui-input">{{dateStart}}</view>
+            </picker>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label" style="font-size: 16px;">最晚发货日期</view>
+          </view>
+          <view class="weui-cell__bd">
+            <picker name="dateEnd" mode="date" model:value="{{dateEnd}}">
+              <view class="weui-input">{{dateEnd}}</view>
+            </picker>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input {{countryWarning==true?'weui-cell_warn':''}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label">发货地国家</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-search-bar" style="background-color:white;padding:8px 0px;border-bottom:none">
+              <view class="weui-search-bar__form" style="border:none">
+                <view class="weui-search-bar__box" style="padding:0px">
+                  <input type="text" name="startCountry" class="weui-search-bar__input" placeholder="仅支持 墨西哥/加拿大/美国" data-type='1' value="{{startCountryText}}" bindinput="inputCountry" style="font-size:17px" />
+                </view>
+              </view>
+            </view>
+            <view class="weui-cells searchbar-result" style="position:absolute;z-index:999;margin-top:0px;background-color:#efeff4;width:60%;" wx:if="{{filtCountryList.length > 0 && startCountryText.length>0 && !hideCP && showCountryCPType==1}}">
+              <navigator class="weui-cell" hover-class="weui-cell_active" wx:for="{{filtCountryList}}">
+                <view class="weui-cell__bd" bindtap='selectCountry' data-type='1' data-text='{{item.Name}}' data-value='{{item.Id}}'>
+                  <view>{{item.Name}}</view>
+                </view>
+              </navigator>
+            </view>
+          </view>
+          <view class="weui-cell__ft" wx:if="{{countryWarning}}">
+            <icon type="warn" size="23" color="#E64340"></icon>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">发货地邮编</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" name='postcode1' model:value="{{postcode1}}" placeholder="请输入发货地邮编" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input {{countryWarning==true?'weui-cell_warn':''}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label">目的地国家</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view class="weui-search-bar" style="background-color:white;padding:8px 0px;border-bottom:none">
+              <view class="weui-search-bar__form" style="border:none">
+                <view class="weui-search-bar__box" style="padding:0px">
+                  <input type="text" name="endCountry" class="weui-search-bar__input" placeholder="仅支持 墨西哥/加拿大/美国" data-type='2' value="{{endCountryText}}" bindinput="inputCountry" style="font-size:17px" />
+                </view>
+              </view>
+            </view>
+            <view class="weui-cells searchbar-result" style="position:absolute;z-index:999;margin-top:0px;background-color:#efeff4;width:60%;" wx:if="{{filtCountryList.length > 0 && endCountryText.length>0 && !hideCP && showCountryCPType==2}}">
+              <navigator class="weui-cell" hover-class="weui-cell_active" wx:for="{{filtCountryList}}">
+                <view class="weui-cell__bd" bindtap='selectCountry' data-type='2' data-text='{{item.Name}}' data-value='{{item.Id}}'>
+                  <view>{{item.Name}}</view>
+                </view>
+              </navigator>
+            </view>
+          </view>
+          <view class="weui-cell__ft" wx:if="{{countryWarning}}">
+            <icon type="warn" size="23" color="#E64340"></icon>
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input">
+          <view class="weui-cell__hd">
+            <view class="weui-label">目的地邮编</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" name='postcode2' model:value="{{postcode2}}" placeholder="请输入目的地邮编" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input weui-cell_vcode" hidden='{{hideDetail}}'>
+          <view class="weui-cell__hd">
+            <view class="weui-label">申报价值</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" type="digit" name='declaredvalue' placeholder="请输入货物申报价值(单位：$)" model:value="{{declaredvalue}}" />
+          </view>
+        </view>
+        <view class="weui-cell weui-cell_input weui-cell_vcode" hidden='{{hideDetail}}'>
+          <view class="weui-cell__hd">
+            <view class="weui-label">件数</view>
+          </view>
+          <view class="weui-cell__bd">
+            <input class="weui-input" name='piece' placeholder="请输入件数" type="number" model:value="{{piece}}" />
+          </view>
+          <view style="padding:10px;color:#004ea2" hover-class="hv" bindtap="showSizes">
+            <view>...</view>
+          </view>
+        </view>
+      </view>
+      <view class="weui-btn-area">
+        <button class='weui-btn' type='primary' form-type='submit' loading="{{isLoading}}" style="background:#004ea2">查询</button>
+      </view>
+    </form>
+  </view>
+</view>
