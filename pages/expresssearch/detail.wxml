@@ -105,7 +105,7 @@
             <view class="weui-cell">
               <view class="weui-cell__bd">货物属性</view>
               <view class="weui-cell__ft" style="font-size:13px">{{rules}}</view>
-              
+
             </view>
           </view>
         </view>
@@ -139,16 +139,43 @@
         </navigator>
 
         <view class="weui-tab__content" hidden="{{activeIndex != 2}}">
-          <view class="weui-cells weui-cells_after-title" wx:for="{{item.TrackInfos}}" wx:for-item="track">
-            <view class="weui-cell weui-cell_access">
-              <view class="weui-cell__bd" style="font-size:15px">
-                <view>时间：<span class="sub_font_color">{{track.ActivityDate}}</span></view>
-                <view>地 点：<span class="sub_font_color">{{track.Location}}</span></view>
-                <view>状 态：<span class="sub_font_color">{{track.Activity}}</span></view>
-                <view wx:if="{{track.FurtherDetails.length>0}}">详 情：<span class="sub_font_color">{{track.FurtherDetails}}</span></view>
-                <view wx:else>详 情：<span class="sub_font_color">[无]</span></view>
-                <view wx:if="{{track.NextSteps.length>0}}">下一步：<span class="sub_font_color">{{track.NextSteps}}</span></view>
-                <view wx:else>下一步：<span class="sub_font_color">[无]</span></view>
+          <view wx:if="{{item.IsShowPackageTracks}}">
+            <view class="trackTips">点击包裹号，可以展开每个包裹的详细轨迹</view>
+            <block wx:for="{{packageTracks}}" wx:for-item="package">
+              <view class="package-track__item">
+                <view id="{{package.PackageId}}" class="weui-flex package-track__item-hd {{item.open ? 'package-track__item-hd_show' : ''}}" bindtap="trackToggle">
+                  <view class="weui-flex__item">{{package.PackageNumber}}</view>
+                </view>
+                <view class="package-track__item-bd {{package.open ? 'package-track__item-bd_show' : ''}}">
+                  <view class="weui-cells weui-tracks {{package.open ? 'weui-cells_show' : ''}}">
+                    <block wx:for="{{package.Tracks}}" wx:for-item="track" wx:key="*this">
+                      <view>
+                        <view class="weui-cell weui-cell_access">
+                          <view class="weui-cell__bd" style="font-size:15px">
+                            <view>{{track.ActivityDate}}</view>
+                            <view class="sub_font_color">{{track.Location}}</view>
+                            <view class="sub_font_color">{{track.Activity}}</view>
+                          </view>
+                        </view>
+                      </view>
+                    </block>
+                  </view>
+                </view>
+              </view>
+            </block>
+          </view>
+          <view wx:else>
+            <view class="weui-cells weui-cells_after-title" wx:for="{{item.TrackInfos}}" wx:for-item="track">
+              <view class="weui-cell weui-cell_access">
+                <view class="weui-cell__bd" style="font-size:15px">
+                  <view>时间：<span class="sub_font_color">{{track.ActivityDate}}</span></view>
+                  <view>地 点：<span class="sub_font_color">{{track.Location}}</span></view>
+                  <view>状 态：<span class="sub_font_color">{{track.Activity}}</span></view>
+                  <view wx:if="{{track.FurtherDetails.length>0}}">详 情：<span class="sub_font_color">{{track.FurtherDetails}}</span></view>
+                  <view wx:else>详 情：<span class="sub_font_color">[无]</span></view>
+                  <view wx:if="{{track.NextSteps.length>0}}">下一步：<span class="sub_font_color">{{track.NextSteps}}</span></view>
+                  <view wx:else>下一步：<span class="sub_font_color">[无]</span></view>
+                </view>
               </view>
             </view>
           </view>
@@ -179,7 +206,7 @@
             </view>
             <view style="padding-left:15px;padding-right:15px;font-size:15px;color:#999999">{{problem.Remark}}</view>
           </view>
-          
+
           <button class="weui-btn btnAdd" type="primary" bindtap="addProblem">
             <span>+</span>
           </button>
@@ -210,7 +237,7 @@
               <view class="weui-cell__bd">{{action.ActionContent}} </view>
             </view>
           </view>
-      </view>
+        </view>
       </view>
     </view>
 

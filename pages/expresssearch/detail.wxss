@@ -75,3 +75,46 @@ button[plain]{
 #records weui-cells:nth-of-type(even) {
   background-color:white;
 }
+.package-track__item {
+  margin: 5px;
+  padding:5px;
+  background-color: #fff;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.weui-flex {
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+  align-items: center;
+}
+.weui-tracks {
+  margin-top: 0;
+  opacity: 0;
+  -webkit-transform: translateY(-50%);
+  transform: translateY(-50%);
+  -webkit-transition: .3s;
+  transition: .5s;
+}
+.trackTips{
+  padding: 5px;
+  color: red;
+  font-size: 13px;
+}
+.package-track__item-bd {
+  height: 0;
+  overflow: hidden;
+}
+.package-track__item-hd :hover{
+  background-color: rgb(231, 229, 229);
+}
+.package-track__item-hd_show {
+  opacity: .4;
+}
+.package-track__item-bd_show {
+  height: auto;
+}
+.weui-cells_show {
+  opacity: 1;
+  -webkit-transform: translateY(0);
+  transform: translateY(0);
+}

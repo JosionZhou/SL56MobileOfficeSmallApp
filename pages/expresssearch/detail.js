@@ -1,30 +1,30 @@
 // pages/deliveryrecord/detail.js
-var app=getApp()
+var app = getApp()
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    item:null,
-    tabs: ["基本信息", "规格", "轨迹","费用","问题","附件","操作记录"],
+    item: null,
+    tabs: ["基本信息", "规格", "轨迹", "费用", "问题", "附件", "操作记录"],
     activeIndex: 0,
     sliderOffset: 0,
     sliderLeft: 0,
-    width:0,
-    palletno:"",
-    contacts:[],
-    rules:"",
+    width: 0,
+    palletno: "",
+    contacts: [],
+    rules: "",
     customerPhoneStrs: [],
     customerPhoneNumbers: [],
-    id:null
+    id: null
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad: function (options) {
-    var that=this;
+    var that = this;
     wx.getSystemInfo({
       success: function (res) {
         var sliderWidth = res.windowWidth / that.data.tabs.length;
@@ -38,94 +38,102 @@ Page({
     });
     wx.showLoading({
       title: '请稍后',
-      mask:true
+      mask: true
     });
-     var id = options.id
-     this.data.id=id;
-     var main=this;
-     var data = {
-       url: app.globalData.serverAddress + '/Express/Detail',
-       method:"GET",
-       data: {
-         id: id
-       },
-       success: function (res) {
-         wx.hideLoading();
-         var rules=new Array();
-         for (var i = 0; i < res.SelectedRules.length;i++){
-          
-           rules.push(res.SelectedRules[i].AttributeName);
-         }
-         /*for (var i = 0; i < res.SelectedTemplateRules.length; i++) {
-           var r = {
-             Description: res.SelectedTemplateRules[i].Description
-           }
-           rules.push(r);
-         }*/
-         var showItems = new Array();
-         var numbers = new Array();
-         for (var i = 0; i < res.Contacts.length; i++) {
-           showItems.push((i+1) + ". " +res.Contacts[i].ObjectName + "-" + res.Contacts[i].Department + "-" + res.Contacts[i].MobilePhone)
-           numbers.push(res.Contacts[i].MobilePhone);
-         }
-         main.setData({
-           item:res,
-           rules:rules.toString(),
-           customerPhoneStrs:showItems,
-           customerPhoneNumbers:numbers
-         });
-       }
-     }
-     app.NetRequest(data);
+    var id = options.id
+    this.data.id = id;
+    var main = this;
+    var data = {
+      url: app.globalData.serverAddress + '/Express/Detail',
+      method: "GET",
+      data: {
+        id: id
+      },
+      success: function (res) {
+        wx.hideLoading();
+        var rules = new Array();
+        for (var i = 0; i < res.SelectedRules.length; i++) {
+
+          rules.push(res.SelectedRules[i].AttributeName);
+        }
+        /*for (var i = 0; i < res.SelectedTemplateRules.length; i++) {
+          var r = {
+            Description: res.SelectedTemplateRules[i].Description
+          }
+          rules.push(r);
+        }*/
+        var showItems = new Array();
+        var numbers = new Array();
+        for (var i = 0; i < res.Contacts.length; i++) {
+          showItems.push((i + 1) + ". " + res.Contacts[i].ObjectName + "-" + res.Contacts[i].Department + "-" + res.Contacts[i].MobilePhone)
+          numbers.push(res.Contacts[i].MobilePhone);
+        }
+        let packageTracks = null;
+        if (res.IsShowPackageTracks) {
+          packageTracks = JSON.parse(res.PackageTracksJsonString);
+          packageTracks.forEach(element => {
+            element.open = false;
+          });
+        }
+        main.setData({
+          item: res,
+          rules: rules.toString(),
+          customerPhoneStrs: showItems,
+          customerPhoneNumbers: numbers,
+          packageTracks: packageTracks
+        });
+      }
+    }
+    app.NetRequest(data);
   },
 
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
   onReady: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面显示
    */
   onShow: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面隐藏
    */
   onHide: function () {
-  
+
   },
 
   /**
    * 生命周期函数--监听页面卸载
    */
   onUnload: function () {
-  
+
   },
 
   /**
    * 页面相关事件处理函数--监听用户下拉动作
    */
   onPullDownRefresh: function () {
-  
+
   },
 
   /**
    * 页面上拉触底事件的处理函数
    */
   onReachBottom: function () {
-  
+
   },
 
   /**
    * 用户点击右上角分享
    */
   // onShareAppMessage: function () {
-  
+
   // },
   tabClick: function (e) {
     this.setData({
@@ -136,14 +144,14 @@ Page({
   open: function (e) {
     var t = e.currentTarget.dataset.type;
     var contacts;
-    if(t==1){
-     contacts = this.data.item.Contacts;
+    if (t == 1) {
+      contacts = this.data.item.Contacts;
     }
-    if(t==2){
-      contacts=new Array();
+    if (t == 2) {
+      contacts = new Array();
       var item = {
         ObjectName: this.data.item.SalesmanName,
-        Department:"业务",
+        Department: "业务",
         MobilePhone: this.data.item.SalesmanPhone
       }
       contacts.push(item);
@@ -161,10 +169,10 @@ Page({
       contacts: contacts
     });
     var showItems = new Array();
-    for(var i=0;i<contacts.length;i++){
-      showItems.push(contacts[i].ObjectName + "-" + contacts[i].Department +"-"+ contacts[i].MobilePhone)
+    for (var i = 0; i < contacts.length; i++) {
+      showItems.push(contacts[i].ObjectName + "-" + contacts[i].Department + "-" + contacts[i].MobilePhone)
     }
-    var main=this;
+    var main = this;
     wx.showActionSheet({
       itemList: showItems,
       success: function (res) {
@@ -176,7 +184,7 @@ Page({
       }
     });
   },
-  openAttachment:function(e){
+  openAttachment: function (e) {
     var id = e.currentTarget.dataset.id;
     wx.showLoading({
       title: '请稍后',
@@ -193,11 +201,11 @@ Page({
           wx.openDocument({
             filePath: res.tempFilePath,
             //图片类型用openDocument会打开失败，在失败方法里用previewImage打开即可
-            fail:function(e){
+            fail: function (e) {
               console.log(e);
               wx.previewImage({
                 urls: [res.tempFilePath],
-                current:res.tempFilePath
+                current: res.tempFilePath
               })
             }
           })
@@ -222,9 +230,24 @@ Page({
       phoneNumber: this.data.customerPhoneNumbers[e.detail.value]
     })
   },
-  addProblem:function(e){
+  addProblem: function (e) {
     wx.navigateTo({
-      url: '/pages/expresssearch/addproblem?id='+this.data.id,
+      url: '/pages/expresssearch/addproblem?id=' + this.data.id,
     })
+  },
+  trackToggle: function (e) {
+    var id = e.currentTarget.id,
+      packageTracks = this.data.packageTracks;
+    console.log(id);
+    for (var i = 0, len = packageTracks.length; i < len; ++i) {
+      if (packageTracks[i].PackageId == parseInt(id)) {
+        packageTracks[i].open = !packageTracks[i].open
+      } else {
+        packageTracks[i].open = false
+      }
+    }
+    this.setData({
+      packageTracks: packageTracks
+    });
   }
 })
