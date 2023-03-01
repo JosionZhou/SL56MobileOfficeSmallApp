@@ -143,8 +143,10 @@
             <view class="trackTips">点击包裹号，可以展开每个包裹的详细轨迹</view>
             <block wx:for="{{packageTracks}}" wx:for-item="package">
               <view class="package-track__item">
-                <view id="{{package.PackageId}}" class="weui-flex package-track__item-hd {{item.open ? 'package-track__item-hd_show' : ''}}" bindtap="trackToggle">
+                <view id="{{package.PackageId}}" class="package-track__item-hd {{item.open ? 'package-track__item-hd_show' : ''}}" bindtap="trackToggle">
                   <view class="weui-flex__item">{{package.PackageNumber}}</view>
+                  <view class="sub_font_color sub_font_size">当前活动：{{package.CurrentActivity}}</view>
+                  <view class="sub_font_color sub_font_size">当前地点：{{package.CurrentLocation}}</view>
                 </view>
                 <view class="package-track__item-bd {{package.open ? 'package-track__item-bd_show' : ''}}">
                   <view class="weui-cells weui-tracks {{package.open ? 'weui-cells_show' : ''}}">

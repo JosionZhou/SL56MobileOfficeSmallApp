@@ -13,6 +13,9 @@
 .sub_font_color{
   color: #999999
 }
+.sub_font_size{
+  font-size: 13px;
+}
 .weui-cells::after{
   border-bottom: none
 }
@@ -104,7 +107,7 @@ button[plain]{
   height: 0;
   overflow: hidden;
 }
-.package-track__item-hd :hover{
+.package-track__item-hd:hover{
   background-color: rgb(231, 229, 229);
 }
 .package-track__item-hd_show {
