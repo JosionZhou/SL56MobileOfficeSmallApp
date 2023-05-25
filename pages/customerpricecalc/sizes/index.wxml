@@ -5,7 +5,7 @@
         <view class="weui-label">第{{index+1}}件</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" name='weight{{index}}' value="{{item.ActualWeight}}" placeholder="重量" type="digit" />
+        <input class="weui-input" name='weight{{index}}' value="{{item.Weight}}" placeholder="重量" type="digit" />
       </view>
       <view class="weui-cell__ft" wx:if="{{errors['weight'+index]}}">
         <icon type="warn" size="23" color="#E64340"></icon>

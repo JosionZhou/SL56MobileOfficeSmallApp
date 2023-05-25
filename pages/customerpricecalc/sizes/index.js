@@ -107,12 +107,13 @@ Page({
     let errors={};
     for(let i=0;i<this.data.pieces;i++){
       let size={};
+      size.Piece=1;
       let weight='weight'+i;
       let length='length'+i;
       let width='width'+i;
       let height='height'+i;
       if(formdata.detail.value[weight]>0){
-        size.ActualWeight=formdata.detail.value[weight];
+        size.Weight=formdata.detail.value[weight];
       }else{
         errors[weight]=true;
       }
