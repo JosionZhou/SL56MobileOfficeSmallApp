@@ -33,13 +33,29 @@
             <view class="weui-label">重量</view>
           </view>
           <view class="weui-cell__bd">
-            <input class="weui-input" name='weight' placeholder="请输入货物重量" />
+            <input class="weui-input" name='weight' value="{{weight}}" placeholder="{{isEditSize?'请在规格处录入重量':'请输入货物重量'}}" disabled="{{isEditSize}}"/> 
           </view>
           <view class="weui-cell__ft" wx:if="{{weightWarning}}">
             <icon type="warn" size="23" color="#E64340"></icon>
           </view>
+          <view style="padding:10px;color:#004ea2" hover-class="hv"> 
+              <checkbox checked="{{isEditSize}}" bindtap="toggleEditSize">录入规格</checkbox> 
+          </view> 
         </view>
 
+        <view class="weui-cell weui-cell_input weui-cell_vcode"  wx:if="{{isEditSize}}">
+          <view class="weui-cell__hd">
+            <view class="weui-label">规格</view>
+          </view>
+          <view class="weui-cell__bd">
+            <view style="font-size: 13px;"> 
+              {{sizeText}} 
+            </view> 
+          </view>
+          <view style="padding:10px;color:#004ea2" hover-class="hv" bindtap="showSizes">
+              <view>...</view>
+          </view>
+        </view>
         <view class="weui-cell weui-cell_input">
           <view class="weui-cell__hd">
             <view class="weui-label">客户</view>
@@ -59,19 +75,6 @@
                 </view>
               </navigator>
             </view>
-          </view>
-        </view>
-        <view class="weui-cell weui-cell_input weui-cell_vcode" hidden='{{hideDetail}}'>
-          <view class="weui-cell__hd">
-            <view class="weui-label">规格</view>
-          </view>
-          <view class="weui-cell__bd">
-            <view style="font-size: 13px;"> 
-            (点击右侧按钮录入规格) 
-            </view> 
-          </view>
-          <view style="padding:10px;color:#004ea2" hover-class="hv" bindtap="showSizes">
-              <view>...</view>
           </view>
         </view>
         <view class="weui-cell weui-cell_input weui-cell_vcode" hidden='{{hideDetail}}'>
