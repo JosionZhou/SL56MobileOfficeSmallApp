@@ -15,8 +15,11 @@
 .success{
   color:#3cc51f
 }
+.release{
+  color:#004ea2
+}
 .warning{
-  color:#e64340
+  color:red
 }
 button[type="primary"] {
   color:#FFFFFF;

@@ -12,7 +12,7 @@
         <view class="weui-label">出货到</view>
       </view>
       <view class="weui-cell__bd">
-        <picker bindchange="truckLoadingTypeChange" value="{{truckLoadingTypeIndex}}" range="{{truckLoadingTypes}}" disabled="{{status==1}}">
+        <picker bindchange="truckLoadingTypeChange" value="{{truckLoadingTypeIndex}}" range="{{truckLoadingTypes}}" disabled="{{status>0}}">
           <view class="weui-select weui-select_in-select-after">{{truckLoadingTypes[truckLoadingTypeIndex]}}</view>
         </picker>
       </view>
@@ -22,7 +22,7 @@
         <view class="weui-label">分公司</view>
       </view>
       <view class="weui-cell__bd">
-        <picker bindchange="companyChange" value="{{companyIndex}}" range="{{companyNames}}" disabled="{{status==1}}">
+        <picker bindchange="companyChange" value="{{companyIndex}}" range="{{companyNames}}" disabled="{{status>0}}">
           <view class="weui-select weui-select_in-select-after">{{companys[companyIndex].ObjectName}}</view>
         </picker>
       </view>
@@ -32,7 +32,7 @@
         <view class="weui-label">车牌</view>
       </view>
       <view class="weui-cell__bd">
-        <picker bindchange="carChange" value="{{selectedCarIndex}}" range="{{carNumbers}}"  disabled="{{status==1}}">
+        <picker bindchange="carChange" value="{{selectedCarIndex}}" range="{{carNumbers}}"  disabled="{{status>0}}">
           <view class="weui-select weui-select_in-select-after">{{carNumber}}</view>
         </picker>
       </view>
@@ -41,10 +41,11 @@
       <view class="weui-cell__hd ">
         <view class="weui-label">状态</view>
       </view>
+      <view class="weui-cell__bd warning" wx:if="{{status==0}}">初始状态</view>
       <view class="weui-cell__bd success" wx:if="{{status==1}}">已发车</view>
-      <view class="weui-cell__bd warning" wx:else>初始状态</view>
+      <view class="weui-cell__bd success" wx:if="{{status==2}}">已放行</view>
     </view>
-    <view class="weui-cell weui-cell_switch" wx:if="{{!isNew && status==1}}">
+    <view class="weui-cell weui-cell_switch" wx:if="{{!isNew && status>0}}">
         <view class="weui-cell__bd">显示单号</view>
         <view class="weui-cell__ft">
             <switch checked="{{isShowReferenceNumber?'checked':''}}" bindchange="toggleNo" />

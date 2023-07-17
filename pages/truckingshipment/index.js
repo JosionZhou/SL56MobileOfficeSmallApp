@@ -232,7 +232,7 @@ Page({
   },
   showRemoveMenu: function (e) {
     var main=this;
-    if(!this.data.isNew && this.data.status==1){
+    if(!this.data.isNew && this.data.status>=1){
       return;
     }
     wx.showActionSheet({

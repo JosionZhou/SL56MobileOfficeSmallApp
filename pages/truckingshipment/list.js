@@ -126,5 +126,60 @@ Page({
   tapItem:function(e){
     var item = e.currentTarget.dataset.item;
     app.globalData.TruckLoading=item;
+  },
+  release(e){
+    var main=this;
+    let id = e.currentTarget.dataset.id;
+    let truckLoadings = main.data.truckLoadings;
+    let obj = truckLoadings.find(p=>p.ObjectId==id);
+    if(obj.Status==0){
+      wx.showModal({
+        title: '提示',
+        content: '未发车，不能放行！',
+        showCancel:false
+        })
+      return;
+    }
+    wx.showModal({
+      title: '提示',
+      content: '确定标识放行吗',
+      complete: (res) => {
+        if (res.confirm) {
+          console.log(e.currentTarget.dataset.id);
+          wx.showLoading({
+            title: '请稍后...',
+            mask:true
+          });
+          var data = {
+            url: app.globalData.serverAddress + '/TruckingShipment/Release?id='+id,
+            success: function (res) {
+              wx.hideLoading();
+              wx.hideLoading();
+              if(res.Success){
+                obj.Status=2;
+                main.setData({
+                  truckLoadings: truckLoadings,
+                });
+              }else{
+                wx.showModal({
+                  title: '提示',
+                  content: '操作失败：'+res.Message,
+                  showCancel:false
+                  })
+              }
+            },
+            fail:function(res){
+              wx.hideLoading();
+              wx.showModal({
+                title: '提示',
+                content: '操作失败，请重新打开页面后重试！',
+                showCancel:false
+                })
+            }
+          }
+          app.NetRequest(data);
+        }
+      }
+    })
   }
 })

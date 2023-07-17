@@ -41,6 +41,9 @@ button[type="primary"] {
 .warning{
   color:#e64340
 }
+.release{
+  color: #004ea2;
+}
 .tempSave{
   background-color:#ff8d00;
   color:#FFFFFF
