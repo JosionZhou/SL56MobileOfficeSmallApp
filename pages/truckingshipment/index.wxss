@@ -38,6 +38,9 @@ button[type="primary"] {
 .success{
   color:#3cc51f
 }
+.releaseing{
+  color:#ff9800
+}
 .warning{
   color:#e64340
 }

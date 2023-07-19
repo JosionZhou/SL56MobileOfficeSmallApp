@@ -18,6 +18,9 @@
 .release{
   color:#004ea2
 }
+.releaseing{
+  color:#ff9800
+}
 .warning{
   color:red
 }

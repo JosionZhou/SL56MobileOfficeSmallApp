@@ -10,6 +10,7 @@
           <span class="warning" wx:if="{{item.Status==0}}">未发车</span>
           <span class="success" wx:if="{{item.Status==1}}">已发车</span>
           <span class="release" wx:if="{{item.Status==2}}">已放行</span>
+          <span class="releaseing" wx:if="{{item.Status==3}}">放行中</span>
         </view>
         <view class="sub_font_color">出货时间：{{item.CreateAt}}</view>
       </view>

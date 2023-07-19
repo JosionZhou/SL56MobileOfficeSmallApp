@@ -44,6 +44,7 @@
       <view class="weui-cell__bd warning" wx:if="{{status==0}}">初始状态</view>
       <view class="weui-cell__bd success" wx:if="{{status==1}}">已发车</view>
       <view class="weui-cell__bd success" wx:if="{{status==2}}">已放行</view>
+      <view class="weui-cell__bd releaseing" wx:if="{{status==3}}">放行中</view>
     </view>
     <view class="weui-cell weui-cell_switch" wx:if="{{!isNew && status>0}}">
         <view class="weui-cell__bd">显示单号</view>
