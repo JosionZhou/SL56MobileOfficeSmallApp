@@ -186,5 +186,41 @@ Page({
         }
       }
     })
+  },
+  vehicleInspection(e){
+    var main = this;
+    let id = e.currentTarget.dataset.id;
+    let truckLoadings = main.data.truckLoadings;
+    let obj = truckLoadings.find(p => p.ObjectId == id);
+    if (obj.Status == 0) {
+      wx.showModal({
+        title: '提示',
+        content: '未发车，不能标识查车！',
+        showCancel: false
+      })
+      return;
+    }
+    wx.showModal({
+      title: '提示',
+      content: '确定标识海关查车吗',
+      complete: (res) => {
+        if (res.confirm) {
+          console.log(e.currentTarget.dataset.id);
+          wx.showLoading({
+            title: '请稍后...',
+            mask: true
+          });
+          var data = {
+            url: app.globalData.serverAddress + '/TruckingShipment/VehicleInspection?id=' + id,
+          }
+          app.NetRequest(data);
+          wx.hideLoading();
+          obj.Status = 3;
+          main.setData({
+            truckLoadings: truckLoadings,
+          });
+        }
+      }
+    })
   }
 })
