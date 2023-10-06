@@ -101,7 +101,14 @@ Page({
    * 页面上拉触底事件的处理函数
    */
   onReachBottom() {
-
+    if (this.data.isShowNoDataMark) {
+      return;
+    }
+    this.setData({
+      isShowLoading: true
+    });
+    this.data.pageIndex = this.data.pageIndex + 1;
+    this.getData();
   },
 
   /**
