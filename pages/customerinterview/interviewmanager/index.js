@@ -116,5 +116,10 @@ Page({
    */
   onShareAppMessage() {
 
+  },
+  readNote(e){
+    wx.navigateTo({
+      url: '../interviewnote/history?interviewId='+e.target.dataset.id+'&name='+e.target.dataset.name,
+    })
   }
 })
