@@ -1,0 +1,37 @@
+<view class="code-container">
+  <view class="code-panel-hd">
+    <label>向客户展示二维码</label>
+  </view>
+  <view class="code-panel-bd">
+    <view>
+      <label id="countdown">{{Seconds}}秒</label>
+      <label class="sub-tips">后自动刷新二维码</label>
+    </view>
+    <view>
+      <image src="{{Data}}"></image>
+    </view>
+    <view>
+      <view class="btn-refresh">
+        <image class="{{IsRefresh?'.image-rotate':''}}" src="/image/refresh.png"></image>
+        <label bind:tap="refresh">点击刷新二维码</label>
+      </view>
+    </view>
+  </view>
+  <!-- <view class="code-panel-ft">
+    <view class="code-panel-ft-content">
+      <view style="float: left;">
+        <view class="p-title">常规拜访</view>
+        <label>完成面访扫码后，默认记录此面访内容</label>
+      </view>
+      <view style="float: right;">
+        <view class="weui-select"></view>
+      </view>
+      <view style="clear: both;"></view>
+    </view>
+  </view> -->
+</view>
+<view class="code-bottom-tips">
+  <view>扫码说明</view>
+  <view>1、客户请使用微信进行扫码</view>
+  <view>2、客户完成确认扫码后，请前往"已面访"列表查看面访记录。</view>
+</view>

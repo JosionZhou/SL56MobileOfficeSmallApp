@@ -1,0 +1,173 @@
+page {
+  background-color: #e6e6e6;
+}
+
+.note-hd {
+  line-height: 3;
+  padding: 10px;
+  background-color: white;
+}
+
+.note-hd-icon {
+  float: left;
+  border-radius: 50px;
+  background: #004ea2;
+  width: 50px;
+  text-align: center;
+  color: white;
+}
+
+.note-hd-name {
+  float: left;
+  padding-left: 20px;
+}
+
+.note-bd {
+  margin-top: 10px;
+  background-color: white;
+  padding: 10px;
+}
+
+.note-bd-item view {
+  float: left;
+  margin-right: 20px;
+}
+.note-bd-item image{
+  height: 30px;
+  width: 30px;
+  padding-top: 50%;
+  padding-left: 10px;
+}
+
+.note-bd-item button {
+  margin-bottom: 10px;
+}
+
+.select-note-type {
+  background: #9acbff;
+  color: #004ea2;
+  font-weight: bold;
+  padding-right: 30px;
+}
+.note-bd-item-location{
+  width: 55%;
+  font-size: 13px;
+}
+.note-bd-item-location view{
+  background:#e6e6e6;
+  border-radius:5px;
+  height:60px;
+  width: 100%;
+  padding:10px
+}
+
+.select-note-type::before {
+  content: "";
+  display: block;
+  border: solid;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+  height: 15px;
+  width: 7px;
+  margin-top: -5px;
+  margin-left: 5px;
+  right: 10px;
+  bottom: 15px;
+  position:absolute;
+}
+.note-ft{
+  margin-top: 10px;
+  padding: 10px;
+  background-color: white;
+}
+.note-ft textarea{
+  background-color: #e6e6e6;
+  border-radius: 5px;
+  width: 95%;
+  padding: 10px;
+  margin-top: 20px;
+  height: 250px;
+}
+.float-left{
+  float: left;
+}
+.float-right{
+  float:right
+}
+.btn-upload-panel{
+  position: relative;
+  float: left;
+  text-align: center;
+  width: 100px;
+  height: 100px;
+  padding: 10px;
+  border: 1px solid #999;
+  border-radius: 10px;
+  margin-right: 6px;
+  margin-top: 10px;
+}
+.btn-upload{
+  height: 100%;
+  width: 100%;
+  text-align: center;
+  margin-right: 10px;
+}
+.btn-upload:active{
+  background-color: #e6e6e6;
+}
+.btn-upload .uploadImage{
+  width:100%;
+  height: 100%;
+}
+.btn-upload .plus-img{
+  padding-top: 20px;
+  width: 30px;
+  height: 30px;
+}
+.btn-plus{
+  float: left;
+  width: 100px;
+  height: 100px;
+  border: 1px solid #999;
+  border-radius: 10px;
+  margin-right: 6px;
+  margin-top: 10px;
+  padding: 10px;
+}
+.note-image-box{
+  margin-top: 5px;
+}
+.btn-remove{
+  position: absolute;
+  background: #999;
+  color: white;
+  height: 30px;
+  width: 30px;
+  border-radius: 50px;
+  font-size: 19px;
+  left: -10px;
+  top: -10px;
+  z-index: 999;
+}
+.btn-remove:active{
+  background-color: #757575;
+}
+.btn-save-panel{
+  width: 100%;
+  bottom: 0px;
+  background: white;
+  padding-top: 5px;
+  border-top: 1px solid #e6e6e6;
+  padding-bottom: 20px;
+}
+.btn-save-panel button{
+  margin-bottom: 20px;
+  background: #004ea2;
+  color: white;
+  margin-left: 20px;
+  margin-right: 20px;
+  border-radius: 100px;
+}
+.btn-save-panel button:active{
+  background: #003875;
+}

@@ -1,0 +1,29 @@
+<view class="weui-cells weui-cells_after-title" wx:for="{{list}}">
+  <view url="" class="weui-cell weui-cell_access" bindtap="bindConfirmCheck" data-id="{{item.Id}}" data-index="{{index}}">
+    <view class="weui-cell__bd number-ft">{{item.PersonName}}</view>
+  </view>
+  <navigator url="../interviewhistory/detail?disableAddNote=true&id={{item.ObjectId}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+    <view class="weui-cell__bd" style="font-size:13px">
+      <view class="sub_font_color">手机号码：{{item.Phone}}</view>
+      <view class="sub_font_color">面访时间：{{item.CreateAt}}</view>
+      <view class="sub_font_color">业 务 员：{{item.SalesmanName}}</view>
+    </view>
+    <view class="weui-cell__bd">
+      <view class="weui-cell__ft weui-cell__ft_in-access price-amount-ft"></view>
+    </view>
+  </navigator>
+  <view style="position: relative;padding-left: 10px;">
+    <navigator class="weui-agree__link left-btn" bindtap="readNote" data-id="{{item.ObjectId}}" data-name="{{item.PersonName}}">查看笔记</navigator>
+    <!-- <navigator class="weui-agree__link right-btn" bindtap="addNote" data-id="{{item.ObjectId}}" data-name="{{item.PersonName}}">添加笔记</navigator> -->
+  </view>
+  <view style="clear:both"></view>
+</view>
+<view>
+  <view class="weui-loadmore" hidden="{{!isShowLoading}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+  </view>
+  <view class="weui-loadmore weui-loadmore_line" hidden="{{!isShowNoDataMark}}">
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无更多数据</view>
+  </view>
+</view>

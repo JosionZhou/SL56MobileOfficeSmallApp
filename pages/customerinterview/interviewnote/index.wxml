@@ -1,0 +1,61 @@
+<view class="note-hd">
+  <view class="note-hd-icon">{{firstName}}</view>
+  <view class="note-hd-name">{{name}}</view>
+  <view style="clear: both;"></view>
+</view>
+<view class="note-bd">
+  <view class="note-bd-item">
+    <view>笔记类型</view>
+    <view>
+      <button class="{{noteType=='面访笔记'?'select-note-type':''}}" data-notetype='面访笔记' bind:tap="selectNoteType">面访笔记</button>
+      <button class="{{noteType=='电话沟通'?'select-note-type':''}}" data-notetype='电话沟通' bind:tap="selectNoteType">电话沟通</button>
+    </view>
+    <view>
+      <button class="{{noteType=='常规记录'?'select-note-type':''}}" data-notetype='常规记录' bind:tap="selectNoteType">常规记录</button>
+      <button class="{{noteType=='微信沟通'?'select-note-type':''}}" data-notetype='微信沟通' bind:tap="selectNoteType">微信沟通</button>
+    </view>
+  </view>
+  <view class="note-bd-item">
+    <view>拜访地点</view>
+    <view class="note-bd-item-location">
+      <view>{{showAddress}}</view>
+    </view>
+    <view>
+      <image src="/image/position.png" bind:tap="selectLocation"></image>
+    </view>
+  </view>
+  <view style="clear: both;"></view>
+</view>
+<view class="note-ft">
+  <view>
+    <view class="float-left">笔记内容</view>
+    <view class="float-right">{{remark.length}}/800</view>
+    <view style="clear: both;"></view>
+  </view>
+  <view>
+    <textarea maxlength="800" disabled="{{isReadonly}}" model:value="{{remark}}">
+    </textarea>
+  </view>
+  <view class="note-image-box">
+    <view class="btn-upload-panel" wx:for="{{images}}">
+      <view class="btn-remove" bind:tap="removeImage" data-index="{{index}}" wx:if="{{!isReadonly}}">x</view>
+      <view class="btn-upload" data-index="{{index}}" bind:tap="openImage">
+        <image class="uploadImage" src="{{item.Path}}" mode="aspectFill">
+        </image>
+        <!-- <view>上传图片</view> -->
+      </view>
+      <view style="clear: both;"></view>
+    </view>
+    <view class="btn-upload btn-plus" bind:tap="selectImage" wx:if="{{!isReadonly}}">
+      <view>
+        <image class="plus-img" src="/image/plus.png">
+        </image>
+      </view>
+      <view>上传图片</view>
+    </view>
+    <view style="clear: both;"></view>
+  </view>
+</view>
+<view class="btn-save-panel" wx:if="{{!isReadonly}}">
+  <button bind:tap="save">保存</button>
+</view>

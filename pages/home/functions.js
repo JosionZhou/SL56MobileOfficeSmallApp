@@ -74,6 +74,12 @@ Page({
         image: "costpricecalc",
         showbadge: false,
         event: "arkPrice"
+      },
+      {
+        name: "客户面访",
+        image: "customer-interview",
+        showbadge: false,
+        event: "customerInterview"
       }
     ],
     count: 0
@@ -348,6 +354,11 @@ Page({
   truckManager: function () {
     wx.navigateTo({
       url: '/pages/car/index',
+    });
+  },
+  customerInterview:function(){
+    wx.navigateTo({
+      url: '/pages/customerinterview/index',
     });
   }
 })

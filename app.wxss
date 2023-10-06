@@ -14,3 +14,18 @@ page{
     font-size: 16px;
     font-family: -apple-system-font,Helvetica Neue,Helvetica,sans-serif;
 }
+.weui-grids{
+  border: none
+}
+.weui-grid {
+  border: none
+}
+.weui-grid__label{
+  margin-top: 10px;
+}
+.weui-grid_active1{
+  background-color: #014a98
+}
+.weui-grid_active2{
+  background-color: #f2f2f2
+}

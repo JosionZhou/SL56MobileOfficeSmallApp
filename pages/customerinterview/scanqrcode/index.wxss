@@ -1,0 +1,79 @@
+/* pages/interviewscancode/index.wxss */
+page{
+  background-color:#f1f1f1;
+}
+.code-container{
+  margin: 20px;
+}
+.code-panel-hd{
+  background: #004ea2;
+  padding: 20px;
+  border-radius: 10px 10px 0 0;
+}
+.code-panel-hd label{
+  color: white;
+}
+.code-panel-bd{
+  background-color: white;
+  text-align: center;
+  padding-top: 30px;
+  padding-bottom: 30px;
+  font-size: 20px;
+  border-radius: 0px 0px 10px 10px;
+}
+.code-panel-bd image{
+  width: 250px;
+  height: 250px;
+}
+.code-panel-bd .sub-tips{
+  color: #5f5f5f;
+}
+.btn-refresh{
+  color: #004ea2;
+  padding-top: 20px;
+}
+.btn-refresh:active{
+  color: #0066d3;
+}
+.btn-refresh image{
+  width: 20px;
+  height: 20px;
+}
+.image-rotate{
+  animation: rotate 1s infinite linear; /* 实现旋转动画效果 */
+}
+.btn-refresh label{
+  padding-left: 10px;
+}
+@keyframes rotate {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+.code-panel-ft{
+  background-color: white;
+  border-top: #ebebeb 2px solid;
+  border-radius: 0px 0px 10px 10px;
+}
+.code-panel-ft :active{
+  background-color: #d3d3d3;
+  border-radius: 0px 0px 10px 10px;
+}
+.code-panel-ft-content{
+  padding: 20px;
+}
+.code-panel-ft .p-title{
+  font-weight: bold;
+}
+.code-panel-ft label{
+  color: #999;
+}
+.weui-select{
+  border:none
+}
+.weui-select::before{
+  border-color: black;
+}
+.code-bottom-tips{
+  padding: 20px;
+  color:rgb(61, 61, 61)
+}

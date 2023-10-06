@@ -1,0 +1,61 @@
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">客户名</view>
+    </view>
+    <view class="weui-cell__value">{{PersonName}}</view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">性别</view>
+    </view>
+    <view class="weui-cell__value">{{Gender==0?'男':'女'}}</view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">手机</view>
+    </view>
+    <view class="weui-cell__value">{{Phone}}</view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">业务员</view>
+    </view>
+    <view class="weui-cell__value">{{SalesmanName}}</view>
+  </view>
+  <view class="weui-cell weui-cell_input">
+    <view class="weui-cell__hd">
+      <view class="weui-label">面访时间</view>
+    </view>
+    <view class="weui-cell__value">{{CreateAt}}</view>
+  </view>
+  <view class="weui-cell weui-cell_input" wx:if="{{Stars==null}}">
+    <view class="weui-cell__hd">
+      <view class="weui-label">面访打分</view>
+    </view>
+    <view class="weui-cell__value">(无打分)</view>
+  </view>
+  <view class="weui-cell weui-cell_input" wx:if="{{Stars!=null}}">
+    <view class="weui-cell__hd">
+      <view class="weui-label">面访评分</view>
+    </view>
+    <view class="weui-cell__value">{{Stars}}颗星</view>
+  </view>
+  <view class="weui-cell weui-cell_input" wx:if="{{Stars!=null}}">
+    <view class="weui-cell__hd">
+      <view class="weui-label">评分标签</view>
+    </view>
+    <view class="weui-cell__value">{{Tags}}</view>
+  </view>
+  <view class="weui-cell weui-cell_input" wx:if="{{Stars!=null}}">
+    <view class="weui-cell__hd">
+      <view class="weui-label">客户留言</view>
+    </view>
+    <view class="weui-cell__value">{{Remark}}</view>
+  </view>
+</view>
+<view style="position: relative;padding-left: 10px;background-color: white;padding-top: 20px;">
+  <navigator class="weui-agree__link left-btn" bindtap="readNote" data-id="{{ObjectId}}">查看笔记</navigator>
+  <navigator class="weui-agree__link right-btn" bindtap="addNote" data-id="{{ObjectId}}" wx:if="{{!disableAddNote}}">添加笔记</navigator>
+  <view style="clear:both"></view>
+</view>

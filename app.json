@@ -39,7 +39,14 @@
     "pages/applyandapprove/reimbursement/approvalhistory",
     "pages/customerpricecalc/sizes/index",
     "pages/arkpricecalc/index",
-    "pages/arkpricecalc/result"
+    "pages/arkpricecalc/result",
+    "pages/customerinterview/scanqrcode/index",
+    "pages/customerinterview/index",
+    "pages/customerinterview/interviewhistory/index",
+    "pages/customerinterview/interviewhistory/detail",
+    "pages/customerinterview/interviewnote/index",
+    "pages/customerinterview/interviewnote/history",
+    "pages/customerinterview/interviewmanager/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

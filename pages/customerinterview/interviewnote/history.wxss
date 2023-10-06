@@ -1,0 +1,14 @@
+.sub_font_color{
+  color: #999999
+}
+.weui-cells::before{
+  border-top: none
+}
+
+.weui-cells{
+  margin-top:10px;
+  border-top: none
+}
+.page__bd{
+  padding-bottom: 0px
+}

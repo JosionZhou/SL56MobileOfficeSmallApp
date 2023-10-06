@@ -1,0 +1,19 @@
+<view class="weui-cells weui-cells_after-title" wx:for="{{notes}}">
+  <view class="weui-cell weui-cell_access" data-index="{{index}}">
+    <view class="weui-cell__bd number-ft">类型：{{item.NoteType}}</view>
+  </view>
+  <navigator url="\index?id={{item.ObjectId}}&name={{name}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+    <view class="weui-cell__bd" style="font-size:13px">
+      <view class="sub_font_color">客户名称：{{name}}</view>
+      <view class="sub_font_color">笔记时间：{{item.CreateAt}}</view>
+    </view>
+    <view class="weui-cell__bd">
+      <view class="weui-cell__ft weui-cell__ft_in-access price-amount-ft"></view>
+    </view>
+  </navigator>
+  <view style="clear:both"></view>
+</view>
+
+<view class="weui-loadmore weui-loadmore_line" hidden="{{notes.length!=0}}">
+  <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂未添加笔记</view>
+</view>
