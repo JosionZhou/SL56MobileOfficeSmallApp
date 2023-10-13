@@ -25,7 +25,7 @@ Page({
       isShowLoading:true
     });
     var data = {
-      url: app.globalData.serverAddress + '/Interview/GetInterviewHistory?pageIndex='+main.data.pageIndex,
+      url: app.globalData.serverAddress + '/Interview/GetManagerInterviewHistory?pageIndex='+main.data.pageIndex,
       method: "GET",
       success: function (res) {
         console.log(res);
