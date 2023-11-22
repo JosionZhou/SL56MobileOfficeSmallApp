@@ -64,6 +64,12 @@ Page({
         event: "truckingShipment"
       },
       {
+        name: "货物交仓",
+        image: "goodsToWarehouse",
+        showbadge: false,
+        event: "goodsToWarehouse"
+      },
+      {
         name: "车辆管理",
         image: "truck",
         showbadge: false,
@@ -359,6 +365,11 @@ Page({
   customerInterview:function(){
     wx.navigateTo({
       url: '/pages/customerinterview/index',
+    });
+  },
+  goodsToWarehouse:function(){
+    wx.navigateTo({
+      url: '/pages/goodstowarehouse/index',
     });
   }
 })

@@ -1,0 +1,29 @@
+<view class="weui-cells__title">请扫描或者手动输入装车号/物理板号/虚拟板号/单号</view>
+<view>
+  <input type="text" model:value="{{inputContent}}" />
+  <button class="weui-btn" type="primary" bindtap="scan">
+    <span>扫描</span>
+  </button>
+  <view style="clear: both;"></view>
+</view>
+<view class="weui-btn-area">
+  <view class="weui-flex">
+    <view class="weui-flex__item">
+      <button class="weui-btn" type="primary" bindtap="addRefnumber">
+        <span>添加</span>
+      </button>
+      <button class="weui-btn" type="primary" bindtap="doGoodsToWareHouse">
+        <span>交仓</span>
+      </button>
+    </view>
+  </view>
+</view>
+<!-- <button class="weui-btn btnScan"  bindtap="addRefnumber">
+  <image src="/image/plus.png"></image>
+</button> -->
+<view class="weui-cells__title nosTitle">单号列表</view>
+<view class="weui-cells weui-cells_after-title">
+  <view class="weui-cell" wx:for="{{list}}" data-no="{{item}}" data-index="{{index}}" bindlongtap="removeItem" >
+    <view class="weui-cell__bd">{{item.ObjectNo}}</view>
+  </view>
+</view>

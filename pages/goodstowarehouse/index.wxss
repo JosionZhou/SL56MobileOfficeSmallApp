@@ -1,0 +1,37 @@
+button[type="primary"] {
+  color:#FFFFFF;
+  background-color:#33adff;
+  margin: 5px
+}
+button[type="primary"]:active {
+  background-color:#004ea2;
+}
+input{
+  height: 45px;
+  border: 1px solid #ccc;
+  margin: 0px 20px 0px 20px;
+  font-size: 20px;
+  float: left;
+  width: 70%;
+}
+.nosTitle{
+  border-top: 1px solid #ccc;
+}
+.btnScan{
+  right: 0;
+  left: 0;
+  margin: 0 auto !important;
+  bottom: 30px;
+  width: 60px;
+  height: 60px;
+  position: fixed;
+  border-radius: 100px;
+  padding: 0;
+  box-shadow: 0px 0px 5px 3px #999;
+  z-index: 999
+}
+.btnScan image{
+  padding: 12px;
+  width: 36px;
+  height: 36px;
+}
