@@ -1,4 +1,14 @@
-<view class="weui-cells__title">请扫描或者手动输入装车号/物理板号/虚拟板号/单号</view>
+<view class="weui-cells__title">请选择/扫描/手动输入[装车号/物理板号/虚拟板号/单号]</view>
+<view class="weui-cell weui-cell_input">
+  <view class="weui-cell__bd">
+    <picker mode="date" model:value="{{date}}" bindchange="selectDate">
+      <view class="weui-input">{{date}}</view>
+    </picker>
+    <picker mode="multiSelector" bindchange="numberSelect" bindcolumnchange="columnChanged" range="{{showNumbers}}" wx:if="{{isShowSelectNumber}}">
+      <view class="weui-input">{{selectNumber}}</view>
+    </picker>
+  </view>
+</view>
 <view>
   <input type="text" model:value="{{inputContent}}" />
   <button class="weui-btn" type="primary" bindtap="scan">
@@ -23,7 +33,7 @@
 </button> -->
 <view class="weui-cells__title nosTitle">单号列表</view>
 <view class="weui-cells weui-cells_after-title">
-  <view class="weui-cell" wx:for="{{list}}" data-no="{{item}}" data-index="{{index}}" bindlongtap="removeItem" >
+  <view class="weui-cell" wx:for="{{list}}" data-no="{{item}}" data-index="{{index}}" bindlongtap="removeItem">
     <view class="weui-cell__bd">{{item.ObjectNo}}</view>
   </view>
 </view>

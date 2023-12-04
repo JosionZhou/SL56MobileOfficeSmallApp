@@ -1,13 +1,22 @@
 // pages/goodstowarehouse/index.js
-const app=getApp();
+const app = getApp();
 Page({
 
   /**
    * 页面的初始数据
    */
   data: {
-    inputContent:"",
-    list:[]
+    inputContent: "",
+    list: [],
+    date: "点击选择日期",
+    selectNumber: "请选择 装车号/物理板号/虚拟板号",
+    showNumbers: [
+      ['装车号', '物理板号', '虚拟板号'],
+      []
+    ],
+    isShowSelectNumber: false,
+    allNumbers: null,
+    typeIndex:0
   },
 
   /**
@@ -65,59 +74,64 @@ Page({
   onShareAppMessage() {
 
   },
-  addRefnumber(){
-    let main=this;
+  addRefnumber() {
+    let main = this;
     wx.showActionSheet({
-      itemList: ['按车','按物理板','按虚拟板','按票'],
-      success:function(res){
-        wx.showLoading({
-          title: '请稍后',
-          mask:true
-        });
+      itemList: ['按车', '按物理板', '按虚拟板', '按票'],
+      success: function (res) {
         let type=res.tapIndex;
-        let data={
-          url:app.globalData.serverAddress + '/GoodsToWareHouse/GetList?number='+main.data.inputContent+'&type='+type,
-          method:"GET",
-          success:function(res){
-            wx.hideLoading();
-            console.log(res);
-            let list = main.data.list;
-            if(res.Success){
-              res.Result.forEach(element => {
-                //重复的单号不添加
-                if(list.length==0 || list.findIndex(p=>p.ObjectId==element.ObjectId)==-1)
-                  list.push(element);
-              });
-              main.setData({
-                list:list,
-                inputContent:""
-              });
-            }else{
-              wx.showModal({
-                title: '提示',
-                content: res.Message,
-                showCancel:false
-              });
-            }
-          },
-          fail:function(err){
-            wx.hideLoading();
-            console.log(err);
-          }
-        }
-        app.NetRequest(data);
+        let number=main.data.inputContent;
+        main.doGetRGDListFromType(res.tapIndex,number);
       }
-    })
+    });
   },
-  scan(){
+  doGetRGDListFromType(type,number){
     let main=this;
+    wx.showLoading({
+      title: '请稍后',
+      mask: true
+    });
+    let data = {
+      url: app.globalData.serverAddress + '/GoodsToWareHouse/GetList?number=' + number + '&type=' + type,
+      method: "GET",
+      success: function (res) {
+        wx.hideLoading();
+        console.log(res);
+        let list = main.data.list;
+        if (res.Success) {
+          res.Result.forEach(element => {
+            //重复的单号不添加
+            if (list.length == 0 || list.findIndex(p => p.ObjectId == element.ObjectId) == -1)
+              list.push(element);
+          });
+          main.setData({
+            list: list,
+            inputContent: ""
+          });
+        } else {
+          wx.showModal({
+            title: '提示',
+            content: res.Message,
+            showCancel: false
+          });
+        }
+      },
+      fail: function (err) {
+        wx.hideLoading();
+        console.log(err);
+      }
+    }
+    app.NetRequest(data);
+  },
+  scan() {
+    let main = this;
     wx.scanCode({
       onlyFromCamera: true,
       success: function (res) {
         var result = res.result;
         if (result.length > 0) {
           main.setData({
-            inputContent:result
+            inputContent: result
           });
         } else {
           wx.showModal({
@@ -129,43 +143,43 @@ Page({
       }
     });
   },
-  doGoodsToWareHouse(){
-    let main=this;
+  doGoodsToWareHouse() {
+    let main = this;
     console.log(main.data.list.toString())
-    if(main.data.list.length==0){
+    if (main.data.list.length == 0) {
       wx.showModal({
         title: '提示',
         content: '请先添加收货数据',
-        showCancel:false
+        showCancel: false
       });
       return;
     }
-    let data={
-      url:app.globalData.serverAddress + '/GoodsToWareHouse/Submit',
-      data:JSON.stringify(main.data.list),
-      success:function(res){
+    let data = {
+      url: app.globalData.serverAddress + '/GoodsToWareHouse/Submit',
+      data: JSON.stringify(main.data.list),
+      success: function (res) {
         wx.hideLoading();
-        if(res.Success){
+        if (res.Success) {
           wx.showModal({
             title: '提示',
             content: '操作成功',
-            showCancel:false,
+            showCancel: false,
             complete: (res) => {
               main.setData({
-                list:[]
+                list: []
               });
             }
           })
-        }else{
+        } else {
           wx.showModal({
             title: '操作失败',
             content: res.Message,
-            showCancel:false
+            showCancel: false
           })
         }
         console.log(res);
       },
-      fail:function(err){
+      fail: function (err) {
         wx.hideLoading();
         wx.showModal({
           title: '操作失败',
@@ -179,36 +193,104 @@ Page({
       content: '确认标识交仓吗？',
       complete: (res) => {
         if (res.cancel) {
-          
+
         }
         if (res.confirm) {
           wx.showLoading({
             title: '请稍后',
-            mask:true
+            mask: true
           });
           app.NetRequest(data);
         }
       }
     })
   },
-  removeItem(e){
-    let main=this;
+  removeItem(e) {
+    let main = this;
     wx.showModal({
       title: '警告',
       content: '确定移除当前单号吗？',
       complete: (res) => {
         if (res.cancel) {
-          
+
         }
         if (res.confirm) {
           let index = e.currentTarget.dataset.index;
           let list = main.data.list;
-          list.splice(index,1);
+          list.splice(index, 1);
           main.setData({
-            list:list
+            list: list
           });
         }
       }
     })
+  },
+  selectDate(e) {
+    let main = this;
+    wx.showLoading({
+      title: '请稍后',
+    })
+    let data = {
+      url: app.globalData.serverAddress + '/GoodsToWareHouse/GetNumberList?date=' + main.data.date,
+      method: "GET",
+      success: function (res) {
+        wx.hideLoading();
+        if (res.findIndex(p => p.Value.length > 0) == -1) {
+          wx.showModal({
+            title: '提示',
+            content: '当前日期查询不到对应的数据！',
+            showCancel: false,
+            mask: true
+          });
+          return;
+        }
+        //设置号码选择器默认值
+        let defaultTypeNumbers = res[0].Value;
+        let showNumbers = main.data.showNumbers;
+        showNumbers[1] = defaultTypeNumbers;
+        main.setData({
+          allNumbers: res,
+          isShowSelectNumber: true,
+          showNumbers:showNumbers,
+          selectNumber:'请选择 装车号/物理板号/虚拟板号'
+        });
+        console.log(res[0].Value);
+      },
+      fail: function (err) {
+        wx.hideLoading();
+        console.log(err);
+        wx.showModal({
+          title: '操作失败',
+          content: err.data.Message,
+          showCancel:false,
+          mask:true
+        });
+      }
+    }
+    app.NetRequest(data);
+  },
+  numberSelect(e) {
+    console.log(e);
+    let numberPickerColumn2SelectIndex = e.detail.value[1];
+    let showNumbers = this.data.showNumbers;
+    let selectNumber = showNumbers[0][this.data.typeIndex] + '：' + showNumbers[1][numberPickerColumn2SelectIndex];
+    this.setData({
+      selectNumber:selectNumber
+    });
+    this.doGetRGDListFromType(this.data.typeIndex,showNumbers[1][numberPickerColumn2SelectIndex])
+  },
+  columnChanged(e) {
+    let main = this;
+    console.log(e);
+    if (e.detail.column == 0) {
+      let typeIndex = e.detail.value;
+      let currentTypeNumbers = main.data.allNumbers[typeIndex].Value;
+      let showNumbers = main.data.showNumbers;
+      showNumbers[1] = currentTypeNumbers;
+      main.setData({
+        showNumbers: showNumbers,
+        typeIndex:typeIndex
+      });
+    }
   }
 })
