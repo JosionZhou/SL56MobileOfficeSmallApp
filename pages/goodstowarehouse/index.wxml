@@ -22,11 +22,15 @@
       <button class="weui-btn" type="primary" bindtap="addRefnumber">
         <span>添加</span>
       </button>
-      <button class="weui-btn" type="primary" bindtap="doGoodsToWareHouse">
-        <span>交仓</span>
-      </button>
-    </view>
   </view>
+</view>
+</view>
+<view>
+  <input type="text" model:value="{{warehouseName}}" placeholder="交仓目的地(选填)" />
+  <button class="weui-btn" type="primary" bindtap="doGoodsToWareHouse">
+    <span>交仓</span>
+  </button>
+  <view style="clear: both;"></view>
 </view>
 <!-- <button class="weui-btn btnScan"  bindtap="addRefnumber">
   <image src="/image/plus.png"></image>

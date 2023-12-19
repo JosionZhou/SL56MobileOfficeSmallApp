@@ -16,7 +16,8 @@ Page({
     ],
     isShowSelectNumber: false,
     allNumbers: null,
-    typeIndex:0
+    typeIndex:0,
+    warehouseName:""
   },
 
   /**
@@ -156,7 +157,10 @@ Page({
     }
     let data = {
       url: app.globalData.serverAddress + '/GoodsToWareHouse/Submit',
-      data: JSON.stringify(main.data.list),
+      data: {
+        data:main.data.list,
+        warehouseName:main.data.warehouseName
+      },
       success: function (res) {
         wx.hideLoading();
         if (res.Success) {
