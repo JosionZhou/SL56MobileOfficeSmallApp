@@ -8,8 +8,10 @@ Page({
   data: {
     inputContent: "",
     list: [],
-    date: "点击选择日期",
+    date: "点击这里选择日期",
     selectNumber: "请选择 装车号/物理板号/虚拟板号",
+    addItemList: ['装车号', '物理板号', '虚拟板号', '原单号'],
+    addItemIndex: 1,
     showNumbers: [
       ['装车号', '物理板号', '虚拟板号'],
       []
@@ -17,7 +19,8 @@ Page({
     isShowSelectNumber: false,
     allNumbers: null,
     typeIndex:0,
-    warehouseName:""
+    warehouseName:"",
+    selectNumberIndex:0
   },
 
   /**
@@ -76,18 +79,19 @@ Page({
 
   },
   addRefnumber() {
-    let main = this;
-    wx.showActionSheet({
-      itemList: ['按车', '按物理板', '按虚拟板', '按票'],
-      success: function (res) {
-        let type=res.tapIndex;
-        let number=main.data.inputContent;
-        main.doGetRGDListFromType(res.tapIndex,number);
-      }
-    });
+    this.doGetRGDListFromType(this.data.addItemIndex,this.data.inputContent);
   },
   doGetRGDListFromType(type,number){
     let main=this;
+    if(number==null || number.trim().length==0){
+      wx.showModal({
+        title: '提示',
+        content: main.data.addItemList[main.data.addItemIndex]+" 不能为空",
+        showCancel:false,
+        mask:true
+      });
+      return;
+    }
     wx.showLoading({
       title: '请稍后',
       mask: true
@@ -252,10 +256,12 @@ Page({
         let defaultTypeNumbers = res[0].Value;
         let showNumbers = main.data.showNumbers;
         showNumbers[1] = defaultTypeNumbers;
+        let selectNumberIndex=[0,0];
         main.setData({
           allNumbers: res,
           isShowSelectNumber: true,
           showNumbers:showNumbers,
+          selectNumberIndex:selectNumberIndex,
           selectNumber:'请选择 装车号/物理板号/虚拟板号'
         });
         console.log(res[0].Value);
@@ -281,7 +287,9 @@ Page({
     this.setData({
       selectNumber:selectNumber
     });
-    this.doGetRGDListFromType(this.data.typeIndex,showNumbers[1][numberPickerColumn2SelectIndex])
+    let reqNumberData = showNumbers[1][numberPickerColumn2SelectIndex];
+    reqNumberData=reqNumberData.replace(/\(.*\)/,"");
+    this.doGetRGDListFromType(this.data.typeIndex,reqNumberData)
   },
   columnChanged(e) {
     let main = this;
@@ -296,5 +304,10 @@ Page({
         typeIndex:typeIndex
       });
     }
+  },
+  bindTypeChange(e){
+    this.setData({
+      addItemIndex:e.detail.value
+    });
   }
 })

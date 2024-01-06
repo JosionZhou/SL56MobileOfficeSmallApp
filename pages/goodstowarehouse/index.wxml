@@ -1,10 +1,10 @@
 <view class="weui-cells__title">请选择/扫描/手动输入[装车号/物理板号/虚拟板号/单号]</view>
 <view class="weui-cell weui-cell_input">
-  <view class="weui-cell__bd">
+  <view class="weui-cell__bd" style="text-decoration: underline;color: #0065d1;">
     <picker mode="date" model:value="{{date}}" bindchange="selectDate">
       <view class="weui-input">{{date}}</view>
     </picker>
-    <picker mode="multiSelector" bindchange="numberSelect" bindcolumnchange="columnChanged" range="{{showNumbers}}" wx:if="{{isShowSelectNumber}}">
+    <picker mode="multiSelector" bindchange="numberSelect" bindcolumnchange="columnChanged" range="{{showNumbers}}" wx:if="{{isShowSelectNumber}}" model:value="{{selectNumberIndex}}">
       <view class="weui-input">{{selectNumber}}</view>
     </picker>
   </view>
@@ -16,14 +16,23 @@
   </button>
   <view style="clear: both;"></view>
 </view>
-<view class="weui-btn-area">
-  <view class="weui-flex">
+<view>
+  <view class="weui-cell weui-cell_input" style="padding-right: 0px;">
     <view class="weui-flex__item">
-      <button class="weui-btn" type="primary" bindtap="addRefnumber">
+      添加类型：
+    </view>
+    <view class="weui-flex__item">
+      <picker bindchange="bindTypeChange" value="{{addItemIndex}}" range="{{addItemList}}">
+        <view class="" style="border-right: none; color: #0065d1;text-decoration:underline">《按{{addItemList[addItemIndex]}}》</view>
+      </picker>
+    </view>
+    <view class="weui-flex__item">
+      <button class="weui-btn" type="primary" bindtap="addRefnumber"  style="float: right;">
         <span>添加</span>
       </button>
+    </view>
   </view>
-</view>
+  <view style="clear: both;"></view>
 </view>
 <view>
   <input type="text" model:value="{{warehouseName}}" placeholder="交仓目的地(选填)" />
