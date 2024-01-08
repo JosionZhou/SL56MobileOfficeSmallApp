@@ -47,7 +47,8 @@
     "pages/customerinterview/interviewnote/index",
     "pages/customerinterview/interviewnote/history",
     "pages/customerinterview/interviewmanager/index",
-    "pages/goodstowarehouse/index"
+    "pages/goodstowarehouse_scan/index",
+    "pages/goodstowarehouse_manual/index"
   ],
   "window": {
     "backgroundTextStyle": "light",

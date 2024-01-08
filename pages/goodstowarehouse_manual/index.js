@@ -138,6 +138,7 @@ Page({
           main.setData({
             inputContent: result
           });
+          main.addRefnumber();
         } else {
           wx.showModal({
             title: '错误',
@@ -174,7 +175,8 @@ Page({
             showCancel: false,
             complete: (res) => {
               main.setData({
-                list: []
+                list: [],
+                warehouseName:""
               });
             }
           })

@@ -64,7 +64,13 @@ Page({
         event: "truckingShipment"
       },
       {
-        name: "货物交仓",
+        name: "扫描交仓",
+        image: "goodsToWarehouse1",
+        showbadge: false,
+        event: "goodsToWarehouse1"
+      },
+      {
+        name: "手动交仓",
         image: "goodsToWarehouse",
         showbadge: false,
         event: "goodsToWarehouse"
@@ -367,9 +373,14 @@ Page({
       url: '/pages/customerinterview/index',
     });
   },
+  goodsToWarehouse1:function(){
+    wx.navigateTo({
+      url: '/pages/goodstowarehouse_scan/index',
+    });
+  },
   goodsToWarehouse:function(){
     wx.navigateTo({
-      url: '/pages/goodstowarehouse/index',
+      url: '/pages/goodstowarehouse_manual/index',
     });
   }
 })

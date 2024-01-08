@@ -1,22 +1,5 @@
-<view class="weui-cells__title">请选择/扫描/手动输入[装车号/物理板号/虚拟板号/单号]</view>
-<view class="weui-cell weui-cell_input">
-  <view class="weui-cell__bd" style="text-decoration: underline;color: #0065d1;">
-    <picker mode="date" model:value="{{date}}" bindchange="selectDate">
-      <view class="weui-input">{{date}}</view>
-    </picker>
-    <picker mode="multiSelector" bindchange="numberSelect" bindcolumnchange="columnChanged" range="{{showNumbers}}" wx:if="{{isShowSelectNumber}}" model:value="{{selectNumberIndex}}">
-      <view class="weui-input">{{selectNumber}}</view>
-    </picker>
-  </view>
-</view>
-<view>
-  <input type="text" model:value="{{inputContent}}" />
-  <button class="weui-btn" type="primary" bindtap="scan">
-    <span>扫描</span>
-  </button>
-  <view style="clear: both;"></view>
-</view>
-<view>
+<view class="weui-cells__title">请扫描 [物理板号/装车号/虚拟板号/单号]</view>
+<view class="viewScan">
   <view class="weui-cell weui-cell_input" style="padding-right: 0px;">
     <view class="weui-flex__item">
       添加类型：
@@ -27,13 +10,21 @@
       </picker>
     </view>
     <view class="weui-flex__item">
-      <button class="weui-btn" type="primary" bindtap="addRefnumber"  style="float: right;">
+      <!-- <button class="weui-btn" type="primary" bindtap="addRefnumber"  style="float: right;">
         <span>添加</span>
-      </button>
+      </button> -->
     </view>
   </view>
   <view style="clear: both;"></view>
 </view>
+<view class="viewScan">
+  <!-- <input type="text" model:value="{{inputContent}}" /> -->
+  <button class="weui-btn" type="primary" bindtap="scan">
+    <span>扫描</span>
+  </button>
+  <view style="clear: both;"></view>
+</view>
+
 <view>
   <input type="text" model:value="{{warehouseName}}" placeholder="交仓目的地(选填)" />
   <button class="weui-btn" type="primary" bindtap="doGoodsToWareHouse">
