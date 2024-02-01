@@ -26,6 +26,44 @@
         <input class="weui-input" disabled value="{{CreateAt}}" />
       </view>
     </view>
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">公司名称</view>
+      </view>
+
+      <view class="weui-cell__bd">
+        <picker model:value="{{CompanyIndex}}" range="{{CompanyNames}}" disabled="{{!IsEditable}}">
+          <view class="{{IsEditable?'weui-select weui-select_in-select-after':'weui-input'}}" style="overflow: auto;">{{CompanyNames[CompanyIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+  </view>
+  <view class="weui-cells__title" wx:if="{{Type==2}}">收款方信息</view>
+  <view class="weui-cells weui-cells_after-title" wx:if="{{Type==2}}">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">收款方名称</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" name="RcvName" placeholder="请输入收款方名称" model:value="{{RcvName}}" disabled="{{!IsEditable}}" />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">收款方账号</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" name="RcvAcc" placeholder="请输入收款方账号" model:value="{{RcvAcc}}" disabled="{{!IsEditable}}" />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">收款方开户行</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" name="RcvBankName" placeholder="请输入收款方开户行" model:value="{{RcvBankName}}" disabled="{{!IsEditable}}" />
+      </view>
+    </view>
   </view>
   <view class="weui-cells__title">报销明细(点击打开/长按移除)</view>
   <input hidden name="Details" model:value="{{Details[0].ObjectName}}" />

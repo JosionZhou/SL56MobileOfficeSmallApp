@@ -26,7 +26,13 @@ Page({
     ApprovalObj: null,
     IsCancelable: false,
     AllAmount: 0,
-    IsAddNew: false
+    IsAddNew: false,
+    Type: null,
+    CompanyNames: [],
+    CompanyIndex: 0,
+    RcvName: null, //收款方名称
+    RcvAcc: null, //收款方账号
+    RcvBankName: null //收款方开户行
   },
 
   /**
@@ -35,14 +41,19 @@ Page({
   onLoad(options) {
     let that = this;
     this.FileHelper = new FileHelper();
-    if (options!=null && options.item != null) {
+    if (options != null && options.type != null) {
+      that.setData({
+        Type: options.type
+      });
+    }
+    if (options != null && options.item != null) {
       let item = JSON.parse(options.item);
       that.data.ApprovalObj = item;
       wx.showLoading({
         title: '获取数据中...',
       });
       let data = {
-        url: app.globalData.serverAddress + "/Reimbursement/GetApproval?formId=" + item.FormId+"&instanceId="+item.InstanceId,
+        url: app.globalData.serverAddress + "/Reimbursement/GetApproval?formId=" + item.FormId + "&instanceId=" + item.InstanceId,
         method: "GET",
         success: function (res) {
           wx.hideLoading();
@@ -60,7 +71,12 @@ Page({
             IsCancelable: item.IsCancelable,
             IsApprovaling: item.IsApprovaling,
             AllAmount: allAmount,
-            Activities:res.Tracks
+            Activities: res.Tracks,
+            Type:res.Type,
+            CompanyIndex:res.CompanyIndex,
+            RcvName:res.RcvName,
+            RcvAcc:res.RcvAcc,
+            RcvBankName:res.RcvBankName
           });
         }
       }
@@ -74,6 +90,15 @@ Page({
       const rules = {
         ObjectName: {
           required: true
+        },
+        RcvName: {
+          required: that.data.Type == 2
+        },
+        RcvAcc: {
+          required: that.data.Type == 2
+        },
+        RcvBankName: {
+          required: that.data.Type == 2
         },
         Details: {
           required: true
@@ -91,6 +116,15 @@ Page({
         ObjectName: {
           required: '请输入报销名称'
         },
+        RcvName: {
+          required: '收款方名称不能为空'
+        },
+        RcvAcc: {
+          required: '收款方账号不能为空'
+        },
+        RcvBankName: {
+          required: '收款方开户行不能为空'
+        },
         Details: {
           required: '报销明细不能为空'
         },
@@ -105,6 +139,7 @@ Page({
       // 创建实例对象
       this.WxValidate = new WxValidate(rules, messages);
     }
+    this.getCompanys();
   },
 
   /**
@@ -154,6 +189,20 @@ Page({
    */
   onShareAppMessage() {
 
+  },
+  getCompanys() {
+    let that = this;
+    let reqData = {
+      url: app.globalData.serverAddress + "/Reimbursement/GetCompanys",
+      method: "GET",
+      success: function (res) {
+        console.log(res);
+        that.setData({
+          CompanyNames: res
+        });
+      }
+    }
+    app.NetRequest(reqData);
   },
   submit(e) {
     let that = this;
@@ -238,7 +287,12 @@ Page({
             ObjectName: this.data.ObjectName,
             CreateAt: this.data.CreateAt,
             Details: this.data.Details,
-            Attachments: this.data.Attachments
+            Attachments: this.data.Attachments,
+            Type:this.data.Type,
+            BelongCompanyId: parseInt(this.data.CompanyIndex) + 1,
+            RcvName: this.data.RcvName,
+            RcvAcc: this.data.RcvAcc,
+            RcvBankName: this.data.RcvBankName
           },
           success: function (res) {
             wx.hideLoading();
@@ -266,7 +320,13 @@ Page({
                   ApprovalObj: null,
                   IsCancelable: false,
                   AllAmount: 0,
-                  IsAddNew: false
+                  IsAddNew: false,
+                  Type: that.data.Type,
+                  CompanyNames: [],
+                  CompanyIndex: 0,
+                  RcvName: null, //收款方名称
+                  RcvAcc: null, //收款方账号
+                  RcvBankName: null //收款方开户行
                 }
                 that.setData(data);
                 that.onLoad();
@@ -316,7 +376,7 @@ Page({
     var that = this;
     let index = event.currentTarget.dataset.detailIndex;
     let detail = this.data.Details[index];
-    detail.IsEditable=that.data.IsEditable;
+    detail.IsEditable = that.data.IsEditable;
     wx.navigateTo({
       url: './detail',
       events: {

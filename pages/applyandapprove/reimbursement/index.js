@@ -7,10 +7,16 @@ Page({
    */
   data: {
     subFunctions: [{
-        name: "申请",
-        image: "apply",
+        name: "对内用款申请",
+        image: "in_apply",
         showbadge: false,
-        event: "apply",
+        event: "inApply",
+        showBadge: false
+      },{
+        name: "对外用款申请",
+        image: "out_apply",
+        showbadge: false,
+        event: "outApply",
         showBadge: false
       },
       {
@@ -98,8 +104,16 @@ Page({
   onShareAppMessage() {
 
   },
+  //对内用款申请
+  inApply(){
+    this.apply(1);
+  },
+  //对外用款申请
+  outApply(){
+    this.apply(2);
+  },
   //报销申请
-  apply() {
+  apply(type) {
     let data = {
       url: app.globalData.serverAddress + "/Reimbursement/GetBankCardInfo",
       method: "GET",
@@ -107,7 +121,7 @@ Page({
         wx.hideLoading();
         if (res != null) {
           wx.navigateTo({
-            url: '/pages/applyandapprove/reimbursement/apply',
+            url: '/pages/applyandapprove/reimbursement/apply?type='+type,
           });
         } else {
           wx.showModal({
