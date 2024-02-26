@@ -1,4 +1,4 @@
-// pages/goodstowarehouse/index.js
+import FileHelper from '../../utils/FileHelper';
 const app = getApp();
 Page({
 
@@ -20,14 +20,15 @@ Page({
     allNumbers: null,
     typeIndex:0,
     warehouseName:"",
-    selectNumberIndex:0
+    selectNumberIndex:0,
+    attachments:[]
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    this.FileHelper = new FileHelper();
   },
 
   /**
@@ -164,7 +165,8 @@ Page({
       url: app.globalData.serverAddress + '/GoodsToWareHouse/Submit',
       data: {
         data:main.data.list,
-        warehouseName:main.data.warehouseName
+        warehouseName:main.data.warehouseName,
+        attachmentPaths:main.data.attachments.map(p=>p.ServerFilePath)
       },
       success: function (res) {
         wx.hideLoading();
@@ -176,7 +178,8 @@ Page({
             complete: (res) => {
               main.setData({
                 list: [],
-                warehouseName:""
+                warehouseName:"",
+                attachments:[]
               });
             }
           })
@@ -310,6 +313,52 @@ Page({
   bindTypeChange(e){
     this.setData({
       addItemIndex:e.detail.value
+    });
+  },
+  photo(){
+    let that = this;
+    wx.chooseMedia({
+      count:1,
+      mediaType:['image'],
+      sourceType:['album','camera'],
+      success:function(res){
+        that.FileHelper.uploadFile(res.tempFiles[0].tempFilePath, function (data) {
+          console.log("serverFilePath:", data);
+          let attachments = that.data.attachments;
+          let attachment = new Object();
+          attachment.TempFilePath = res.tempFiles[0].tempFilePath;
+          attachment.ServerFilePath = data;
+          attachments.push(attachment);
+          that.setData({
+            attachments: attachments
+          });
+        });
+      }
+    });
+  },
+  previewAttachment(event){
+    let index = event.currentTarget.dataset.attachmentIndex;
+    let attachments = this.data.attachments;
+    let urls = attachments.map(p=>p.TempFilePath);
+    wx.previewImage({
+      current:urls[index],
+      urls: urls,
+    })
+  },
+  removeAttachment(event){
+    let that = this;
+    wx.showActionSheet({
+      itemList: ["移除"],
+      success: function (res) {
+        if (!res.cancel) {
+          let index = event.currentTarget.dataset.attachmentIndex;
+          let attachments = that.data.attachments;
+          attachments.splice(index,1);
+          that.setData({
+            attachments:attachments
+          });
+        }
+      }
     });
   }
 })

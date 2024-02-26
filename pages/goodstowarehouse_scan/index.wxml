@@ -24,6 +24,17 @@
   </button>
   <view style="clear: both;"></view>
 </view>
+<view class="viewScan">
+  <button class="weui-btn" type="primary" bindtap="photo">
+    <span>拍照</span>
+  </button>
+  <view style="clear: both;"></view>
+  <view class="weui-cell weui-cell_link" wx:for="{{attachments}}">
+    <view class="weui-cell__bd attName" bindtap="previewAttachment" bindlongpress="removeAttachment" data-attachment-index="{{index}}">
+      照片{{index+1}} (点击预览/长按删除)
+    </view>
+  </view>
+</view>
 
 <view>
   <input type="text" model:value="{{warehouseName}}" placeholder="交仓目的地(选填)" />
