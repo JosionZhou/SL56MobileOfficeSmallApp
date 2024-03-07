@@ -320,7 +320,7 @@ Page({
     wx.chooseMedia({
       count:1,
       mediaType:['image'],
-      sourceType:['album','camera'],
+      sourceType:['camera'],
       success:function(res){
         that.FileHelper.uploadFile(res.tempFiles[0].tempFilePath, function (data) {
           console.log("serverFilePath:", data);
