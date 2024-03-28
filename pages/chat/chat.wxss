@@ -1,0 +1,34 @@
+/* pages/chat/chat.wxss */
+.empContentPanel{
+  font-size: 13px;
+    background: #dedede;
+    padding: 10px;
+    border-radius: 10px;
+    float: right;
+    margin-left: 20%;
+}
+.customerContentPanel{
+  font-size: 13px;
+    background: #dedede;
+    padding: 10px;
+    border-radius: 10px;
+    float: left;
+    margin-right: 20%;
+}
+.weui-cell{
+  padding: 0px 15px 2px 15px;
+}
+.weui-cell::before{
+  border: none;
+}
+.weui-cells::after{
+  border: none;
+}
+.itemPanel{
+  padding-top: 10px;
+  padding-bottom: 10px;
+}
+.file{
+  text-decoration: underline;
+  color: blue;
+}

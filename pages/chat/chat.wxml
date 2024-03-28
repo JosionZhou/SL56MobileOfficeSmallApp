@@ -1,0 +1,30 @@
+<view class="weui-cells weui-cells_after-title itemPanel" wx:for="{{chatRecords}}">
+  <view url="" class="weui-cell weui-cell_access" bindtap="bindConfirmCheck" data-id="{{item.Id}}" data-index="{{index}}">
+    <block wx:if="{{item.Type==0}}">
+      <view style="color:#777777;font-size: 12px;">{{item.Name}}-{{item.Date}}</view>
+      <view class="weui-cell__bd number-ft"> </view>
+    </block>
+    <block wx:else>
+      <view class="weui-cell__bd number-ft"> </view>
+      <view style="color:#777777;font-size: 13px;">{{item.Date}}-{{item.Name}}</view>
+    </block>
+  </view>
+  <navigator class="weui-cell weui-cell_access" hover-class="weui-cell_active" data-isfile="{{item.IsFile}}" data-filetype="{{item.FileType}}" data-id="{{item.Id}}" bind:tap="tapItem">
+    <view class="weui-cell__bd" style="font-size:13px">
+      <view wx:if="{{item.FileType=='pic'}}" class="{{item.Type==0?'customerContentPanel':'empContentPanel'}}">
+        <image src="{{thumbnailImageUrl+item.Id}}" style="width: 200px;" mode="widthFix"></image>
+      </view>
+      <view wx:else class="{{item.Type==0?'customerContentPanel':'empContentPanel'}} {{item.IsFile?'file':''}}">{{item.Content}}</view>
+    </view>
+  </navigator>
+</view>
+
+<view>
+  <view class="weui-loadmore" hidden="{{!isShowLoading}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+  </view>
+  <view class="weui-loadmore weui-loadmore_line" hidden="{{!isShowNoDataMark}}">
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无更多数据</view>
+  </view>
+</view>
