@@ -106,12 +106,12 @@
               <view class="weui-cell__bd">货物属性</view>
               <view class="weui-cell__ft" style="font-size:13px">{{rules}}</view>
             </view>
-            <view class="weui-cell">
+            <!-- <view class="weui-cell">
               <view class="weui-cell__bd">聊天记录</view>
               <view class="weui-cell__ft">
                 <navigator url="../chat/chat?rgdId={{item.ObjectId}}&rgdNo={{item.ObjectNo}}" class="weui-agree__link" style="text-decoration:underline;margin-right:5px">查看</navigator>
               </view>
-            </view>
+            </view> -->
           </view>
         </view>
         <navigator class="weui-tab__content" hidden="{{activeIndex != 1}}">
@@ -250,4 +250,7 @@
 
 
   </view>
+</view>
+<view class="chat-btn">
+  <image src="/image/chat.png" bind:tap="toChat"></image>
 </view>

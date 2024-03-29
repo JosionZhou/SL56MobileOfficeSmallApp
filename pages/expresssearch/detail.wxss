@@ -121,3 +121,20 @@ button[plain]{
   -webkit-transform: translateY(0);
   transform: translateY(0);
 }
+.chat-btn{
+  position: fixed;
+  bottom: 10px;
+  text-align: center;
+  width: 100%;
+}
+.chat-btn image{
+  background: white;
+  width: 45px;
+  height: 45px;
+  border-radius: 50px;
+  padding: 10px;
+  box-shadow: 1px -1px 10px 4px #9E9E9E;
+}
+.chat-btn image:active{
+  box-shadow: none;
+}

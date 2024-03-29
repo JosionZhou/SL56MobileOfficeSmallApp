@@ -249,5 +249,10 @@ Page({
     this.setData({
       packageTracks: packageTracks
     });
+  },
+  toChat(){
+    wx.navigateTo({
+      url: '../chat/chat?rgdId='+this.data.item.ObjectId+'&rgdNo='+this.data.item.ObjectNo,
+    })
   }
 })
