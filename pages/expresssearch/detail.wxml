@@ -113,6 +113,10 @@
               </view>
             </view> -->
           </view>
+
+          <view class="chat-btn">
+            <image src="/image/chat.png" bind:tap="toChat"></image>
+          </view>
         </view>
         <navigator class="weui-tab__content" hidden="{{activeIndex != 1}}">
           <view class="weui-cells weui-cells_after-title" wx:for="{{item.Sizes}}" wx:for-item="size">
@@ -250,7 +254,4 @@
 
 
   </view>
-</view>
-<view class="chat-btn">
-  <image src="/image/chat.png" bind:tap="toChat"></image>
 </view>
