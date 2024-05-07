@@ -11,7 +11,7 @@
             <view class="weui-search-bar" style="background-color:white;padding:8px 0px;border-bottom:none">
               <view class="weui-search-bar__form" style="border:none">
                 <view class="weui-search-bar__box" style="padding:0px">
-                  <input type="text" name="country" class="weui-search-bar__input" placeholder="请输入国家" value="{{countryText}}" bindinput="inputCountry" style="font-size:17px" />
+                  <input type="text" name="country" class="weui-search-bar__input" placeholder="请输入国家" value="{{countryText}}" bindinput="inputCountry" style="font-size:17px" bindblur="checkCountry"/>
                 </view>
               </view>
             </view>
