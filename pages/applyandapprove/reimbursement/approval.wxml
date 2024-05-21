@@ -27,9 +27,11 @@
         </label>
       </checkbox-group>
       <navigator bindtap="approval" data-index="{{index}}" style="margin-left: 10px;">
-        <view style="color:red;">报销金额：{{item.TotalAmount}}</view>
-        <view style="color:#999999;font-size:15px;margin-top:5px"> 申请人：{{item.CreateBy}}</view>
-        <view class="weui-select weui-select_in-select-after" style="color:#999999;font-size:15px;margin-top:5px">申请日期：{{item.CreateAt}}</view>
+        <view style="color:#999999;font-size:15px;margin-top:5px"> 申请人：{{item.CreateBy.length>0?item.CreateBy:("[客户]"+item.ObjectName)}}</view>
+        <view class="weui-select weui-select_in-select-after" style="color:#999999;font-size:15px;margin-top:5px">申请项目：{{item.WrokFlowName}}</view>
+        <view style="color:#999999;font-size:15px;margin-top:5px">当前状态：{{item.CurrentActivityDescription}}</view>
+        <view style="color:red;" wx:if="{{item.TotalAmount.length>0}}">{{item.TotalAmount}}</view>
+        <view style="color:#999999;font-size:15px;margin-top:5px">申请日期：{{item.CreateAt}}</view>
       </navigator>
       <view class="weui-form-preview__ft" style="background-color: white;border-bottom: 1px solid #d9d9d9d9;">
         <navigator class="weui-form-preview__btn" style="color: red;" hover-class="weui-form-preview__btn_active" data-id="{{item.FormId}}" bindtap="reject">拒绝</navigator>

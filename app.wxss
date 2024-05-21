@@ -29,3 +29,9 @@ page{
 .weui-grid_active2{
   background-color: #f2f2f2
 }
+.floatLeft{
+  float: left;
+}
+.floatRight{
+  float:right;
+}

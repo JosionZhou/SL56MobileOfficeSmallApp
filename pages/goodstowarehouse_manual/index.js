@@ -10,6 +10,7 @@ Page({
     list: [],
     date: "点击这里选择日期",
     selectNumber: "请选择 装车号/物理板号/虚拟板号",
+    carNumber: "请选择 车牌号(可选)",
     addItemList: ['装车号', '物理板号', '虚拟板号', '原单号'],
     addItemIndex: 1,
     showNumbers: [
@@ -18,16 +19,38 @@ Page({
     ],
     isShowSelectNumber: false,
     allNumbers: null,
-    typeIndex:0,
-    warehouseName:"",
-    selectNumberIndex:0
+    typeIndex: 0,
+    warehouseName: "",
+    selectNumberIndex: 0
   },
 
   /**
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    wx.showLoading({
+      title: '获取数据中',
+    });
+    let main = this;
+    var data = {
+      url: app.globalData.serverAddress + '/TruckingShipment/GetCars',
+      method: "GET",
+      success: function (res) {
+        var carNumbers = [];
+        var tempCarData = [];
+        tempCarData = res.filter(p => p.Status == 0);
+        carNumbers = tempCarData.map(p => p.ObjectNo);
+        main.setData({
+          cars: tempCarData,
+          carNumbers: carNumbers
+        });
+        wx.hideLoading();
+      },
+      fail:function(err){
+        wx.hideLoading();
+      }
+    }
+    app.NetRequest(data);
   },
 
   /**
@@ -79,16 +102,31 @@ Page({
 
   },
   addRefnumber() {
-    this.doGetRGDListFromType(this.data.addItemIndex,this.data.inputContent);
+    this.doGetRGDListFromType(this.data.addItemIndex, this.data.inputContent);
+  }, 
+  clearCarChange:function(){
+    this.setData({
+      selectedCarIndex: null,
+      carNumber: '请选择 车牌号(可选)',
+      selectedCarId: null
+    })
   },
-  doGetRGDListFromType(type,number){
-    let main=this;
-    if(number==null || number.trim().length==0){
+  carChange:function(e){
+    this.setData({
+      selectedCarIndex: e.detail.value,
+      carNumber: this.data.cars[e.detail.value].ObjectNo,
+      selectedCarId: this.data.cars[e.detail.value].ObjectId
+    });
+    this.processNumbers(this.data.selectNumberIndex[0])
+  },
+  doGetRGDListFromType(type, number) {
+    let main = this;
+    if (number == null || number.trim().length == 0) {
       wx.showModal({
         title: '提示',
-        content: main.data.addItemList[main.data.addItemIndex]+" 不能为空",
-        showCancel:false,
-        mask:true
+        content: main.data.addItemList[main.data.addItemIndex] + " 不能为空",
+        showCancel: false,
+        mask: true
       });
       return;
     }
@@ -163,8 +201,8 @@ Page({
     let data = {
       url: app.globalData.serverAddress + '/GoodsToWareHouse/Submit',
       data: {
-        data:main.data.list,
-        warehouseName:main.data.warehouseName
+        data: main.data.list,
+        warehouseName: main.data.warehouseName
       },
       success: function (res) {
         wx.hideLoading();
@@ -176,7 +214,7 @@ Page({
             complete: (res) => {
               main.setData({
                 list: [],
-                warehouseName:""
+                warehouseName: ""
               });
             }
           })
@@ -258,14 +296,16 @@ Page({
         let defaultTypeNumbers = res[0].Value;
         let showNumbers = main.data.showNumbers;
         showNumbers[1] = defaultTypeNumbers;
-        let selectNumberIndex=[0,0];
+        let selectNumberIndex = [0, 0];
         main.setData({
           allNumbers: res,
           isShowSelectNumber: true,
-          showNumbers:showNumbers,
-          selectNumberIndex:selectNumberIndex,
-          selectNumber:'请选择 装车号/物理板号/虚拟板号'
+          showNumbers: showNumbers,
+          selectNumberIndex: selectNumberIndex,
+          selectNumber: '请选择 装车号/物理板号/虚拟板号'
         });
+        main.clearCarChange();
+        main.processNumbers(0);
         console.log(res[0].Value);
       },
       fail: function (err) {
@@ -274,8 +314,8 @@ Page({
         wx.showModal({
           title: '操作失败',
           content: err.data.Message,
-          showCancel:false,
-          mask:true
+          showCancel: false,
+          mask: true
         });
       }
     }
@@ -287,29 +327,39 @@ Page({
     let showNumbers = this.data.showNumbers;
     let selectNumber = showNumbers[0][this.data.typeIndex] + '：' + showNumbers[1][numberPickerColumn2SelectIndex];
     this.setData({
-      selectNumber:selectNumber
+      selectNumber: selectNumber
     });
     let reqNumberData = showNumbers[1][numberPickerColumn2SelectIndex];
-    reqNumberData=reqNumberData.replace(/\(.*\)/,"");
-    this.doGetRGDListFromType(this.data.typeIndex,reqNumberData)
+    reqNumberData = reqNumberData.replace(/\(.*\)/, "");
+    this.doGetRGDListFromType(this.data.typeIndex, reqNumberData)
   },
   columnChanged(e) {
-    let main = this;
-    console.log(e);
     if (e.detail.column == 0) {
-      let typeIndex = e.detail.value;
-      let currentTypeNumbers = main.data.allNumbers[typeIndex].Value;
-      let showNumbers = main.data.showNumbers;
-      showNumbers[1] = currentTypeNumbers;
-      main.setData({
-        showNumbers: showNumbers,
-        typeIndex:typeIndex
-      });
+      this.processNumbers(e.detail.value);
     }
   },
-  bindTypeChange(e){
+  processNumbers(typeIndex){
+    let main = this;
+    let allNumbers = main.data.allNumbers[typeIndex].Value;
+    let currentTypeNumbers=new Array(); 
+    //号码以|分隔CarId，在此处进行截取和过滤
+    allNumbers.forEach(element => {
+      let splits = element.split('|');
+      let currentNumberCarId = splits[0];
+      if(!main.data.selectedCarId || main.data.selectedCarId==currentNumberCarId){
+        currentTypeNumbers.push(splits[1]);
+      }
+    });
+    let showNumbers = main.data.showNumbers;
+    showNumbers[1] = currentTypeNumbers;
+    main.setData({
+      showNumbers: showNumbers,
+      typeIndex: typeIndex
+    });
+  },
+  bindTypeChange(e) {
     this.setData({
-      addItemIndex:e.detail.value
+      addItemIndex: e.detail.value
     });
   }
 })

@@ -4,11 +4,15 @@
     <picker mode="date" model:value="{{date}}" bindchange="selectDate">
       <view class="weui-input">{{date}}</view>
     </picker>
+    <picker bindchange="carChange" value="{{selectedCarIndex}}" range="{{carNumbers}}">
+      <view class="weui-input">{{carNumber}}</view>
+    </picker>
     <picker mode="multiSelector" bindchange="numberSelect" bindcolumnchange="columnChanged" range="{{showNumbers}}" wx:if="{{isShowSelectNumber}}" model:value="{{selectNumberIndex}}">
       <view class="weui-input">{{selectNumber}}</view>
     </picker>
   </view>
 </view>
+
 <!-- <view>
   <input type="text" model:value="{{inputContent}}" />
   <button class="weui-btn" type="primary" bindtap="scan">
