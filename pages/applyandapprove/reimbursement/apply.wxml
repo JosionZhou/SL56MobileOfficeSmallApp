@@ -38,8 +38,8 @@
       </view>
     </view>
   </view>
-  <view class="weui-cells__title" wx:if="{{Type==2}}">收款方信息</view>
-  <view class="weui-cells weui-cells_after-title" wx:if="{{Type==2}}">
+  <view class="weui-cells__title">收款方信息</view>
+  <view class="weui-cells weui-cells_after-title">
     <view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">
         <view class="weui-label">收款方名称</view>
