@@ -49,6 +49,14 @@
         </picker>
       </view>
     </view>
+    <view class="weui-cell weui-cell_input" wx:if="{{Type==1}}">
+      <view class="weui-cell__hd">
+        <view class="weui-label">单号</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" type="text" name="ReceiveGoodsDetailNo" placeholder="单号(选填)" model:value="{{ReceiveGoodsDetailNo}}" disabled="{{!IsEditable}}" />
+      </view>
+    </view>
   </view>
 
   <view class="weui-cells__title">报销附件(点击打开/长按移除)</view>

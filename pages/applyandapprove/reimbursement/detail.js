@@ -17,7 +17,10 @@ Page({
     EditDetail: null,
     IsEditable: true,
     IsContinue: false,
-    Attachments: []
+    Attachments: [],
+    ReceiveGoodsDetailId: null,
+    ReceiveGoodsDetailNo: "",
+    Type:null,//1:对内申请  2:对外申请
   },
 
   /**
@@ -30,7 +33,8 @@ Page({
     detail.ObjectName = null;
     detail.Amount = null;
     this.setData({
-      Detail: detail
+      Detail: detail,
+      Type:options.type
     });
     wx.showLoading({
       title: '加载中...',
@@ -136,7 +140,9 @@ Page({
       CurrencyIndex: currencyIndex,
       DepartmentIndex: departmentIndex,
       CarIndex: carIndex,
-      Attachments: data.Attachments
+      Attachments: data.Attachments,
+      ReceiveGoodsDetailId:data.ReceiveGoodsDetailId,
+      ReceiveGoodsDetailNo:data.ReceiveGoodsDetailNo
     });
   },
   /**
@@ -187,7 +193,26 @@ Page({
   onShareAppMessage() {
 
   },
-  add(e) {
+  async add(e) {
+    if (this.data.ReceiveGoodsDetailNo != null && this.data.ReceiveGoodsDetailNo.trim().length > 0) {
+      let result = await this.checkReceiveGoodsDetailNumber();
+      if(result==-1){
+        wx.showModal({
+          title: '提示',
+          content: '单号不存在，请检查输入是否正确',
+          showCancel:false
+        });
+        return;
+      }else{
+        this.setData({
+          ReceiveGoodsDetailId:result
+        });
+      }
+    }else{
+      this.setData({
+        ReceiveGoodsDetailId:null
+      });
+    }
     let count = this.data.Attachments.filter(p => p.AttachmentType == null).length;
     this.setData({
       NoAttachmentTypesCount: count
@@ -226,6 +251,8 @@ Page({
       Detail.Remark = this.data.Remark;
       Detail.Attachments = this.data.Attachments;
       Detail.CurrencyName = this.data.Currencies[this.data.CurrencyIndex].ObjectName;
+      Detail.ReceiveGoodsDetailNo=this.data.ReceiveGoodsDetailNo;
+      Detail.ReceiveGoodsDetailId = this.data.ReceiveGoodsDetailId;
       if (this.data.DepartmentIndex != null) {
         Detail.DepartmentId = this.data.Departments[this.data.DepartmentIndex].ObjectId;
       }
@@ -253,7 +280,9 @@ Page({
       EditDetail: null,
       IsEditable: true,
       IsContinue: false,
-      Attachments: []
+      Attachments: [],
+      ReceiveGoodsDetailId:null,
+      ReceiveGoodsDetailNo:""
     }
     this.setData(data)
     this.onLoad();
@@ -448,6 +477,24 @@ Page({
           });
         }
       }
+    });
+  },
+  //根据单号获取id，如果单号不存在则返回-1
+  async checkReceiveGoodsDetailNumber() {
+    let that = this;
+    return new Promise(function(resolve,reject) {
+      wx.showLoading({
+        title: '单号检测中',
+      });
+      let data = {
+        url: app.globalData.serverAddress + "/Reimbursement/GetRgdId?rgdNo="+that.data.ReceiveGoodsDetailNo.trim(),
+        method: "GET",
+        success: function (res) {
+          wx.hideLoading();
+          resolve(res);
+        }
+      };
+      app.NetRequest(data);
     });
   }
 })
