@@ -118,11 +118,15 @@
             <image src="/image/chat.png" bind:tap="toChat"></image>
           </view>
         </view>
-        <navigator class="weui-tab__content" hidden="{{activeIndex != 1}}">
-          <view class="weui-cells weui-cells_after-title" wx:for="{{item.Sizes}}" wx:for-item="size">
+        <navigator class="weui-tab__content" hidden="{{activeIndex != 1}}" style="padding-top: 15PX;">
+          <view class="weui-cells weui-cells_after-title" wx:for="{{item.Sizes}}" wx:for-item="size" style="margin-bottom: 15px;">
             <view class="weui-cell">
-              <view class="weui-cell__bd">编号</view>
-              <view class="weui-cell__ft">{{index+1}}</view>
+              <view class="weui-cell__bd">包裹号</view>
+              <view class="weui-cell__ft">{{size.PackageNumber}}</view>
+            </view>
+            <view class="weui-cell">
+              <view class="weui-cell__bd">长*宽*高(CM)</view>
+              <view class="weui-cell__ft">{{size.Length}}*{{size.Width}}*{{size.Height}}</view>
             </view>
             <view class="weui-cell">
               <view class="weui-cell__bd">实重(KG)</view>
@@ -133,17 +137,10 @@
               <view class="weui-cell__ft">{{size.VolumeWeight}}</view>
             </view>
             <view class="weui-cell">
-              <view class="weui-cell__bd">长(CM)</view>
-              <view class="weui-cell__ft">{{size.Length}}</view>
+              <view class="weui-cell__bd">计费重</view>
+              <view class="weui-cell__ft">{{size.ChargeableWeight}}</view>
             </view>
-            <view class="weui-cell">
-              <view class="weui-cell__bd">宽(CM)</view>
-              <view class="weui-cell__ft">{{size.Width}}</view>
-            </view>
-            <view class="weui-cell">
-              <view class="weui-cell__bd">高(CM)</view>
-              <view class="weui-cell__ft">{{size.Height}}</view>
-            </view>
+           
           </view>
         </navigator>
 
@@ -213,7 +210,7 @@
               <view>{{problem.ObjectName}}</view>
               <view class="weui-cell__bd" style="color:red;font-size:13px" wx:if="{{problem.Status==0}}">[未处理]</view>
               <view class="weui-cell__bd" style="color:#33CC33;font-size:13px" wx:else>[已处理]</view>
-              <view class="weui-cell__ft">{{problem.ModifyAt}}</view>
+              <view class="weui-cell__ft">{{problem.ModifyAt!=null?problem.ModifyAt:""}}</view>
             </view>
             <view style="padding-left:15px;padding-right:15px;font-size:15px;color:#999999">{{problem.Remark}}</view>
           </view>
