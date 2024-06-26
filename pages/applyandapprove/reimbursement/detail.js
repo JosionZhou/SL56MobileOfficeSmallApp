@@ -285,7 +285,7 @@ Page({
       ReceiveGoodsDetailNo:""
     }
     this.setData(data)
-    this.onLoad();
+    this.onLoad({type:this.data.Type});
   },
   tapNext() {
     this.setData({
