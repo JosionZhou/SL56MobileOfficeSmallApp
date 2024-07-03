@@ -92,6 +92,12 @@ Page({
         image: "customer-interview",
         showbadge: false,
         event: "customerInterview"
+      },
+      {
+        name: "包装",
+        image: "trucking",
+        showbadge: false,
+        event: "packagingOptimization"
       }
     ],
     count: 0
@@ -381,6 +387,11 @@ Page({
   goodsToWarehouse:function(){
     wx.navigateTo({
       url: '/pages/goodstowarehouse_manual/index',
+    });
+  },
+  packagingOptimization:function(){
+    wx.navigateTo({
+      url: '/pages/packaging-optimization/packaging-optimization',
     });
   }
 })

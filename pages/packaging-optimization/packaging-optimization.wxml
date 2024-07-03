@@ -1,0 +1,45 @@
+<view style="position: relative;" wx:if="{{result.length>0}}">
+  <checkbox-group bindchange="checkAll" data-id="{{item.Id}}" style="width: 30%;float: left;padding-top: 10px;">
+    <label class="weui-cell weui-check__label" style="padding-left: 0px;">
+      <checkbox class="weui-check" checked="{{IsSelectAll}}" />
+      <view class="weui-cell__hd weui-check__hd_in-checkbox">
+        <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!IsSelectAll}}"></icon>
+        <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{IsSelectAll}}"></icon>
+      </view>
+      <view class="weui-cell__bd">{{IsSelectAll?'(全不选)':'(全选)'}}</view>
+    </label>
+  </checkbox-group>
+  <button style="width: 100px;float: right;margin-right: 10px" class="weui-btn mini-btn" size="mini" type="warn" bindtap="batchDelete">批量删除</button>
+</view>
+<view style="clear: both;"></view>
+<view class="weui-cells weui-cells_after-title" wx:for="{{result}}">
+  <view url="" class="weui-cell" bindtap="bindConfirmCheck" data-id="{{item.Id}}" data-index="{{index}}">
+    <checkbox-group bindchange="check" data-id="{{item.Id}}">
+      <label class="weui-check__label" style="padding-left: 0px;">
+        <checkbox class="weui-check" value="{{item.FormId}}" checked="{{item.IsSelected}}" />
+        <view class="weui-cell__hd weui-check__hd_in-checkbox">
+          <icon class="weui-icon-checkbox_circle" type="circle" size="23" wx:if="{{!item.IsSelected}}"></icon>
+          <icon class="weui-icon-checkbox_success" type="success" size="23" wx:if="{{item.IsSelected}}"></icon>
+        </view>
+        <view class="weui-cell__bd">{{item.ObjectName}}</view>
+      </label>
+    </checkbox-group>
+    <view class="weui-cell__bd number-ft">原单号:{{item.ReferenceNumber}}</view>
+    <view style="color:#999999">转单号:{{item.TrackNumber}}</view>
+  </view>
+  <navigator url="../expresssearch/detail?id={{item.Id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="tapItem">
+    <view class="weui-cell__bd" style="font-size:13px">
+      <view>件数：{{item.Piece}}件</view>
+      <view class="sub_font_color">收货时间：{{item.RgdDate}}</view>
+      <view class="sub_font_color">收货实重：{{item.ActualWeight}}KG</view>
+      <view class="sub_font_color">收货材积重：{{item.VolumeWeight}}KG</view>
+      <view class="sub_font_color">除5000材积重：{{item.VolumeWeightOf5000}}KG</view>
+    </view>
+    <view class="weui-cell__bd">
+      <view class="weui-cell__ft weui-cell__ft_in-access price-amount-ft">{{item.CustomerName}}</view>
+    </view>
+  </navigator>
+</view>
+<view class="weui-loadmore weui-loadmore_line">
+  <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无更多数据</view>
+</view>

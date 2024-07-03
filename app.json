@@ -49,7 +49,8 @@
     "pages/customerinterview/interviewmanager/index",
     "pages/goodstowarehouse_scan/index",
     "pages/goodstowarehouse_manual/index",
-    "pages/chat/chat"
+    "pages/chat/chat",
+    "pages/packaging-optimization/packaging-optimization"
   ],
   "window": {
     "backgroundTextStyle": "light",
