@@ -1,0 +1,71 @@
+<view class="filterPanel">
+  <view class="weui-search-bar">
+    <view class="weui-search-bar__form">
+      <view class="weui-search-bar__box">
+        <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+        <input type="text" class="weui-search-bar__input" placeholder="可输入 原单号/转单号" model:value="{{key}}" />
+        <view class="weui-icon-clear" wx:if="{{key.length > 0}}" bindtap="clearInput">
+          <icon type="clear" size="14"></icon>
+        </view>
+      </view>
+    </view>
+  </view>
+  <view>
+    <view class="weui-cell weui-cell_select leftFilter">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">标识类型</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindMarkTypeChange" value="{{markTypeIndex}}" range="{{markTypes}}">
+          <view class="weui-select weui-select_in-select-after">{{markTypes[markTypeIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_select rightFilter">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">是否亚马逊</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="bindIsAmazonChange" value="{{isAmazonTypeIndex}}" range="{{isAmazonTypes}}">
+          <view class="weui-select weui-select_in-select-after">{{isAmazonTypes[isAmazonTypeIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+    <view style="clear: both;"></view>
+  </view>
+  <view>
+    <button class="btn-search" bind:tap="btnSearch">查询</button>
+  </view>
+</view>
+<view style="margin-top: 160px;">
+  <view class="weui-cells weui-cells_after-title" wx:for="{{result}}">
+    <view url="" class="weui-cell" data-id="{{item.Id}}" data-index="{{index}}">
+      <view class="weui-cell__bd number-head">原单号:{{item.ReferenceNumber}}</view>
+      <view style="color:#999999">转单号:{{item.TrackNumber}}</view>
+    </view>
+    <navigator url="../expresssearch/detail?id={{item.Id}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active" bindtap="tapItem">
+      <view class="weui-cell__bd" style="font-size:13px">
+        <view>件数：{{item.Piece}}件</view>
+        <view class="sub_font_color">收货时间：{{item.RgdDate}}</view>
+        <view class="sub_font_color">收货实重：{{item.ActualWeight}}KG</view>
+        <view class="sub_font_color">收货材积重：{{item.VolumeWeight}}KG</view>
+        <view class="sub_font_color">除5000材积重：{{item.VolumeWeightOf5000}}KG</view>
+        <view class="sub_font_color">亚马逊：{{item.IsAmazon==null?"未知":(item.IsAmazon?"是":"否")}}</view>
+        <view class="mark-type-opt" wx:if="{{item.PackagingOptimizationStatus==1}}">标识类型：优化</view>
+        <view class="mark-type-del" wx:if="{{item.PackagingOptimizationStatus==2}}">标识类型：删除</view>
+      </view>
+      <view class="weui-cell__bd">
+        <view class="weui-cell__ft weui-cell__ft_in-access price-amount-ft">{{item.CustomerName}}</view>
+      </view>
+    </navigator>
+  </view>
+  <view class="weui-loadmore" wx:if="{{isLoadingData}}">
+    <view class="weui-loading"></view>
+    <view class="weui-loadmore__tips">正在加载</view>
+  </view>
+  <view class="  no-data">
+  <view class="weui-loadmore weui-loadmore_line" wx:if="{{isShowNoDataMark}}">
+    <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无更多数据</view>
+  </view>
+</view>
+</view>

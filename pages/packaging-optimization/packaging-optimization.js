@@ -19,7 +19,7 @@ Page({
       title: '请稍后',
     });
     var data = {
-      url: app.globalData.serverAddress + '/DeliveryRecord/GetCanPackagingOptimizationList',
+      url: app.globalData.serverAddress + '/PackagingOptimization/GetCanPackagingOptimizationList',
       method: "GET",
       success: function (res) {
         console.log(res);
@@ -135,7 +135,7 @@ Page({
             title: '请稍后'
           });
           var data = {
-            url: app.globalData.serverAddress + '/DeliveryRecord/MarkPackagingOptimization',
+            url: app.globalData.serverAddress + '/PackagingOptimization/DeletePackagingOptimization',
             method: "POST",
             data:ids,
             success: function (res) {
@@ -155,6 +155,11 @@ Page({
           app.NetRequest(data);
         }
       }
+    });
+  },
+  toHistory(){
+    wx.navigateTo({
+      url: '/pages/packaging-optimization-history/packaging-optimization-history',
     });
   }
 })

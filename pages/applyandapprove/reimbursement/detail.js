@@ -196,11 +196,15 @@ Page({
   async add(e) {
     if (this.data.ReceiveGoodsDetailNo != null && this.data.ReceiveGoodsDetailNo.trim().length > 0) {
       let result = await this.checkReceiveGoodsDetailNumber();
+
       if(result==-1){
         wx.showModal({
           title: '提示',
           content: '单号不存在，请检查输入是否正确',
           showCancel:false
+        });
+        this.setData({
+          ReceiveGoodsDetailId:null
         });
         return;
       }else{
@@ -479,7 +483,7 @@ Page({
       }
     });
   },
-  //根据单号获取id，如果单号不存在则返回-1
+  //根据单号查询，如果有多个(包括已退货的)则弹出选择，如果只有一个则直接默认选择此收货数据的id
   async checkReceiveGoodsDetailNumber() {
     let that = this;
     return new Promise(function(resolve,reject) {
@@ -487,11 +491,32 @@ Page({
         title: '单号检测中',
       });
       let data = {
-        url: app.globalData.serverAddress + "/Reimbursement/GetRgdId?rgdNo="+that.data.ReceiveGoodsDetailNo.trim(),
+        url: app.globalData.serverAddress + "/Reimbursement/GetRgdNumbers?rgdNo="+that.data.ReceiveGoodsDetailNo.trim(),
         method: "GET",
         success: function (res) {
           wx.hideLoading();
-          resolve(res);
+          if(res.length==0){
+            resolve(-1);
+          }else if(res.length==1){
+            resolve(res[0].ObjectId);
+          }else{
+            let numbers = res.map(p=>p.ObjectNo);
+            wx.showModal({
+              title: '提示',
+              content: '该单号存在多条数据，请手动选择',
+              showCancel:false,
+              complete: (res1) => {
+                if (res1.confirm) {
+                  wx.showActionSheet({
+                    itemList: numbers,
+                    success:function(res2){
+                      resolve(res[res2.tapIndex].ObjectId);
+                    }
+                  })
+                }
+              }
+            })
+          }
         }
       };
       app.NetRequest(data);
