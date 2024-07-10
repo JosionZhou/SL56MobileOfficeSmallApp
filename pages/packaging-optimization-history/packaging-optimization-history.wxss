@@ -1,0 +1,56 @@
+.filterPanel{
+  position: fixed;
+    top: 0px;
+    z-index: 999;
+    width: 100%;
+    background: white;
+    box-shadow: 0px 1px 20px 0px black;
+}
+.leftFilter{
+  float: left;
+  width: 49%;
+}
+.rightFilter{
+  float: right;
+  width: 49%;
+}
+.btn-search{
+  background: #004ea2;
+  color: white;
+  margin: 5px;
+}
+.btn-search:active{
+  background: #003977;
+}
+.sub_font_color{
+  color: #999999
+}
+.weui-cells::before{
+  border-top: none
+}
+
+.weui-cells{
+  margin-top:10px;
+  border-top: none
+}
+.page__bd{
+  padding-bottom: 0px
+}
+.weui-cell{
+  padding-left: 0px;
+}
+.weui-cell_access{
+  padding-left: 15px;
+}
+.no-data{
+  padding-top: 10px;
+}
+.number-head{
+  padding-left: 10px;
+}
+.mark-type-del{
+  color: red;
+}
+.mark-type-opt{
+  color: green;
+}

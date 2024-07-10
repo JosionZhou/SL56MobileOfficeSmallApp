@@ -18,3 +18,16 @@
 .weui-cell_access{
   padding-left: 15px;
 }
+.btn-history{
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  width: 40px;
+  height: 40px;
+  padding: 10px;
+  border-radius: 50px;
+  box-shadow: 0 0 10px 5px #9E9E9E;
+}
+.btn-history:active{
+  box-shadow: 0 0 10px 0 #9E9E9E;
+}
