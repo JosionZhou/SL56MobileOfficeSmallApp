@@ -32,7 +32,8 @@ Page({
     CompanyIndex: 0,
     RcvName: null, //收款方名称
     RcvAcc: null, //收款方账号
-    RcvBankName: null //收款方开户行
+    RcvBankName: null, //收款方开户行
+    IsCopy:false
   },
 
   /**
@@ -64,19 +65,20 @@ Page({
           that.setData({
             ObjectName: res.ObjectName,
             CreateBy: res.CreateBy,
-            CreateAt: res.CreateAt,
+            CreateAt: item.IsCopy?now() : res.CreateAt,
             Attachments: res.Attachments,
             Details: res.Details,
-            IsEditable: res.IsEditable,
+            IsEditable: item.IsCopy?true : res.IsEditable,
             IsCancelable: item.IsCancelable,
-            IsApprovaling: item.IsApprovaling,
+            IsApprovaling: item.IsCopy?false : item.IsApprovaling,
             AllAmount: allAmount,
             Activities: res.Tracks,
             Type:res.Type,
             CompanyIndex:res.CompanyIndex,
             RcvName:res.RcvName,
             RcvAcc:res.RcvAcc,
-            RcvBankName:res.RcvBankName
+            RcvBankName:res.RcvBankName,
+            IsCopy:item.IsCopy
           });
         }
       }
@@ -86,6 +88,9 @@ Page({
         CreateAt: now(),
         CreateBy: wx.getStorageSync("nameInfo")
       });
+    }
+    this.getCompanys();
+    
       // 验证字段的规则
       const rules = {
         ObjectName: {
@@ -138,8 +143,6 @@ Page({
 
       // 创建实例对象
       this.WxValidate = new WxValidate(rules, messages);
-    }
-    this.getCompanys();
   },
 
   /**

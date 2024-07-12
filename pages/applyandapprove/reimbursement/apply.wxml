@@ -107,7 +107,8 @@
   </view> -->
 
 
-  <view class="weui-cells__title" wx:if="{{Activities.length>0}}">审批轨迹</view>
+<view  wx:if="{{!IsCopy && Activities.length>0}}">
+  <view class="weui-cells__title">审批轨迹</view>
   <view class="border-top border-bottom" wx:for="{{Activities}}" wx:for-item="active" style="background-color: white;">
     <view class="weui-flex" style="text-align:center;font-size:15px">
       <view style="margin-top:5px;margin-left:20px;color:#666666">
@@ -125,7 +126,7 @@
         审核意见：{{active.Remark.length>0?active.Remark:"(无)"}}
       </view>
   </view>
-
+</view>
   <view wx:if="{{!IsEditable && IsApprovaling}}">
     <view class="weui-cells__title">审核意见</view>
     <view class="weui-cells weui-cells_after-title">

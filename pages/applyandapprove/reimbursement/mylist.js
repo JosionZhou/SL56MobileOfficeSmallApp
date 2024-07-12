@@ -120,6 +120,12 @@ Page({
       })
       return;
     }
+    else if(type==4){
+      this.data.touchType=null;
+      data = this.data.items2[e.currentTarget.dataset.index];
+      data.IsCopy=true;
+      console.log(data)
+    }
     else if(type==0){
       data = this.data.items1[e.currentTarget.dataset.index];
     }else{
@@ -132,6 +138,10 @@ Page({
     });
   },
   reapproval(e){
+    let type=e.currentTarget.dataset.type;
+    this.data.touchType=type;
+  },
+  copy(e){
     let type=e.currentTarget.dataset.type;
     this.data.touchType=type;
   },

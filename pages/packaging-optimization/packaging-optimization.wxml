@@ -35,6 +35,9 @@
       <view class="sub_font_color">收货材积重：{{item.VolumeWeight}}KG</view>
       <view class="sub_font_color">除5000材积重：{{item.VolumeWeightOf5000}}KG</view>
       <view class="sub_font_color">亚马逊：{{item.IsAmazon==null?"未知":(item.IsAmazon?"是":"否")}}</view>
+      <view class="sub_font_color">国家：{{item.CountryNameCN}}</view>
+      <view class="sub_font_color">业务员：{{item.SalesmanName}}</view>
+      <view class="sub_font_color">跟单员：{{item.MerchandiserName}}</view>
     </view>
     <view class="weui-cell__bd">
       <view class="weui-cell__ft weui-cell__ft_in-access price-amount-ft">{{item.CustomerName}}</view>
