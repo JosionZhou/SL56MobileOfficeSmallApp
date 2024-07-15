@@ -31,9 +31,9 @@
     <view class="weui-cell__bd" style="font-size:13px">
       <view>件数：{{item.Piece}}件</view>
       <view class="sub_font_color">收货时间：{{item.RgdDate}}</view>
-      <view class="sub_font_color">收货实重：{{item.ActualWeight}}KG</view>
-      <view class="sub_font_color">收货材积重：{{item.VolumeWeight}}KG</view>
-      <view class="sub_font_color">除5000材积重：{{item.VolumeWeightOf5000}}KG</view>
+      <view class="sub_font_color">实：{{item.ActualWeight}}KG</view>
+      <view class="sub_font_color">收：{{item.VolumeWeight}}KG</view>
+      <view class="sub_font_color">5000：{{item.VolumeWeightOf5000}}KG</view>
       <view class="sub_font_color">亚马逊：{{item.IsAmazon==null?"未知":(item.IsAmazon?"是":"否")}}</view>
       <view class="sub_font_color">国家：{{item.CountryNameCN}}</view>
       <view class="sub_font_color">业务员：{{item.SalesmanName}}</view>
