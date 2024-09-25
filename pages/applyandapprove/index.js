@@ -5,9 +5,27 @@ Page({
    * 页面的初始数据
    */
   data: {
-    subFunctions:[
-      { name: "报销", image: "reimbursement", showbadge: false, event: "reimbursement",showBadge:true},
-      { name: "积分", image: "integral", showbadge: false, event: "integral",showBadge:false }
+    subFunctions: [{
+        name: "报销",
+        image: "reimbursement",
+        showbadge: false,
+        event: "reimbursement",
+        showBadge: false
+      },
+      {
+        name: "积分",
+        image: "integral",
+        showbadge: false,
+        event: "integral",
+        showBadge: false
+      },
+      {
+        name: "审批",
+        image: "approval1",
+        showbadge: false,
+        event: "approval",
+        showBadge: true
+      }
     ]
   },
 
@@ -29,10 +47,10 @@ Page({
    * 生命周期函数--监听页面显示
    */
   onShow() {
-    let that=this;
-    util.getWaitApprovalCount(function(res){
+    let that = this;
+    util.getWaitApprovalCount(function (res) {
       that.setData({
-        waitApprovalCount:res
+        waitApprovalCount: res
       });
     });
   },
@@ -71,14 +89,20 @@ Page({
   onShareAppMessage() {
 
   },
-  integral(){
+  integral() {
     wx.navigateTo({
       url: '/pages/integrate/index',
     })
   },
-  reimbursement(){
+  reimbursement() {
     wx.navigateTo({
       url: '/pages/applyandapprove/reimbursement/index',
     })
+  },
+  //审批
+  approval() {
+    wx.navigateTo({
+      url: '/pages/applyandapprove/reimbursement/approval',
+    });
   }
 })

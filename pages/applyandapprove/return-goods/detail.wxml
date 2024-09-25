@@ -1,0 +1,110 @@
+<view class="weui-toptips weui-toptips_warn" wx:if="{{IsError}}">{{ErrorMessage}}</view>
+<form bindsubmit="submit">
+  <view class="weui-cells__title">基本信息</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">申请项目</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" value="退货" disabled />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">申请人</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" disabled value="{{CreateBy}}" />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">提货人</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" disabled value="{{TakeGoodsPersonName}}" />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">申请时间</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input class="weui-input" disabled value="{{CreateAt}}" />
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">单号</view>
+      </view>
+
+      <view class="weui-cell__bd">
+        <navigator url="/pages/expresssearch/detail?id={{item.RgdId}}" class="weui-input nav-link" wx:for="{{Rgds}}">
+          {{item.RgdNo}}
+        </navigator>
+      </view>
+    </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__hd">
+        <view class="weui-label">备注</view>
+      </view>
+      <view class="weui-cell__bd">
+        <textarea class="weui-textarea"  style="height: 5.3em;padding: 10px;" disabled>{{Remark}}</textarea>
+      </view>
+    </view>
+  </view>
+
+  <view  wx:if="{{Activities.length>0}}">
+  <view class="weui-cells__title">审批轨迹</view>
+  <view class="border-top border-bottom" wx:for="{{Activities}}" wx:for-item="active" style="background-color: white;">
+    <view class="weui-flex" style="text-align:center;font-size:15px">
+      <view style="margin-top:5px;margin-left:20px;color:#666666">
+        <view>{{active.ObjectName}}：{{active.EmployeeName}}</view>
+      </view>
+      <view class="" style="margin-top:5px;margin-left:10px">
+        <view style="color:red" wx:if="{{active.IsPass=='否'}}">已拒绝</view>
+        <view style="color:#00e600" wx:if="{{active.IsPass=='是'}}">已通过</view>
+      </view>
+      <view class="weui-flex__item" style="color:#666666;margin-top:5px;font-size:15px">
+        <view>[{{active.EndDate}}]</view>
+      </view>
+    </view>
+      <view style="padding-left:20px;color:#666666;font-size:15px;background-color: white;">
+        审核意见：{{active.Remark.length>0?active.Remark:"(无)"}}
+      </view>
+  </view>
+</view>
+
+  <view>
+    <view class="weui-cells__title">审核意见</view>
+    <view class="weui-cells weui-cells_after-title">
+      <radio-group bindchange="approvalChange" model:value="{{IsPass}}">
+        <label class="weui-cell weui-check__label">
+          <radio class="weui-check" value="0"/>
+          <view class="weui-cell__bd">同意</view>
+          <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{IsPass==true}}">
+            <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+          </view>
+        </label>
+
+        <label class="weui-cell weui-check__label" bindtap="bindStartFalse">
+          <radio class="weui-check" value="1"/>
+          <view class="weui-cell__bd">不同意</view>
+          <view class="weui-cell__ft weui-cell__ft_in-radio" wx:if="{{IsPass==false}}">
+            <icon class="weui-icon-radio" type="success_no_circle" size="16"></icon>
+          </view>
+        </label>
+      </radio-group>
+    </view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell">
+        <view class="weui-cell__bd">
+          <textarea class="weui-textarea" placeholder="此处可输入审核意见" style="height: 5.3em" model:value="{{ApprovalRemark}}" maxlength="500" />
+          <view class="weui-textarea-counter">{{ApprovalRemark.length}}/500</view>
+        </view>
+      </view>
+    </view>
+    <button type="primary" form-type="submit">提交审核</button>
+  </view>
+</form>

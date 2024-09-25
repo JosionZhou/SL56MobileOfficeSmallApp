@@ -48,7 +48,7 @@ Page({
       });
     }
     if (options != null && options.item != null) {
-      let item = JSON.parse(options.item);
+      let item = JSON.parse(decodeURIComponent(options.item));
       that.data.ApprovalObj = item;
       wx.showLoading({
         title: '获取数据中...',
@@ -71,7 +71,7 @@ Page({
             IsEditable: item.IsCopy?true : res.IsEditable,
             IsCancelable: item.IsCancelable,
             IsApprovaling: item.IsCopy?false : item.IsApprovaling,
-            AllAmount: allAmount,
+            AllAmount: allAmount.toFixed(2),
             Activities: res.Tracks,
             Type:res.Type,
             CompanyIndex:res.CompanyIndex,
@@ -368,7 +368,7 @@ Page({
           });
           that.setData({
             Details: details,
-            AllAmount: allAmount
+            AllAmount: allAmount.toFixed(2)
           });
           console.log("data", that.data.Details);
         }
