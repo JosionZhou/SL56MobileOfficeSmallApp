@@ -20,13 +20,6 @@ Page({
         showBadge: false
       },
       {
-        name: "审批",
-        image: "approval1",
-        showbadge: false,
-        event: "approval",
-        showBadge: true
-      },
-      {
         name: "我的报销",
         image: "reimbursement",
         showbadge: false,
@@ -138,12 +131,6 @@ Page({
       }
     }
     app.NetRequest(data);
-  },
-  //报销审批
-  approval() {
-    wx.navigateTo({
-      url: '/pages/applyandapprove/reimbursement/approval',
-    });
   },
   mylist() {
     wx.navigateTo({

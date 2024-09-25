@@ -88,9 +88,24 @@ Page({
     let data = this.data.items[e.currentTarget.dataset.index];
     data.IsApprovaling = true;
     let params = JSON.stringify(data);
-    wx.navigateTo({
-      url: './apply?item=' + params
-    });
+    //退货申请
+    if(data.WorkflowId==6){
+      wx.navigateTo({
+        url: '../return-goods/detail?item='+encodeURIComponent(params),
+      })
+    }else if (data.WorkflowId == 8 || data.WorkflowId == 9) {//对内/对外用款申请
+      wx.navigateTo({
+        url: './apply?item=' + encodeURIComponent(params)
+      });
+    }else if(data.WorkflowId==7){//费用调减
+      wx.navigateTo({
+        url: '../fee-decrease-or-waiver/detail?item=' + encodeURIComponent(params)
+      });
+    }else if(data.WorkflowId==10){//未确认费用
+      wx.navigateTo({
+        url: '../feedisputed/detail?item='+encodeURIComponent(params),
+      })
+    }
   },
   check(e) {
     let id = e.currentTarget.dataset.id;
@@ -127,26 +142,26 @@ Page({
     });
   },
   doApprovalAction(postData, action) {
-    var that=this;
+    var that = this;
     wx.showLoading({
       title: '数据提交中...',
     });
     let data = {
-      url: app.globalData.serverAddress + "/Reimbursement/"+action,
+      url: app.globalData.serverAddress + "/Workflow/" + action,
       data: postData,
       success: function (res) {
         wx.hideLoading();
-        if (res.length == 0) {
+        if (res.Success) {
           that.setData({
-            IsSelectAll:false
+            IsSelectAll: false
           });
           that.onShow();
         } else {
           wx.showModal({
             showCancel: false,
             title: "操作失败",
-            content: res+",页面将重新刷新,请在页面刷新后重试",
-            success:function(res){
+            content: res.ErrorMessage + ",页面将重新刷新,请在页面刷新后重试",
+            success: function (res) {
               that.setData({
                 items: [],
                 IsSelectAll: false
@@ -156,13 +171,13 @@ Page({
           });
         }
       },
-      fail:function(res){
+      fail: function (res) {
         wx.hideLoading();
         wx.showModal({
           showCancel: false,
           title: "操作失败",
           content: "页面将重新刷新,请在页面刷新后重试",
-          success:function(res){
+          success: function (res) {
             that.setData({
               items: [],
               IsSelectAll: false
@@ -175,53 +190,53 @@ Page({
     app.NetRequest(data);
   },
   agree(e) {
-    let action="Approval";
-    let id= e.currentTarget.dataset.id;
-    let item = this.data.items.find(p=>p.FormId==id);
-    item.IsPass=true;
-    this.doApprovalAction(item,action);
+    let action = "ToExamine";
+    let id = e.currentTarget.dataset.id;
+    let item = this.data.items.find(p => p.FormId == id);
+    item.IsPass = true;
+    this.doApprovalAction(item, action);
   },
   reject(e) {
-    let that=this;
+    let that = this;
     wx.showModal({
-      showCancel:true,
-      title:"提示",
-      content:"确定拒绝吗？",
-      success:function(res){
-        if(res.confirm){
-          let action="Approval";
-          let id= e.currentTarget.dataset.id;
-          let item = that.data.items.find(p=>p.FormId==id);
-          item.IsPass=false;
-          that.doApprovalAction(item,action);
+      showCancel: true,
+      title: "提示",
+      content: "确定拒绝吗？",
+      success: function (res) {
+        if (res.confirm) {
+          let action = "ToExamine";
+          let id = e.currentTarget.dataset.id;
+          let item = that.data.items.find(p => p.FormId == id);
+          item.IsPass = false;
+          that.doApprovalAction(item, action);
         }
       }
     });
   },
   batchAgree() {
-    let action="Approvals";
-    let selectItems = this.data.items.filter(p=>p.IsSelected);
+    let action = "ToExamines";
+    let selectItems = this.data.items.filter(p => p.IsSelected);
     selectItems.forEach(element => {
-      element.IsPass=true;
-      element.Remark="批量同意";
+      element.IsPass = true;
+      element.Remark = "批量同意";
     });
-    this.doApprovalAction(selectItems,action);
+    this.doApprovalAction(selectItems, action);
   },
   batchReject() {
-    let that=this;
+    let that = this;
     wx.showModal({
-      showCancel:true,
-      title:"提示",
-      content:"确定拒绝吗？",
-      success:function(res){
-        if(res.confirm){
-          let action="Approvals";
-          let selectItems = that.data.items.filter(p=>p.IsSelected);
+      showCancel: true,
+      title: "提示",
+      content: "确定拒绝吗？",
+      success: function (res) {
+        if (res.confirm) {
+          let action = "ToExamines";
+          let selectItems = that.data.items.filter(p => p.IsSelected);
           selectItems.forEach(element => {
-            element.IsPass=false;
-            element.Remark="批量拒绝";
+            element.IsPass = false;
+            element.Remark = "批量拒绝";
           });
-          that.doApprovalAction(selectItems,action);
+          that.doApprovalAction(selectItems, action);
         }
       }
     });
