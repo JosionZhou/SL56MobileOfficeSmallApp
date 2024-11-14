@@ -87,6 +87,8 @@ Page({
   approval(e) {
     let data = this.data.items[e.currentTarget.dataset.index];
     data.IsApprovaling = true;
+    data.IsEditable=false;
+    data.IsApprovaling=true;
     let params = JSON.stringify(data);
     //退货申请
     if(data.WorkflowId==6){

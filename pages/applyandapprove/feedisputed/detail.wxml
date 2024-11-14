@@ -42,7 +42,7 @@
         <view class="weui-label">备注</view>
       </view>
       <view class="weui-cell__bd">
-        <textarea class="weui-textarea"  style="height: 5.3em;padding: 10px;" disabled>{{Remark}}</textarea>
+        <textarea class="weui-textarea"  style="height: auto;min-height: 5.3em;padding: 10px;" disabled>{{Remark}}</textarea>
       </view>
     </view>
   </view>
@@ -68,7 +68,7 @@
   </view>
 </view>
 
-  <view>
+  <view wx:if="{{!IsEditable && IsApprovaling}}">
     <view class="weui-cells__title">审核意见</view>
     <view class="weui-cells weui-cells_after-title">
       <radio-group bindchange="approvalChange" model:value="{{IsPass}}">

@@ -20,7 +20,7 @@ Page({
         showBadge: false
       },
       {
-        name: "审批",
+        name: "待我审批",
         image: "approval1",
         showbadge: false,
         event: "approval",
@@ -33,7 +33,23 @@ Page({
    * 生命周期函数--监听页面加载
    */
   onLoad(options) {
-
+    let that=this;
+    util.getIsGetAllWorkflowsPermission(function (res) {
+      if(res){
+        let functions = that.data.subFunctions;
+        functions.push(
+          {
+            name: "所有审批",
+            image: "history",
+            showbadge: false,
+            event: "all",
+            showBadge: false
+          });
+          that.setData({
+            subFunctions:functions
+          });
+      }
+    });
   },
 
   /**
@@ -103,6 +119,11 @@ Page({
   approval() {
     wx.navigateTo({
       url: '/pages/applyandapprove/reimbursement/approval',
+    });
+  },
+  all(){
+    wx.navigateTo({
+      url: '/pages/applyandapprove/all-workflows/all-workflows',
     });
   }
 })

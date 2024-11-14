@@ -54,7 +54,8 @@
         "pages/packaging-optimization-history/packaging-optimization-history",
         "pages/applyandapprove/fee-decrease-or-waiver/detail",
         "pages/applyandapprove/feedisputed/detail",
-        "pages/applyandapprove/return-goods/detail"
+        "pages/applyandapprove/return-goods/detail",
+        "pages/applyandapprove/all-workflows/all-workflows"
     ],
     "window": {
         "backgroundTextStyle": "light",
