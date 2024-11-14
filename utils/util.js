@@ -33,9 +33,25 @@ const getWaitApprovalCount = (callback) => {
     callback(res);
   });
 }
+const getIsGetAllWorkflowsPermission = (callback) => {
+  let app = getApp();
+  return new Promise(function (resolve) {
+    let data = {
+      url: app.globalData.serverAddress + "/Workflow/GetIsGetAllWorkflowsPermission",
+      method: "GET",
+      success:function(res){
+        resolve(res)
+      }
+    }
+    app.NetRequest(data);
+  }).then(function(res){
+    callback(res);
+  });
+}
 
 module.exports = {
   formatTime: formatTime,
   now: now,
-  getWaitApprovalCount: getWaitApprovalCount
+  getWaitApprovalCount: getWaitApprovalCount,
+  getIsGetAllWorkflowsPermission:getIsGetAllWorkflowsPermission
 }

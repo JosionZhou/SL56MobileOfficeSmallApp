@@ -1,0 +1,36 @@
+<view class="page">
+  <view class="page__bd">
+    <view style="position: fixed;background-color: #fbfbfb;z-index: 999;box-shadow: 2px 0px 5px 1px #9E9E9E;">
+      <checkbox-group bindchange="checkboxChange">
+        <label class="weui-cell weui-check__label" style="float: left;font-size: 15px;" wx:for="{{types}}">
+          <view class="weui-cell__hd">
+            <checkbox value="{{index}}" checked="{{item.checked}}" />
+          </view>
+          <view class="weui-cell__bd">{{item.name}}</view>
+        </label>
+      </checkbox-group>
+      <view style="clear: both;"></view>
+    </view>
+    <view style="padding-top: 90px;">
+      <view wx:for="{{items}}" style="padding-bottom:10px;text-align:left;background-color:white;width:100%;font-size:15px;border-top: 1px solid #d9d9d9d9;">
+        <view style="margin-left: 10px;" class="weui-cell__bd">{{item.WrokFlowName}}</view>
+        <navigator bindtap="detail" data-index="{{index}}" style="margin-left: 10px;">
+          <view style="color:red;font-size:15px;margin-top:5px">{{item.ObjectName}}</view>
+          <view style="color:red;" wx:if="{{item.TotalAmount.length>0}}">{{item.TotalAmount}}</view>
+          <view class="weui-select weui-select_in-select-after" style="color:#999999;font-size:15px;margin-top:5px"> 申请人：{{item.CreateBy.length>0?item.CreateBy:("[客户]"+item.ObjectName)}}</view>
+          <!-- <view class="weui-select weui-select_in-select-after" style="color:#999999;font-size:15px;margin-top:5px">申请项目：{{item.WrokFlowName}}</view> -->
+          <view style="color:#999999;font-size:15px;margin-top:5px">当前状态：
+            <span wx:if="{{item.CurrentState==0}}">审批中-当前节点【{{item.CurrentActivityDescription}}】</span>
+            <span style="color: #004ea2;" wx:if="{{item.CurrentState==1}}">发起者主动取消</span>
+            <span style="color:red;" wx:if="{{item.CurrentState==2}}">已拒绝</span>
+            <span style="color: #00a264;" wx:if="{{item.CurrentState==3}}">已通过所有审批流程</span>
+          </view>
+          <view style="color:#999999;font-size:15px;margin-top:5px">申请日期：{{item.CreateAt}}</view>
+        </navigator>
+      </view>
+    </view>
+    <view class="weui-loadmore weui-loadmore_line" wx:if="{{isNoData}}">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无数据</view>
+    </view>
+  </view>
+</view>
