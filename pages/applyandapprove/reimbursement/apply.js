@@ -93,9 +93,9 @@ Page({
     
       // 验证字段的规则
       const rules = {
-        ObjectName: {
-          required: true
-        },
+        // ObjectName: {
+        //   required: true
+        // },
         RcvName: {
           required: that.data.Type == 2
         },
@@ -118,9 +118,9 @@ Page({
 
       // 验证字段的提示信息，若不传则调用默认的信息
       const messages = {
-        ObjectName: {
-          required: '请输入报销名称'
-        },
+        // ObjectName: {
+        //   required: '请输入报销名称'
+        // },
         RcvName: {
           required: '收款方名称不能为空'
         },
