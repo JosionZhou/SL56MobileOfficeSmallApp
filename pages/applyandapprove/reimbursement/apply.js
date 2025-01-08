@@ -97,13 +97,13 @@ Page({
         //   required: true
         // },
         RcvName: {
-          required: that.data.Type == 2
+          required: true
         },
         RcvAcc: {
-          required: that.data.Type == 2
+          required: true
         },
         RcvBankName: {
-          required: that.data.Type == 2
+          required: true
         },
         Details: {
           required: true
