@@ -33,7 +33,20 @@ Page({
     RcvName: null, //收款方名称
     RcvAcc: null, //收款方账号
     RcvBankName: null, //收款方开户行
-    IsCopy:false
+    IsCopy: false,
+    ReimbursementChargeIndex: null,
+    ReimbursementCharge: [
+      "物流费",
+      "租赁费",
+      "电费",
+      "水费",
+      "设备费用",
+      "保险费",
+      "油费",
+      "维修费",
+      "中介费",
+      "特别费"
+    ]
   },
 
   /**
@@ -46,6 +59,15 @@ Page({
       that.setData({
         Type: options.type
       });
+      if (options.type == 1) {
+        wx.setNavigationBarTitle({
+          title: '对内用款申请',
+        })
+      } else {
+        wx.setNavigationBarTitle({
+          title: '对外用款申请',
+        })
+      }
     }
     if (options != null && options.item != null) {
       let item = JSON.parse(decodeURIComponent(options.item));
@@ -65,21 +87,32 @@ Page({
           that.setData({
             ObjectName: res.ObjectName,
             CreateBy: res.CreateBy,
-            CreateAt: item.IsCopy?now() : res.CreateAt,
+            CreateAt: item.IsCopy ? now() : res.CreateAt,
             Attachments: res.Attachments,
             Details: res.Details,
-            IsEditable: item.IsCopy?true : res.IsEditable,
+            IsEditable: item.IsCopy ? true : res.IsEditable,
             IsCancelable: item.IsCancelable,
-            IsApprovaling: item.IsCopy?false : item.IsApprovaling,
+            IsApprovaling: item.IsCopy ? false : item.IsApprovaling,
             AllAmount: allAmount.toFixed(2),
             Activities: res.Tracks,
-            Type:res.Type,
-            CompanyIndex:res.CompanyIndex,
-            RcvName:res.RcvName,
-            RcvAcc:res.RcvAcc,
-            RcvBankName:res.RcvBankName,
-            IsCopy:item.IsCopy
+            Type: res.Type,
+            CompanyIndex: res.CompanyIndex,
+            RcvName: res.RcvName,
+            RcvAcc: res.RcvAcc,
+            RcvBankName: res.RcvBankName,
+            IsCopy: item.IsCopy,
+            ReimbursementChargeIndex: res.ReimbursementChargeIndex
           });
+
+          if (res.type == 1) {
+            wx.setNavigationBarTitle({
+              title: '对内用款申请',
+            })
+          } else {
+            wx.setNavigationBarTitle({
+              title: '对外用款申请',
+            })
+          }
         }
       }
       app.NetRequest(data);
@@ -90,59 +123,65 @@ Page({
       });
     }
     this.getCompanys();
-    
-      // 验证字段的规则
-      const rules = {
-        // ObjectName: {
-        //   required: true
-        // },
-        RcvName: {
-          required: true
-        },
-        RcvAcc: {
-          required: true
-        },
-        RcvBankName: {
-          required: true
-        },
-        Details: {
-          required: true
-        },
-        // Attachments: {
-        //   required: true
-        // },
-        NoAttachmentTypesCount: {
-          max: 0
-        }
-      }
 
-      // 验证字段的提示信息，若不传则调用默认的信息
-      const messages = {
-        // ObjectName: {
-        //   required: '请输入报销名称'
-        // },
-        RcvName: {
-          required: '收款方名称不能为空'
-        },
-        RcvAcc: {
-          required: '收款方账号不能为空'
-        },
-        RcvBankName: {
-          required: '收款方开户行不能为空'
-        },
-        Details: {
-          required: '报销明细不能为空'
-        },
-        // Attachments: {
-        //   required: '附件不能为空'
-        // },
-        NoAttachmentTypesCount: {
-          max: "请选择附件类型"
-        }
+    // 验证字段的规则
+    const rules = {
+      // ObjectName: {
+      //   required: true
+      // },
+      ReimbursementChargeIndex: {
+        required: this.data.Type == 2
+      },
+      RcvName: {
+        required: true
+      },
+      RcvAcc: {
+        required: true
+      },
+      RcvBankName: {
+        required: true
+      },
+      Details: {
+        required: true
+      },
+      // Attachments: {
+      //   required: true
+      // },
+      NoAttachmentTypesCount: {
+        max: 0
       }
+    }
 
-      // 创建实例对象
-      this.WxValidate = new WxValidate(rules, messages);
+    // 验证字段的提示信息，若不传则调用默认的信息
+    const messages = {
+      // ObjectName: {
+      //   required: '请输入报销名称'
+      // },
+      ReimbursementChargeIndex: {
+        required: '费用类型不能为空'
+      },
+      RcvName: {
+        required: '收款方名称不能为空'
+      },
+      RcvAcc: {
+        required: '收款方账号不能为空'
+      },
+      RcvBankName: {
+        required: '收款方开户行不能为空'
+      },
+      Details: {
+        required: '报销明细不能为空'
+      },
+      // Attachments: {
+      //   required: '附件不能为空'
+      // },
+      NoAttachmentTypesCount: {
+        max: "请选择附件类型"
+      }
+    }
+
+    // 创建实例对象
+    this.WxValidate = new WxValidate(rules, messages);
   },
 
   /**
@@ -291,11 +330,12 @@ Page({
             CreateAt: this.data.CreateAt,
             Details: this.data.Details,
             Attachments: this.data.Attachments,
-            Type:this.data.Type,
+            Type: this.data.Type,
             BelongCompanyId: parseInt(this.data.CompanyIndex) + 1,
             RcvName: this.data.RcvName,
             RcvAcc: this.data.RcvAcc,
-            RcvBankName: this.data.RcvBankName
+            RcvBankName: this.data.RcvBankName,
+            ReimbursementChargeType: this.data.ReimbursementChargeIndex == null ? null : parseInt(this.data.ReimbursementChargeIndex) + 1
           },
           success: function (res) {
             wx.hideLoading();
@@ -329,7 +369,8 @@ Page({
                   CompanyIndex: 0,
                   RcvName: null, //收款方名称
                   RcvAcc: null, //收款方账号
-                  RcvBankName: null //收款方开户行
+                  RcvBankName: null, //收款方开户行
+                  ReimbursementChargeIndex: null
                 }
                 that.setData(data);
                 that.onLoad();
@@ -356,7 +397,7 @@ Page({
   addDetail: function () {
     let that = this;
     wx.navigateTo({
-      url: './detail?type='+that.data.Type,
+      url: './detail?type=' + that.data.Type,
       events: {
         // 为指定事件添加一个监听器，获取被打开页面传送到当前页面的数据
         addDetail: function (detail) {
