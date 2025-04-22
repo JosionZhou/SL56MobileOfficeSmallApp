@@ -70,12 +70,13 @@
     </view>
     <view class="weui-cell weui-cell_input">
       <view class="weui-cell__hd">
-        <view class="weui-label">收款方开户行</view>
+        <view class="weui-label">收款方开户行与支行名称</view>
       </view>
       <view class="weui-cell__bd">
         <input class="weui-input" name="RcvBankName" placeholder="请输入收款方开户行" model:value="{{RcvBankName}}" disabled="{{!IsEditable}}" />
       </view>
     </view>
+  <label class="required" style="font-size: 13px;padding-left: 10px;"  wx:if="{{IsEditable}}" >此行必填且要求准确的支行名称或营业部名称，否则可能导致无法收款</label>
   </view>
   <view class="weui-cells__title">报销明细(点击打开/长按移除)</view>
   <input hidden name="Details" model:value="{{Details[0].ObjectName}}" />
