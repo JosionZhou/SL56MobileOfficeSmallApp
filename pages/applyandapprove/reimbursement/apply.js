@@ -133,7 +133,7 @@ Page({
       //   required: true
       // },
       ReimbursementChargeIndex: {
-        required: this.data.Type == 2
+        required: true
       },
       RcvName: {
         required: true
