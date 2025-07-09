@@ -107,7 +107,7 @@ Page({
             ReimbursementChargeIndex: res.ReimbursementChargeIndex
           });
 
-          if (res.type == 1) {
+          if (res.Type == 1) {
             wx.setNavigationBarTitle({
               title: '对内用款申请',
             })
