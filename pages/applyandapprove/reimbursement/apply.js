@@ -35,6 +35,7 @@ Page({
     RcvBankName: null, //收款方开户行
     IsCopy: false,
     ReimbursementChargeIndex: null,
+    RcvNamePlaceholder:null,
     ReimbursementCharge: [
       "物流费",
       "租赁费",
@@ -66,10 +67,16 @@ Page({
         wx.setNavigationBarTitle({
           title: '对内用款申请',
         })
+        that.setData({
+          RcvNamePlaceholder:'公司内部员工姓名'
+        });
       } else {
         wx.setNavigationBarTitle({
           title: '对外用款申请',
-        })
+        });
+        that.setData({
+          RcvNamePlaceholder:'收款方名称'
+        });
       }
     }
     if (options != null && options.item != null) {
