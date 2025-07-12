@@ -57,7 +57,7 @@
         <view class="weui-label">收款方名称</view>
       </view>
       <view class="weui-cell__bd">
-        <input class="weui-input" name="RcvName" placeholder="请输入收款方名称" model:value="{{RcvName}}" disabled="{{!IsEditable}}" />
+        <input class="weui-input" name="RcvName" placeholder="请输入{{RcvNamePlaceholder}}" model:value="{{RcvName}}" disabled="{{!IsEditable}}" />
       </view>
     </view>
     <view class="weui-cell weui-cell_input">
@@ -76,7 +76,7 @@
         <input class="weui-input" name="RcvBankName" placeholder="请输入收款方开户行" model:value="{{RcvBankName}}" disabled="{{!IsEditable}}" />
       </view>
     </view>
-  <label class="required" style="font-size: 13px;padding-left: 10px;"  wx:if="{{IsEditable}}" >此行必填且要求准确的支行名称或营业部名称，否则可能导致无法收款</label>
+  <label class="required" style="font-size: 13px;padding-left: 10px;"  wx:if="{{IsEditable}}" >此行必填且要求准确的支行名称或营业部名称(例：兴业银行深圳宝安支行)，如有不明，请咨询开户银行或财务部。否则可能导致无法收款</label>
   </view>
   <view class="weui-cells__title">报销明细(点击打开/长按移除)</view>
   <input hidden name="Details" model:value="{{Details[0].ObjectName}}" />
