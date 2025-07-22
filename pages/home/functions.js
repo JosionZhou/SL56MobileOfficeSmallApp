@@ -98,6 +98,12 @@ Page({
         image: "trucking",
         showbadge: false,
         event: "packagingOptimization"
+      },
+      {
+        name: "已开户查询",
+        image: "customer-search",
+        showbadge: false,
+        event: "customerSearch"
       }
     ],
     count: 0
@@ -392,6 +398,11 @@ Page({
   packagingOptimization:function(){
     wx.navigateTo({
       url: '/pages/packaging-optimization/packaging-optimization',
+    });
+  },
+  customerSearch:function(){
+    wx.navigateTo({
+      url: '/pages/customer-search/customer-search',
     });
   }
 })

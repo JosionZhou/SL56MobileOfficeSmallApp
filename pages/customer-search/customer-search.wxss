@@ -1,0 +1,5 @@
+/* pages/customer-search/customer-search.wxss */
+.customerInfo{
+  padding: 0px 10px 0px 15px;
+  color: #999999;
+}
