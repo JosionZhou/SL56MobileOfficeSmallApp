@@ -1,0 +1,42 @@
+<view class="page">
+  <view class="page__bd">
+    <view class="weui-search-bar">
+      <view class="weui-search-bar__form">
+        <view class="weui-search-bar__box">
+          <icon class="weui-icon-search_in-box" type="search" size="14"></icon>
+          <input type="text" class="weui-search-bar__input" placeholder="输入：客户名、公司、手机号码、联系人等信息" value="{{key}}" bindinput="inputKey" />
+          <view class="weui-icon-clear" wx:if="{{key.length > 0}}" bindtap="clearInput">
+            <icon type="clear" size="14"></icon>
+          </view>
+        </view>
+      </view>
+    </view>
+    <view class="weui-cells weui-cells_after-title" wx:for="{{result}}">
+      <view url="" class="weui-cell weui-cell_access" bindtap="bindConfirmCheck" data-id="{{item.Id}}" data-index="{{index}}">
+        <view class="weui-cell__bd number-ft">客户名:{{item.ObjectName}}</view>
+        <view style="color:#999999">客户代码:{{item.ObjectNo}}</view>
+      </view>
+      <view class="customerInfo">
+        <view class="weui-cell__bd" style="font-size:13px">
+          <view>{{item.PriceName}}</view>
+          <view class="sub_font_color">创建时间：{{item.CreateAt}}</view>
+          <view class="sub_font_color">所属公司：{{item.Company}}</view>
+          <view class="sub_font_color">是否子账号：{{item.IsSubAccount?'是':'否'}}</view>
+          <view class="sub_font_color">最后走货日期：{{item.LastRGDDate}}</view>
+          <view class="sub_font_color">业务员：{{item.SalesmanName}}</view>
+          <view class="sub_font_color">跟单员：{{item.MerchandiserName}}</view>
+          <view class="sub_font_color">业务类型：{{item.BusinessClassify}}</view>
+        </view>
+      </view>
+    </view>
+    <view>
+      <view class="weui-loadmore" hidden="{{!isShowLoading}}">
+        <view class="weui-loading"></view>
+        <view class="weui-loadmore__tips">正在加载</view>
+      </view>
+      <view class="weui-loadmore weui-loadmore_line" hidden="{{!isShowNoDataMark}}">
+        <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无更多数据</view>
+      </view>
+    </view>
+  </view>
+</view>
