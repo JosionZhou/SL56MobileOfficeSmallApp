@@ -266,15 +266,15 @@ Page({
     var data = {
       url: app.globalData.serverAddress + '/Calculation/Calculate1',
       data: {
-        ProductType: e.detail.value.productcode,
+        ProductContentType: e.detail.value.productcode,
         CountryId: main.data.countryId,
         CityId: main.data.cityId,
         DeclaredValue: e.detail.value.declaredvalue,
-        ModeOfTransportId: main.data.modeofTransportId,
+        ModeOfTransportIdList: main.data.modeofTransportId,
         ActualWeight: e.detail.value.weight,
         Piece: e.detail.value.piece,
         PostalCode: e.detail.value.postalcode,
-        SelectRuleIds: main.data.SelectRuleIds,
+        SeletedTemplateRules: main.data.SelectRuleIds,
         CustomerId: main.data.customerId,
         Sizes:main.data.isEditSize?main.data.sizes:[] 
       },

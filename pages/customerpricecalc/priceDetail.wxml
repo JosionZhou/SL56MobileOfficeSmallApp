@@ -44,6 +44,10 @@
               <view class="weui-cell__bd">含油参价</view>
               <view class="weui-cell__ft">{{item.UnitPrice}}</view>
             </view>
+            <view class="weui-cell" wx:if="{{item.ImportantTip.length>0}}">
+              <view class="weui-cell__bd" style="color: red;">重要提示</view>
+              <view class="weui-cell__ft" style="color: red;">{{item.ImportantTip}}</view>
+            </view>
           </view>
         </view>
         <view class="weui-tab__content" hidden="{{activeIndex != 1}}">
