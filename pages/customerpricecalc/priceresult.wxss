@@ -1,1 +1,6 @@
-/* pages/pricecalculate/priceresult.wxss */
+.weui-navbar__item.weui-bar__item_on {
+  color: #004ea2;
+}
+.weui-navbar__slider {
+  background-color: #004ea2;
+}
