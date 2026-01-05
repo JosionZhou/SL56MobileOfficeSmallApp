@@ -35,7 +35,7 @@ Page({
     RcvBankName: null, //收款方开户行
     IsCopy: false,
     ReimbursementChargeIndex: null,
-    RcvNamePlaceholder:null,
+    RcvNamePlaceholder: null,
     ReimbursementCharge: [
       "物流费",
       "租赁费",
@@ -68,14 +68,16 @@ Page({
           title: '对内用款申请',
         })
         that.setData({
-          RcvNamePlaceholder:'公司内部员工姓名'
+          RcvNamePlaceholder: '公司内部员工姓名'
         });
+        //对内用款申请时，查询历史记录，自动填充收款信息
+        this.getLastApprovalInfo();
       } else {
         wx.setNavigationBarTitle({
           title: '对外用款申请',
         });
         that.setData({
-          RcvNamePlaceholder:'收款方名称'
+          RcvNamePlaceholder: '收款方名称'
         });
       }
     }
@@ -252,6 +254,24 @@ Page({
         that.setData({
           CompanyNames: res
         });
+      }
+    }
+    app.NetRequest(reqData);
+  },
+  getLastApprovalInfo() {
+    let that = this;
+    let reqData = {
+      url: app.globalData.serverAddress + "/Reimbursement/GetLasttApprovalInfo",
+      method: "GET",
+      success: function (res) {
+        console.log("LasttApprovalInfo:", res);
+        if (res) {
+          that.setData({
+            RcvAcc: res.RcvAcc,
+            RcvBankName: res.RcvBankName,
+            RcvName: res.RcvName
+          });
+        }
       }
     }
     app.NetRequest(reqData);
