@@ -104,6 +104,12 @@ Page({
         image: "customer-search",
         showbadge: false,
         event: "customerSearch"
+      },
+      {
+        name: "空载申报",
+        image: "noLoadTruck",
+        showbadge: false,
+        event: "bindingRoadImport"
       }
     ],
     count: 0
@@ -403,6 +409,11 @@ Page({
   customerSearch:function(){
     wx.navigateTo({
       url: '/pages/customer-search/customer-search',
+    });
+  },
+  bindingRoadImport: function () {
+    wx.navigateTo({
+      url: '/pages/bindingroadimport/index',
     });
   }
 })

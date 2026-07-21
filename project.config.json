@@ -36,7 +36,11 @@
         "useCompilerPlugins": false,
         "ignoreUploadUnusedFiles": true,
         "useStaticServer": true,
-        "condition": false
+        "condition": false,
+        "compileWorklet": false,
+        "localPlugins": false,
+        "swc": false,
+        "disableSWC": true
     },
     "compileType": "miniprogram",
     "simulatorType": "wechat",

@@ -1,0 +1,18 @@
+button[type="primary"] {
+  color:#FFFFFF;
+  background-color:#33adff;
+  margin: 5px
+}
+.button-hover[type="primary"]{
+  color:#FFFFFF;
+  background-color:#1aa3ff;
+}
+.success{
+  color:#3cc51f
+}
+.warning{
+  color:#e64340
+}
+.disabled-text{
+  color:#999999
+}

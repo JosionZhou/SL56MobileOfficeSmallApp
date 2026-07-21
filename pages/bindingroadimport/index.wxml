@@ -1,0 +1,42 @@
+<view>
+  <view class="weui-cells weui-cells_after-title" wx:for="{{items}}" wx:key="ObjectId">
+    <navigator url="detail?id={{item.ObjectId}}" class="weui-cell weui-cell_access" hover-class="weui-cell_active">
+      <view class="weui-cell__bd">
+        <view class="number-ft">运输批次号: {{item.DeclarationID}}</view>
+        <view class="sub_font_color" style="font-size:13px; margin-top:4px;">
+          <text>口岸: {{item.DeclarationOfficeName}}</text>
+          <text style="margin-left:12px;">车辆: {{item.BorderTransportMeansName}}</text>
+        </view>
+        <view class="sub_font_color" style="font-size:13px;">
+          <text>驾驶员: {{item.MasterName}}</text>
+          <text style="margin-left:12px;">抵境时间：{{item.ArrivalDateTime}}</text>
+        </view>
+      </view>
+      <view class="weui-cell__ft">
+        <view class="sub_font_color" style="font-size:12px;">
+          <span class="success" wx:if="{{item.Status==3}}">已申报</span>
+          <span class="warning" wx:elif="{{item.Status==1 || item.Status==4}}">处理中</span>
+          <span class="fail" wx:elif="{{item.Status==2 || item.Status==5}}">失败</span>
+          <span wx:elif="{{item.Status==0}}">初始</span>
+          <span wx:else>已删除</span>
+        </view>
+      </view>
+    </navigator>
+  </view>
+
+  <view>
+    <view class="weui-loadmore" hidden="{{!isShowLoading}}">
+      <view class="weui-loading"></view>
+      <view class="weui-loadmore__tips">正在加载</view>
+    </view>
+    <view class="weui-loadmore weui-loadmore_line" hidden="{{!isShowNoDataMark}}">
+      <view class="weui-loadmore__tips weui-loadmore__tips_in-line">暂无更多数据</view>
+    </view>
+  </view>
+
+  <view class="weui-btn-area">
+    <button class="weui-btn btnAdd" type="primary" bindtap="addNew">
+      <span>+</span>
+    </button>
+  </view>
+</view>

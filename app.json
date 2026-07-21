@@ -29,6 +29,8 @@
         "pages/expresssearch/addproblem",
         "pages/car/index",
         "pages/car/detail",
+        "pages/bindingroadimport/index",
+        "pages/bindingroadimport/detail",
         "pages/applyandapprove/index",
         "pages/applyandapprove/reimbursement/index",
         "pages/applyandapprove/reimbursement/apply",

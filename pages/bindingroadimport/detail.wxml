@@ -1,0 +1,195 @@
+<view>
+  <!-- 状态 -->
+  <view class="weui-cells weui-cells_after-title" wx:if="{{!isNew}}">
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">单据状态</view>
+      </view>
+      <view class="weui-cell__bd success" wx:if="{{form.Status==3}}">已申报</view>
+      <view class="weui-cell__bd warning" wx:elif="{{form.Status==1 || form.Status==4}}">处理中</view>
+      <view class="weui-cell__bd warning" wx:elif="{{form.Status==2 || form.Status==5}}">失败</view>
+      <view class="weui-cell__bd" wx:elif="{{form.Status==0}}">初始</view>
+      <view class="weui-cell__bd" wx:else>已删除</view>
+    </view>
+  </view>
+
+  <!-- 货物运输批次号 -->
+  <view class="weui-cells__title">基本信息</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">运输批次号</view>
+      </view>
+      <view class="weui-cell__bd disabled-text">{{form.DeclarationID}}</view>
+    </view>
+
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">口岸海关</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="customChange" value="{{customIndex}}" range="{{customNames}}" disabled="{{!canEdit}}">
+          <view class="weui-select weui-select_in-select-after">{{customNames[customIndex] || '请选择口岸海关'}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">抵境日期</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker mode="date" value="{{arrivalDate}}" start="2020-01-01" end="2099-12-31" bindchange="bindDateChange" disabled="{{!canEdit}}">
+          <view class="weui-input">{{arrivalDate || '请选择日期'}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">抵境时刻</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker mode="time" value="{{arrivalTime}}" bindchange="bindTimeChange" disabled="{{!canEdit}}">
+          <view class="weui-input">{{arrivalTime || '请选择时间'}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">承运人代码</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input disabled="{{!canEdit}}" value="{{form.CarrierID}}" data-field="CarrierID" class="weui-input" placeholder="请输入承运人代码" bindinput="inputInfo" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 运输信息 -->
+  <view class="weui-cells__title">运输信息</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">工具代码</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input disabled="{{!canEdit}}" value="{{form.BorderTransportMeansID}}" data-field="BorderTransportMeansID" class="weui-input" placeholder="请输入运输工具代码" bindinput="inputInfo" />
+      </view>
+    </view>
+
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">工具名称</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input disabled="{{!canEdit}}" value="{{form.BorderTransportMeansName}}" data-field="BorderTransportMeansName" class="weui-input" placeholder="请输入运输工具名称" bindinput="inputInfo" />
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">运输方式</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="trafModeChange" value="{{trafModeIndex}}" range="{{trafModeNames}}" disabled="{{!canEdit}}">
+          <view class="weui-select weui-select_in-select-after">{{trafModeNames[trafModeIndex] || '请选择运输方式'}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">途径国家</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="countryChange" value="{{countryIndex}}" range="{{countryNames}}" disabled="{{!canEdit}}">
+          <view class="weui-select weui-select_in-select-after">{{countryNames[countryIndex] || '请选择国家'}}</view>
+        </picker>
+      </view>
+    </view>
+  </view>
+
+  <!-- 驾驶员信息 -->
+  <view class="weui-cells__title">驾驶员信息</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">驾驶员代码</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input disabled="{{!canEdit}}" value="{{form.MasterID}}" data-field="MasterID" class="weui-input" placeholder="请输入驾驶员代码" bindinput="inputInfo" />
+      </view>
+    </view>
+
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">驾驶员名称</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input disabled="{{!canEdit}}" value="{{form.MasterName}}" data-field="MasterName" class="weui-input" placeholder="请输入驾驶员名称" bindinput="inputInfo" />
+      </view>
+    </view>
+
+    <view class="weui-cell">
+      <view class="weui-cell__hd">
+        <view class="weui-label">司乘人数</view>
+      </view>
+      <view class="weui-cell__bd">
+        <input disabled="{{!canEdit}}" type="number" value="{{form.MasterNumStaffMember}}" data-field="MasterNumStaffMember" class="weui-input" placeholder="人数" bindinput="inputInfo" />
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">健康状况</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="healthChange" value="{{healthIndex}}" range="{{healthNames}}" disabled="{{!canEdit}}">
+          <view class="weui-select weui-select_in-select-after">{{healthNames[healthIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+
+    <view class="weui-cell weui-cell_select">
+      <view class="weui-cell__hd weui-cell__hd_in-select-after">
+        <view class="weui-label">接种疫苗</view>
+      </view>
+      <view class="weui-cell__bd">
+        <picker bindchange="vaccinateChange" value="{{vaccinateIndex}}" range="{{vaccinateNames}}" disabled="{{!canEdit}}">
+          <view class="weui-select weui-select_in-select-after">{{vaccinateNames[vaccinateIndex]}}</view>
+        </picker>
+      </view>
+    </view>
+  </view>
+
+  <!-- 备注 -->
+  <view class="weui-cells__title">备注</view>
+  <view class="weui-cells weui-cells_after-title">
+    <view class="weui-cell">
+      <view class="weui-cell__bd">
+        <textarea disabled="{{!canEdit}}" value="{{form.Remark}}" data-field="Remark" class="weui-textarea" style="height:5em" placeholder="请输入备注信息" bindinput="inputInfo" />
+      </view>
+    </view>
+  </view>
+
+  <!-- 操作按钮 -->
+  <view class="weui-btn-area" wx:if="{{canEdit}}">
+    <view class="weui-flex">
+      <view class="weui-flex__item">
+        <button class="weui-btn" type="primary" bindtap="save">仅保存</button>
+      </view>
+      <view class="weui-flex__item">
+        <button class="weui-btn" type="primary" bindtap="saveAndSend">保存并申报</button>
+      </view>
+    </view>
+  </view>
+
+  <view class="weui-btn-area" wx:if="{{!isNew && (form.Status==0 || form.Status==2)}}">
+    <button class="weui-btn" type="primary" bindtap="sendOnly">单独申报</button>
+  </view>
+  <view class="weui-btn-area" wx:if="{{!isNew && canEdit && form.Status!=1 && form.Status!=4}}">
+    <button class="weui-btn" type="warn" bindtap="del" wx:if="{{form.Status!=3 && form.Status!=6}}">删除</button>
+  </view>
+
+</view>
