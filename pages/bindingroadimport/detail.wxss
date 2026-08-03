@@ -13,6 +13,3 @@ button[type="primary"] {
 .warning{
   color:#e64340
 }
-.disabled-text{
-  color:#999999
-}

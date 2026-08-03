@@ -20,7 +20,7 @@
       <view class="weui-cell__hd">
         <view class="weui-label">运输批次号</view>
       </view>
-      <view class="weui-cell__bd disabled-text">{{form.DeclarationID}}</view>
+      <input class="weui-cell__bd" disabled="{{true}}" value="{{form.DeclarationID}}" />
     </view>
 
     <view class="weui-cell weui-cell_select">
@@ -61,7 +61,7 @@
         <view class="weui-label">承运人代码</view>
       </view>
       <view class="weui-cell__bd">
-        <input disabled="{{!canEdit}}" value="{{form.CarrierID}}" data-field="CarrierID" class="weui-input" placeholder="请输入承运人代码" bindinput="inputInfo" />
+        <input disabled="{{true}}" value="{{form.CarrierID}}" data-field="CarrierID" class="weui-input" placeholder="请输入承运人代码" bindinput="inputInfo" />
       </view>
     </view>
   </view>
@@ -92,7 +92,7 @@
         <view class="weui-label">运输方式</view>
       </view>
       <view class="weui-cell__bd">
-        <picker bindchange="trafModeChange" value="{{trafModeIndex}}" range="{{trafModeNames}}" disabled="{{!canEdit}}">
+        <picker bindchange="trafModeChange" value="{{trafModeIndex}}" range="{{trafModeNames}}" disabled="{{true}}">
           <view class="weui-select weui-select_in-select-after">{{trafModeNames[trafModeIndex] || '请选择运输方式'}}</view>
         </picker>
       </view>
@@ -103,7 +103,7 @@
         <view class="weui-label">途径国家</view>
       </view>
       <view class="weui-cell__bd">
-        <picker bindchange="countryChange" value="{{countryIndex}}" range="{{countryNames}}" disabled="{{!canEdit}}">
+        <picker bindchange="countryChange" value="{{countryIndex}}" range="{{countryNames}}" disabled="{{true}}">
           <view class="weui-select weui-select_in-select-after">{{countryNames[countryIndex] || '请选择国家'}}</view>
         </picker>
       </view>
@@ -136,7 +136,7 @@
         <view class="weui-label">司乘人数</view>
       </view>
       <view class="weui-cell__bd">
-        <input disabled="{{!canEdit}}" type="number" value="{{form.MasterNumStaffMember}}" data-field="MasterNumStaffMember" class="weui-input" placeholder="人数" bindinput="inputInfo" />
+        <input disabled="{{true}}" type="number" value="{{form.MasterNumStaffMember}}" data-field="MasterNumStaffMember" class="weui-input" placeholder="人数" bindinput="inputInfo" />
       </view>
     </view>
 
@@ -145,7 +145,7 @@
         <view class="weui-label">健康状况</view>
       </view>
       <view class="weui-cell__bd">
-        <picker bindchange="healthChange" value="{{healthIndex}}" range="{{healthNames}}" disabled="{{!canEdit}}">
+        <picker bindchange="healthChange" value="{{healthIndex}}" range="{{healthNames}}" disabled="{{true}}">
           <view class="weui-select weui-select_in-select-after">{{healthNames[healthIndex]}}</view>
         </picker>
       </view>
@@ -156,7 +156,7 @@
         <view class="weui-label">接种疫苗</view>
       </view>
       <view class="weui-cell__bd">
-        <picker bindchange="vaccinateChange" value="{{vaccinateIndex}}" range="{{vaccinateNames}}" disabled="{{!canEdit}}">
+        <picker bindchange="vaccinateChange" value="{{vaccinateIndex}}" range="{{vaccinateNames}}" disabled="{{true}}">
           <view class="weui-select weui-select_in-select-after">{{vaccinateNames[vaccinateIndex]}}</view>
         </picker>
       </view>

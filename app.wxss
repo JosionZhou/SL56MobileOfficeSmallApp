@@ -35,3 +35,8 @@ page{
 .floatRight{
   float:right;
 }
+
+/* 全局样式：disabled=true 时文字显示灰色 */
+[disabled] {
+  color: #999999;
+}
