@@ -55,6 +55,11 @@
         <icon type="warn" size="23" color="#E64340"></icon>
       </view>
     </view>
+    <view class="weui-cell weui-cell_input">
+      <view class="weui-cell__bd">
+        <checkbox  class="weui-input pieceRule" checked="false" wx:for="{{item.templateRules}}" wx:for-index="i" wx:for-item="rule" data-sizeindex="{{index}}" data-index="{{i}}" bindtap="clickRule" checked="{{rule.Checked}}">{{rule.ObjectName}}</checkbox>
+      </view>
+    </view>
   </view>
   <view style="position: relative;">
     <button class="weui-btn btn" type="primary" style="width: 30%;float: left;margin-top: 10px;margin-bottom: 10px;background:#004ea2" bindtap="removeSize" wx:if="{{sizes.length>0}}">移除规格</button>
