@@ -28,6 +28,8 @@ Page({
    */
   onLoad(options) {
     this.FileHelper = new FileHelper();
+    this.initialFormSnapshot = null;
+    this.alertBeforeUnloadEnabled = false;
     let that = this;
     let detail = new Object();
     detail.ObjectName = null;
@@ -116,6 +118,11 @@ Page({
     eventChannel.on('editDetail', function (detail) {
       that.setData({
         EditDetail: detail.data
+      }, () => {
+        // 通常编辑数据会先于下拉选项加载完成；此判断同时兼容数据较晚到达的情况。
+        if (that.data.Currencies && that.data.Departments && that.data.Cars) {
+          that.setDetailInfo();
+        }
       });
     });
   },
@@ -123,7 +130,10 @@ Page({
   setDetailInfo() {
     let data = this.data.EditDetail;
     console.log(data);
-    if (data == null) return;
+    if (data == null) {
+      this.captureInitialFormState();
+      return;
+    }
     let currencyIndex, departmentIndex, carIndex = null;
     currencyIndex = this.data.Currencies.findIndex(p => p.ObjectId == data.CurrencyId);
     if (data.DepartmentId != null) {
@@ -143,6 +153,81 @@ Page({
       Attachments: data.Attachments,
       ReceiveGoodsDetailId:data.ReceiveGoodsDetailId,
       ReceiveGoodsDetailNo:data.ReceiveGoodsDetailNo
+    }, () => {
+      this.captureInitialFormState();
+    });
+  },
+
+  // 使用初始快照判断新增和编辑表单是否真的发生变化，避免用户改回原值后仍被拦截。
+  createFormSnapshot() {
+    const normalizeValue = value => value == null ? "" : String(value);
+    const normalizeIndex = value => value == null || value === "" ? null : Number(value);
+    const attachments = (this.data.Attachments || []).map(attachment => ({
+      ObjectId: normalizeValue(attachment.ObjectId),
+      ObjectName: normalizeValue(attachment.ObjectName),
+      ServerFilePath: normalizeValue(attachment.ServerFilePath),
+      AttachmentType: normalizeValue(attachment.AttachmentType),
+      Path: normalizeValue(attachment.Path),
+      Size: normalizeValue(attachment.Size),
+      Type: normalizeValue(attachment.Type)
+    }));
+
+    return JSON.stringify({
+      ObjectName: normalizeValue(this.data.ObjectName),
+      Amount: normalizeValue(this.data.Amount),
+      CurrencyIndex: normalizeIndex(this.data.CurrencyIndex),
+      DepartmentIndex: normalizeIndex(this.data.DepartmentIndex),
+      CarIndex: normalizeIndex(this.data.CarIndex),
+      ReceiveGoodsDetailNo: normalizeValue(this.data.ReceiveGoodsDetailNo),
+      Remark: normalizeValue(this.data.Remark),
+      Attachments: attachments
+    });
+  },
+
+  captureInitialFormState() {
+    this.initialFormSnapshot = this.createFormSnapshot();
+    this.setAlertBeforeUnload(false);
+  },
+
+  refreshUnsavedState() {
+    if (this.initialFormSnapshot == null || !this.data.IsEditable) {
+      return;
+    }
+
+    this.setAlertBeforeUnload(this.createFormSnapshot() !== this.initialFormSnapshot);
+  },
+
+  setAlertBeforeUnload(enabled) {
+    if (this.alertBeforeUnloadEnabled === enabled) {
+      return;
+    }
+
+    // 兼容基础库 2.12.0 以前的客户端；新客户端使用官方导航栏返回询问框。
+    if (enabled && typeof wx.enableAlertBeforeUnload === 'function') {
+      wx.enableAlertBeforeUnload({
+        message: '当前报销明细尚未保存，确定返回吗？'
+      });
+    } else if (!enabled && typeof wx.disableAlertBeforeUnload === 'function') {
+      wx.disableAlertBeforeUnload({});
+    }
+    this.alertBeforeUnloadEnabled = enabled;
+  },
+
+  onInputChange(event) {
+    const field = event.currentTarget.dataset.field;
+    this.setData({
+      [field]: event.detail.value
+    }, () => {
+      this.refreshUnsavedState();
+    });
+  },
+
+  onPickerChange(event) {
+    const field = event.currentTarget.dataset.field;
+    this.setData({
+      [field]: Number(event.detail.value)
+    }, () => {
+      this.refreshUnsavedState();
     });
   },
   /**
@@ -263,6 +348,7 @@ Page({
       if (this.data.CarIndex != null) {
         Detail.ItemId = this.data.Cars[this.data.CarIndex].ObjectId;
       }
+      this.captureInitialFormState();
       eventChannel.emit('addDetail', {
         data: Detail
       });
@@ -336,6 +422,8 @@ Page({
               attachments.push(attachment);
               that.setData({
                 Attachments: attachments
+              }, () => {
+                that.refreshUnsavedState();
               });
             });
           },
@@ -370,6 +458,8 @@ Page({
                 attachments.push(attachment);
                 that.setData({
                   Attachments: attachments
+                }, () => {
+                  that.refreshUnsavedState();
                 });
               });
             },
@@ -406,6 +496,8 @@ Page({
           attachments[index].AttachmentType = res.tapIndex + 1;
           that.setData({
             Attachments: attachments
+          }, () => {
+            that.refreshUnsavedState();
           });
         }
       }
@@ -424,6 +516,8 @@ Page({
           attachments.splice(res.tapIndex, 1);
           that.setData({
             Attachments: attachments
+          }, () => {
+            that.refreshUnsavedState();
           });
         }
       }
@@ -478,6 +572,8 @@ Page({
           attachments.splice(res.tapIndex, 1);
           that.setData({
             Attachments: attachments
+          }, () => {
+            that.refreshUnsavedState();
           });
         }
       }
