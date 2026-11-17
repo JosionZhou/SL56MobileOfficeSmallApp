@@ -14,11 +14,21 @@
           <view class="weui-cells weui-cells_after-title">
             <view class="weui-cell">
               <view class="weui-cell__bd">原单号</view>
-              <view class="weui-cell__ft">{{item.ObjectNo}}</view>
+              <view class="weui-cell__ft waybill-number">
+                <text>{{item.ObjectNo}}</text>
+                <button wx:if="{{item.ObjectNo}}" class="waybill-copy" aria-label="复制单号" bindtap="copyWaybillNumbers">
+                  <view class="waybill-copy__icon"></view>
+                </button>
+              </view>
             </view>
             <view class="weui-cell">
               <view class="weui-cell__bd">转单号</view>
-              <view class="weui-cell__ft">{{item.TrackNumber}}</view>
+              <view class="weui-cell__ft waybill-number">
+                <text>{{item.TrackNumber}}</text>
+                <button wx:if="{{item.ObjectNo}}" class="waybill-copy" aria-label="复制单号" bindtap="copyWaybillNumbers">
+                  <view class="waybill-copy__icon"></view>
+                </button>
+              </view>
             </view>
             <view class="weui-cell">
               <view class="weui-cell__bd">目的地</view>

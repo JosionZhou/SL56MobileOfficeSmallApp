@@ -1,3 +1,55 @@
+.waybill-number {
+  display: flex;
+  align-items: center;
+}
+
+.waybill-copy {
+  display: flex;
+  flex: 0 0 32px;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 24px;
+  margin: 0 0 0 4px;
+  padding: 0;
+  background: transparent;
+}
+
+.waybill-copy::after {
+  border: 0;
+}
+
+.waybill-copy__icon {
+  position: relative;
+  width: 24px;
+  height: 20px;
+  border-radius: 6px;
+  background-color: #e7f0fa;
+  color: #3475b9;
+}
+
+.waybill-copy__icon::before,
+.waybill-copy__icon::after {
+  position: absolute;
+  box-sizing: border-box;
+  width: 8px;
+  height: 9px;
+  border: 1px solid currentColor;
+  border-radius: 2px;
+  content: "";
+}
+
+.waybill-copy__icon::before {
+  top: 4px;
+  left: 7px;
+}
+
+.waybill-copy__icon::after {
+  top: 6px;
+  left: 9px;
+  background-color: #e7f0fa;
+}
+
 .weui-navbar__title
 {
   font-size: 14px;

@@ -87,6 +87,28 @@ Page({
     app.NetRequest(data);
   },
 
+  copyWaybillNumbers: function () {
+    const item = this.data.item;
+    const originalNumber = String(item?.ObjectNo ?? '').trim();
+    if (!originalNumber) {
+      return;
+    }
+
+    // 只组合有值的单号，方便业务员直接把复制内容发给客户。
+    const trackingNumber = String(item.TrackNumber ?? '').trim();
+    const lines = [`原单号：${originalNumber}`];
+    if (trackingNumber) {
+      lines.push(`转单号：${trackingNumber}`);
+    }
+
+    wx.setClipboardData({
+      data: lines.join('\n'),
+      fail: function () {
+        wx.showToast({ title: '复制失败，请重试', icon: 'none' });
+      }
+    });
+  },
+
   /**
    * 生命周期函数--监听页面初次渲染完成
    */
